@@ -69,7 +69,7 @@ export default function Home(){
                 width={100}
                 height={100}
                 alt="sack cloth"
-                className="relative z-0"
+                className="relative z-0 blur-sm"
                 />
             </div>
         </div>
