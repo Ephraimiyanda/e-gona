@@ -22,7 +22,7 @@ import SearchIcon from "./searchIcon";
 
 export default function Nav() {
   return (
-    <Navbar maxWidth="xl" className="bg-[#A46E05] ">
+    <Navbar maxWidth="xl" className="bg-[#A46E05]">
       <NavbarBrand>
         <Image src={logo} alt="logo" width={35} height={45} />
         <p className="hidden md:flex text-3xl font-bold text-white ">KASUWA</p>
