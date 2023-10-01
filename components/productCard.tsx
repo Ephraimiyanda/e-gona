@@ -37,7 +37,7 @@ export default function ProductCard({
         maxWidth:"unset"
         
       }}>
-        <Image removeWrapper src={src} className="w-full m-auto  h-[200px] object-cover max-w-[unset]"  />
+        <Image removeWrapper src={src} className="w-full m-auto  h-[200px] object-cover max-w-[unset]" alt="img"  />
         <CardFooter className="text-small justify-between flex flex-col gap-3 w-full p-0 pt-2">
           <div className="px-2 w-full">
             <div className="flex justify-between">
