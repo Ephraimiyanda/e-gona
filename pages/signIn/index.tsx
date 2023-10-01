@@ -75,7 +75,7 @@ const SignInForm: React.FC = () => {
 
         <div className="text-center mt-5">
           <p>
-            Don't have an account?{" "}
+            Don't have an account?
             <a href="#" className="text-[#38B419]">
               Sign up
             </a>

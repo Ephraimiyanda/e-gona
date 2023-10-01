@@ -3,7 +3,7 @@ import React from "react";
 
 const ForgotPasswordForm: React.FC = () => {
   const handleSignUp = () => {
-    // Handle form submission 
+    // Handle form submission
   };
 
   return (
@@ -12,8 +12,7 @@ const ForgotPasswordForm: React.FC = () => {
         <h2 className="text-center font-semibold text-3xl">Reset Password</h2>
         <div className="my-4">
           <form className="w-[500px] mt-5" onSubmit={handleSignUp}>
-
-          <div className="mb-6">
+            <div className="mb-6">
               <label htmlFor="password" className="block mb-2">
                 Password
               </label>
@@ -50,12 +49,11 @@ const ForgotPasswordForm: React.FC = () => {
 
         <Spacer y={2} />
 
-
         <Spacer y={2} />
 
         <div className="text-center mt-5">
           <p>
-            Don't have an account?{" "}
+            Don't have an account?
             <a href="#" className="text-[#38B419]">
               Sign up
             </a>

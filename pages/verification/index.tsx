@@ -45,7 +45,7 @@ const VerificationForm: React.FC = () => {
           </div>
           <Spacer y={4} />
           <p className="text-center">
-            Didn't receive a code?{" "}
+            Didn't receive a code?
             <a href="#" className="text-[#38B419]">
               Resend
             </a>
