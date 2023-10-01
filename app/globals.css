@@ -15,4 +15,31 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+.blend{
+  background-position: right;
+  background-image: url(../public/Cloth\ sack\ on\ white.svg);
+}
+.scroll-parent {
+  position: relative;
+  width: 100vw;
+  height: 70px;
+  overflow-x: hidden;
+}
 
+.scroll-element {
+  width: inherit;
+  height: inherit;
+  position:relative;
+  left: 0%;
+  top: 0%;
+  animation: primary 10s linear infinite;
+}
+
+@keyframes primary {
+  from {
+    left: -100%;
+  }
+  to {
+    left: 100%;
+  }
+}
