@@ -97,89 +97,128 @@ export default function Home() {
 
   return (
     <div className="mx-auto flex flex-col w-full">
-        
-
-        
       <div className=" m-auto flex-col flex gap-3 lg:flex-row sm:flex-col w-full pt-10 max-w-[1280px] px-6 py-10 ">
-      <div className="flex lg:w-[70%] md:w-full gap-2">
-        <div className="w-[50px] sm:w-[30%] border-black border rounded-md">
-          <div className="px-2 sm:px-6  py-3 flex flex-col gap-4   max-w-[200px]">
-            <div className="flex gap-2 justify-start items-center">
-              <Image className="mx-auto sm:m-0" src={dairy} width={20} height={20} alt=""></Image>
-              <span className="hidden sm:flex">Dairy products</span>
+        <div className="flex lg:w-[70%] md:w-full gap-2">
+          <div className="w-[50px] sm:w-[30%] border-black border rounded-md">
+            <div className="px-2 sm:px-6  py-3 flex flex-col gap-4   max-w-[200px]">
+              <div className="flex gap-2 justify-start items-center">
+                <Image
+                  className="mx-auto sm:m-0"
+                  src={dairy}
+                  width={20}
+                  height={20}
+                  alt=""
+                ></Image>
+                <span className="hidden sm:flex">Dairy products</span>
+              </div>
+              <div className="flex gap-2 justify-start items-center">
+                <Image
+                  className="mx-auto sm:m-0"
+                  src={legumes}
+                  width={20}
+                  height={20}
+                  alt=""
+                ></Image>
+                <span className="hidden sm:flex">Legumes</span>
+              </div>
+              <div className="flex gap-2 justify-start items-center">
+                <Image
+                  className="mx-auto sm:m-0"
+                  src={Tubers}
+                  width={20}
+                  height={20}
+                  alt=""
+                ></Image>
+                <span className="hidden sm:flex">Tubers</span>
+              </div>
+              <div className="flex gap-2 justify-start items-center">
+                <Image
+                  className="mx-auto sm:m-0"
+                  src={grains}
+                  width={20}
+                  height={20}
+                  alt=""
+                ></Image>
+                <span className="hidden sm:flex">Grains</span>
+              </div>
+              <div className="flex gap-2 justify-start items-center">
+                <Image
+                  className="mx-auto sm:m-0"
+                  src={livestock}
+                  width={20}
+                  height={20}
+                  alt=""
+                ></Image>
+                <span className="hidden sm:flex">Livestock</span>
+              </div>
+              <div className="flex gap-2 justify-start items-center">
+                <Image
+                  className="mx-auto sm:m-0"
+                  src={vegetable}
+                  width={20}
+                  height={20}
+                  alt=""
+                ></Image>
+                <span className="hidden sm:flex">Vegetables</span>
+              </div>
+              <div className="flex gap-2 justify-start items-center">
+                <Image
+                  className="mx-auto sm:m-0"
+                  src={fertilizer}
+                  width={20}
+                  height={20}
+                  alt=""
+                ></Image>
+                <span className="hidden sm:flex">Fertilizers</span>
+              </div>
             </div>
-            <div className="flex gap-2 justify-start items-center">
-              <Image className="mx-auto sm:m-0" src={legumes} width={20} height={20} alt=""></Image>
-              <span className="hidden sm:flex">Legumes</span>
-            </div>
-            <div className="flex gap-2 justify-start items-center">
-              <Image className="mx-auto sm:m-0" src={Tubers} width={20} height={20} alt=""></Image>
-              <span className="hidden sm:flex">Tubers</span>
-            </div>
-            <div className="flex gap-2 justify-start items-center">
-              <Image className="mx-auto sm:m-0" src={grains} width={20} height={20} alt=""></Image>
-              <span className="hidden sm:flex">Grains</span>
-            </div>
-            <div className="flex gap-2 justify-start items-center">
-              <Image className="mx-auto sm:m-0" src={livestock} width={20} height={20} alt=""></Image>
-              <span className="hidden sm:flex">Livestock</span>
-            </div>
-            <div className="flex gap-2 justify-start items-center">
-              <Image className="mx-auto sm:m-0" src={vegetable} width={20} height={20} alt=""></Image>
-              <span className="hidden sm:flex">Vegetables</span>
-            </div>
-            <div className="flex gap-2 justify-start items-center">
-              <Image className="mx-auto sm:m-0" src={fertilizer} width={20} height={20} alt=""></Image>
-              <span className="hidden sm:flex">Fertilizers</span>
+            <div></div>
+          </div>
+          <div className="flex justify-between w-[91%] bg-[#3E382E] rounded-md pl-2  z-[2] relative blend bg-no-repeat bg-blend-multiply ">
+            <div className="flex flex-col gap-3 lg:pl-5 py-3">
+              <div>
+                <span className="text-[#38B419]">Categories</span>
+                <h1 className="text-3xl font-semibold text-white ">
+                  Enhance Your <span className="text-[#38B419]">Plant</span>{" "}
+                  <br />
+                  Growth Experience
+                </h1>
+                <p className="text-[#38B419]">
+                  The Best Fertilizer Nature Can Offer
+                </p>
+              </div>
+              <div className="flex gap-2 text-black flex-wrap sm:flex-nowrap">
+                <div className="flex flex-col justify-center items-center bg-white rounded-full w-[52px] h-[52px] pb-[6px] leading-[16px]">
+                  <span suppressHydrationWarning className="font-semibold">
+                    {hours}
+                  </span>
+                  <span className="text-[11px]">Hours</span>
+                </div>
+                <div className="flex flex-col justify-center items-center bg-white rounded-full w-[52px] h-[52px] pb-[6px] leading-[16px]">
+                  <span suppressHydrationWarning className="font-semibold">
+                    {days}
+                  </span>
+                  <span className="text-[11px]">Days</span>
+                </div>
+                <div className="flex flex-col justify-center items-center bg-white rounded-full w-[52px] h-[52px] pb-[6px] leading-[16px]">
+                  <span suppressHydrationWarning className="font-semibold">
+                    {minutes}
+                  </span>
+                  <span className="text-[11px]">Minutes</span>
+                </div>
+                <div className="flex flex-col justify-center items-center bg-white rounded-full w-[52px] h-[52px] pb-[6px] leading-[16px]">
+                  <span suppressHydrationWarning className="font-semibold">
+                    {" "}
+                    {seconds}
+                  </span>
+                  <span className="text-[11px]">Seconds</span>
+                </div>
+              </div>
+              <Button className="bg-[#38B419] w-[100px] py-3 px-6  text-xs text-white">
+                Buy Now!
+              </Button>
             </div>
           </div>
-          <div></div>
-        </div>
-        <div className="flex justify-between w-[91%] bg-[#3E382E] rounded-md pl-2  z-[2] relative blend bg-no-repeat bg-blend-multiply ">
-          <div className="flex flex-col gap-3 lg:pl-5 py-3">
-            <div>
-              <span className="text-[#38B419]">Categories</span>
-              <h1 className="text-3xl font-semibold text-white ">
-                Enhance Your <span className="text-[#38B419]">Plant</span>{" "}
-                <br />
-                Growth Experience
-              </h1>
-              <p className="text-[#38B419]">
-                The Best Fertilizer Nature Can Offer
-              </p>
-            </div>
-            <div className="flex gap-2 text-black flex-wrap sm:flex-nowrap">
-              <div className="flex flex-col justify-center items-center bg-white rounded-full w-[52px] h-[52px] pb-[6px] leading-[16px]">
-                <span suppressHydrationWarning className="font-semibold">
-                  {hours}
-                </span>
-                <span className="text-[11px]">Hours</span>
-              </div>
-              <div className="flex flex-col justify-center items-center bg-white rounded-full w-[52px] h-[52px] pb-[6px] leading-[16px]">
-                <span suppressHydrationWarning className="font-semibold">
-                  {days}
-                </span>
-                <span className="text-[11px]">Days</span>
-              </div>
-              <div className="flex flex-col justify-center items-center bg-white rounded-full w-[52px] h-[52px] pb-[6px] leading-[16px]">
-                <span suppressHydrationWarning className="font-semibold">
-                  {minutes}
-                </span>
-                <span className="text-[11px]">Minutes</span>
-              </div>
-              <div className="flex flex-col justify-center items-center bg-white rounded-full w-[52px] h-[52px] pb-[6px] leading-[16px]">
-                <span suppressHydrationWarning className="font-semibold">
-                  {" "}
-                  {seconds}
-                </span>
-                <span className="text-[11px]">Seconds</span>
-              </div>
-            </div>
-            <Button className="bg-[#38B419] w-[100px] py-3 px-6  text-xs text-white">
-              Buy Now!
-            </Button>
-          </div>
-        </div>
         </div>
         <div className="flex flex-col lg:flex-col sm:flex-col md:flex-row gap-2 lg:w-[29%] md:w-full text-white">
           <div className="flex  bg-[#008837] rounded-md justify-between p-3 lg:h-[50%] w-full">
@@ -208,6 +247,7 @@ export default function Home() {
       <div className=" grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))]  w-full gap-x-[1.50rem] gap-y-4 pt-10 max-w-[1280px] px-6 py-10 mx-auto ">
         {list.map((items, index) => (
           <ProductCard
+            key={index}
             src={items.img}
             index={index}
             price={items.price}
@@ -246,6 +286,7 @@ export default function Home() {
       <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))]  w-full gap-x-[1.50rem] gap-y-4 pt-10 max-w-[1280px] px-6 py-10 mx-auto  ">
         {list.slice(3, 8).map((items, index) => (
           <ProductCard
+            key={index}
             src={items.img}
             index={index}
             price={items.price}
@@ -260,8 +301,9 @@ export default function Home() {
           Most Searched Product
         </span>
         <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))]  w-full gap-x-[1.50rem] gap-y-4 pt-10 max-w-[1280px] px-6 py-10 mx-auto ">
-          {list.slice(1,6).map((items, index) => (
+          {list.slice(1, 6).map((items, index) => (
             <ProductCard
+              key={index}
               src={items.img}
               index={index}
               price={items.price}
@@ -307,7 +349,7 @@ export default function Home() {
               <div className="flex sm:flex-row flex-col gap-2">
                 <div className="border border-white rounded-[10px] w-[200px]  ">
                   <Button
-                  className="w-full"
+                    className="w-full"
                     startContent={
                       <Image
                         src={ioslogo}
@@ -330,7 +372,7 @@ export default function Home() {
                 </div>
                 <div className="border border-white rounded-[10px] w-[200px] ">
                   <Button
-                  className="w-full"
+                    className="w-full"
                     startContent={
                       <Image
                         src={googleplay}
@@ -356,7 +398,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
