@@ -2,6 +2,7 @@ import { Button, Card, Spacer } from "@nextui-org/react";
 import React from "react";
 import logo from "../../public/logo.svg";
 import Image from "next/image";
+import Link from "next/link";
 
 const SignInForm: React.FC = () => {
   const handleSignUp = () => {
@@ -79,23 +80,23 @@ const SignInForm: React.FC = () => {
             <p>
               By signing in, you agree to kasuwa’s{" "}
               <span>
-                <a href="/" className="font-bold">
+                <Link href={"#"} className="font-bold">
                   terms and conditions
-                </a>
+                </Link>
               </span>{" "}
               &{" "}
               <span>
-                <a href="/" className="font-bold">
+                <Link href={"#"} className="font-bold">
                   Privacy Policy.
-                </a>
+                </Link>
               </span>
             </p>
             <p>
               Don't have an account?
-              <a href="#" className="text-[#38B419]">
+              <Link href={"#"} className="text-[#38B419]">
                 {" "}
                 Sign up
-              </a>
+              </Link>
             </p>
           </div>
           <Spacer y={16} />

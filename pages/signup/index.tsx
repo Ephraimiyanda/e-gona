@@ -2,6 +2,7 @@ import { Button, Card, Spacer } from "@nextui-org/react";
 import React from "react";
 import logo from "../../public/logo.svg";
 import Image from "next/image";
+import Link from "next/link";
 
 const SignUpForm: React.FC = () => {
   const handleSignUp = () => {
@@ -122,9 +123,9 @@ const SignUpForm: React.FC = () => {
               <Spacer y={2} />
 
               <div className="text-end">
-                <a href="#" className="text-[#38B419]">
+                <Link href={"#"} className="text-[#38B419]">
                   Forgot password?
-                </a>
+                </Link>
               </div>
 
               <Spacer y={2} />
@@ -144,22 +145,22 @@ const SignUpForm: React.FC = () => {
             <p>
               By signing in, you agree to kasuwa’s{" "}
               <span>
-                <a href="/" className="font-bold">
+                <Link href={"#"} className="font-bold">
                   terms and conditions
-                </a>
+                </Link>
               </span>{" "}
               &{" "}
               <span>
-                <a href="/" className="font-bold">
+                <Link href={"#"} className="font-bold">
                   Privacy Policy.
-                </a>
+                </Link>
               </span>
             </p>
             <p>
               Have an account?
-              <a href="#" className="text-[#38B419]">
+              <Link href={"#"} className="text-[#38B419]">
                 {""} Login
-              </a>
+              </Link>
             </p>
           </div>
           <Spacer y={16} />
