@@ -1,4 +1,4 @@
-import { Button, Spacer } from "@nextui-org/react";
+import { Button, Card, Spacer } from "@nextui-org/react";
 import React from "react";
 import google from "../../public/google.svg";
 import Image from "next/image";
@@ -9,6 +9,8 @@ const SignInForm: React.FC = () => {
   };
 
   return (
+    <Card>
+
     <div className="flex justify-center items-center min-h-screen">
       <div>
         <h2 className="text-center font-semibold text-3xl">Sign in</h2>
@@ -75,7 +77,7 @@ const SignInForm: React.FC = () => {
 
         <div className="text-center mt-5">
           <p>
-            Don't have an account?{" "}
+            Don't have an account?
             <a href="#" className="text-[#38B419]">
               Sign up
             </a>
@@ -83,6 +85,7 @@ const SignInForm: React.FC = () => {
         </div>
       </div>
     </div>
+    </Card>
   );
 };
 
