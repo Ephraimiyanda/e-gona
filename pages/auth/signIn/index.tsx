@@ -1,6 +1,6 @@
 import { Button, Card, Spacer } from "@nextui-org/react";
 import React from "react";
-import logo from "/public/logo.svg";
+import logo from "../../../public/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 
