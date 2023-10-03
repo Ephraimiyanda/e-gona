@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Spacer } from "@nextui-org/react";
-import Check from "../../public/check.svg";
+import Check from "/public/check.svg";
 import Image from "next/image";
 
 const PasswordResetSuccess: React.FC = () => {
