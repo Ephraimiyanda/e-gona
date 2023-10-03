@@ -15,14 +15,18 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+body{
+  background: rgb(248, 248, 248);
+}
 .blend{
   background-position: right;
   background-image: url(../public/Cloth\ sack\ on\ white.svg);
 }
+
 .scroll-parent {
   position: relative;
-  width: 100vw;
-  height: 70px;
+  width: 100%;
+  height: 60px;
   overflow-x: hidden;
 }
 
@@ -42,4 +46,19 @@
   to {
     left: 100%;
   }
+}
+@media (max-width:500px) {
+  .cartItem{
+flex-direction: column;
+}
+.goods{
+}
+.cartItem img{
+  width: 100%;
+  height: 200px;
+  max-width: unset;
+}
+.goods div{
+  width: 100%;
+}
 }
