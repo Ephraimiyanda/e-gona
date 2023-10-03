@@ -32,7 +32,7 @@ const ForgotPasswordForm: React.FC = () => {
               </label>
               <input
                 id="confirmpassword"
-                name="password"
+                name="confirmpassword"
                 type="password"
                 required
                 className="border border-[#A46E05] rounded h-12 px-3 w-full focus:outline-none focus:border-[#A46E05]"
@@ -50,12 +50,9 @@ const ForgotPasswordForm: React.FC = () => {
 
         <Spacer y={2} />
 
-
-        <Spacer y={2} />
-
         <div className="text-center mt-5">
           <p>
-            Don't have an account?{" "}
+            Don't have an account?
             <a href="#" className="text-[#38B419]">
               Sign up
             </a>
