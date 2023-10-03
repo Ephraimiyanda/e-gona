@@ -26,8 +26,8 @@ import Orders from "../public/orders.svg"
 
 export default function Nav() {
   return (
-    <Navbar maxWidth="xl" className="justify-around shadow px-3 bg-white p-0 sm:px-6">
-      <NavbarBrand className="w-fit flex-grow-[0.2] sm:flex-grow-[0.6]">
+    <Navbar maxWidth="xl" className="justify-around shadow px-3 bg-white p-0 sm:px-6" >
+      <NavbarBrand className="w-fit flex-grow-[0.2] md:flex-grow-[0.6]" as={Link} href="/">
         <Image src={logo} alt="logo" width={35} height={45} />
         <p className="hidden md:flex text-3xl font-bold text-[#A46E05] ">KASUWA</p>
       </NavbarBrand>
@@ -49,7 +49,7 @@ export default function Nav() {
         <Button className="bg-[#A46E05BD] rounded-md px-3 py-[7px] text-white">Search</Button>
       </NavbarContent>
       <NavbarContent as="div" justify="end" style={{
-        flexGrow:"0.2"
+        flexGrow:"0.3"
       }} className="">
         <Dropdown placement="bottom-end">
           <DropdownTrigger >
@@ -112,7 +112,7 @@ export default function Nav() {
             <div className="flex gap-1 justify-start items-center">
                 <Image src={cart} alt="logo" width={20} height={20} />
                 <span>
-                  <Link href={"#"}>Cart</Link>
+                  <Link href={"/cart"}>Cart</Link>
                 </span>
               </div>
               </DropdownItem>
@@ -123,7 +123,7 @@ export default function Nav() {
         <div className="flex gap-1 justify-start items-center">
                 <Image src={cart} alt="logo" width={20} height={20} />
                 <span>
-                  <Link href={"#"}>Cart</Link>
+                  <Link href={"/cart"}>Cart</Link>
                 </span>
               </div>
         </NavbarItem>

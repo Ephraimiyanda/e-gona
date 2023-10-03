@@ -10,7 +10,8 @@ import fruitGrp from "../public/fruitgroup.svg";
 import nairabag from "../public/sack-of-naira-removebg-preview 1.svg";
 import Image from "next/image";
 import { Button, Input } from "@nextui-org/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
+import { AppContext } from "@/utils/AppContext";
 import ProductCard from "@/components/productCard";
 import Flash from "../public/flash.svg";
 import logo from "../public/logo.svg";
@@ -18,6 +19,8 @@ import { MailIcon } from "@/components/mailIcon";
 import ioslogo from "../public/ios store.svg";
 import googleplay from "../public/google play.svg";
 import Footer from "@/components/footer";
+
+
 interface card {
   src: string;
   index: number;
@@ -32,69 +35,9 @@ export default function Home() {
   const hours = date.getHours();
   const days = date.getDay();
   const minutes = date.getMinutes();
-  const list = [
-    {
-      title: "corn",
-      saleScale: "kg",
-      img: "corn.svg",
-      price: "₦5.50",
-    },
-    {
-      title: "Eggs",
-      saleScale: "crate",
-      img: "eggs.svg",
-      price: "₦3.00",
-    },
-    {
-      title: "Egpytian Sheep",
-      saleScale: "sheep",
-      img: "egyptian sheep.svg",
-      price: "₦10.00",
-    },
-    {
-      title: "Fertilizer",
-      saleScale: "kg",
-      img: "fertilizer.svg",
-      price: "₦5.30",
-    },
-    {
-      title: "milk",
-      saleScale: "bottle",
-      img: "milk.svg",
-      price: "₦15.70",
-    },
-    {
-      title: "potatoe",
-      saleScale: "kg",
-      img: "potatoe.svg",
-      price: "₦8.00",
-    },
-    {
-      title: "cattle",
-      saleScale: "cattle",
-      img: "cattle.svg",
-      price: "₦7.50",
-    },
-    {
-      title: "Fertilizer",
-      saleScale: "kg",
-      img: "fertilizer.svg",
-      price: "₦5.30",
-    },
-    {
-      title: "milk",
-      saleScale: "bottle",
-      img: "milk.svg",
-      price: "₦15.70",
-    },
-    {
-      title: "potatoe",
-      saleScale: "kg",
-      img: "potatoe.svg",
-      price: "₦8.00",
-    },
-  ];
 
+  const {cartItems,list} =useContext(AppContext)
+ 
   return (
     <div className="mx-auto flex flex-col w-full">
       <div className=" m-auto flex-col flex gap-3 lg:flex-row sm:flex-col w-full pt-10 max-w-[1280px] px-6 py-10 ">
@@ -245,8 +188,9 @@ export default function Home() {
         </div>
       </div>
       <div className=" grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))]  w-full gap-x-[1.50rem] gap-y-4 pt-10 max-w-[1280px] px-6 py-10 mx-auto ">
-        {list.map((items, index) => (
+        {list.map((items: { img: string; price: string; saleScale: string; title: string; }, index: number) => (
           <ProductCard
+          item={items}
             key={index}
             src={items.img}
             index={index}
@@ -284,8 +228,9 @@ export default function Home() {
         </div>
       </div>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))]  w-full gap-x-[1.50rem] gap-y-4 pt-10 max-w-[1280px] px-6 py-10 mx-auto  ">
-        {list.slice(3, 8).map((items, index) => (
+        {list.slice(3, 8).map((items: { img: string; price: string; saleScale: string; title: string; }, index:number) => (
           <ProductCard
+          item={items}
             key={index}
             src={items.img}
             index={index}
@@ -301,8 +246,9 @@ export default function Home() {
           Most Searched Product
         </span>
         <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))]  w-full gap-x-[1.50rem] gap-y-4 pt-10 max-w-[1280px] px-6 py-10 mx-auto ">
-          {list.slice(1, 6).map((items, index) => (
+          {list.slice(1, 6).map((items: { img: string; price: string; saleScale: string; title: string; }, index: number) => (
             <ProductCard
+            item={items}
               key={index}
               src={items.img}
               index={index}
@@ -398,7 +344,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Footer />
+      
     </div>
   );
 }

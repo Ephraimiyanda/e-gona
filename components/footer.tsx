@@ -47,7 +47,7 @@ export default function Footer(){
                 <div className="flex justify-between flex-col sm:flex-row flex-wrap max-w-[650px] mx-auto sm:m-0 sm:pt-0 pt-10 sm:gap-0 gap-8 ">
                     <div className="flex flex-col sm:m-0 m-m-auto sm:text-left text-center ">
                         <span className="text-lg text-white font-semibold">JOIN US</span>
-                        <div className="flex gap-4 sm:gap-3 w-fit sm:m-0 m-auto">
+                        <div className="flex justify-normal items-center gap-4 sm:gap-3 w-fit sm:m-0 m-auto">
                         <Link href={"#"}><Image src={facebook} alt="logo" width={25} height={15} /></Link>
                         <Link href={"#"}><Image src={youtube} alt="logo" width={25} height={15} /></Link>
                         <Link href={"#"}> <Image src={instagram} alt="logo" width={25} height={15} /></Link>
