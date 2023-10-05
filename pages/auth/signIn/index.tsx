@@ -18,6 +18,7 @@ const SignInForm: React.FC = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        padding: "0 5%",
       }}
     >
       <div className="flex justify-center items-center mb-4">
@@ -25,7 +26,7 @@ const SignInForm: React.FC = () => {
         <p className=" md:flex text-3xl font-bold text-[#A46E05] ">KASUWA</p>
       </div>
       <Card>
-        <div className="bg-white px-6 py-4 rounded-xl" >
+        <div className="bg-white px-6 py-4 rounded-xl">
           <h2 className="text-center font-semibold text-2xl">Sign in</h2>
           <hr className="bg-gray-400 w-full mt-4 " />
           <div className="my-4">
