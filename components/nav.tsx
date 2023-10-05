@@ -81,13 +81,13 @@ export default function Nav() {
             variant="flat"
             className="bg-white rounded-md p-3 shadow"
           >
-            <DropdownItem key="team_settings" className="flex gap-1">
+            <DropdownItem  key="team_settings" className="myDropItem flex gap-1">
              <Button className="w-full bg-[#A46E05BD] py-2 rounded-md ">Sign In</Button>
             </DropdownItem>
-            <DropdownItem key="analytics">
+            <DropdownItem className="myDropItem" key="analytics">
              <Button className="w-full bg-[#A46E05BD] py-2 rounded-md ">Sign Up</Button>
             </DropdownItem>
-            <DropdownItem key="system">
+            <DropdownItem className="myDropItem" key="system">
               <div className="flex gap-1 justify-start items-center">
                 <Image src={account} alt="logo" width={20} height={20} />
                 <span>
@@ -95,7 +95,7 @@ export default function Nav() {
                 </span>{" "}
               </div>
             </DropdownItem>
-            <DropdownItem key="settings">
+            <DropdownItem className="myDropItem" key="settings">
               <div className="flex gap-1 justify-start items-center">
                 <Image src={Orders} alt="logo" width={20} height={20} />
                 <span>
@@ -103,7 +103,7 @@ export default function Nav() {
                 </span>
               </div>
             </DropdownItem>
-            <DropdownItem key="sell">
+            <DropdownItem className="myDropItem" key="sell">
               <div className="flex gap-2 justify-start items-center">
               <Image src={savedItems} alt="logo" width={20} height={20} />
                 <span>
@@ -112,10 +112,10 @@ export default function Nav() {
                 </span>
               </div>
             </DropdownItem>
-            <DropdownItem className="flex sm:hidden">
+            <DropdownItem className="myDropItem flex sm:hidden h-[50px]">
             <div className="flex gap-1 justify-start items-center">
-            <Badge className="bg-[#A46E05BD] text-white p-2" color="primary" content={cartItems.length} size="sm"> 
-            <Avatar src="cart.svg" alt="logo" className="w-[25px] h-[25px] mr-auto" />
+            <Badge className="bg-[#A46E05BD] text-white p-2 z-10" color="primary" content={cartItems.length} size="sm"> 
+            <Image src={cart} alt="logo" width={24} height={20} />
             </Badge>
                 <span>
                   <Link href={"/cart"}>Cart</Link>
@@ -127,8 +127,8 @@ export default function Nav() {
       </NavbarContent>
         <NavbarItem className="hidden sm:flex">
         <div className="flex gap-1 justify-start items-center">
-          <Badge className="bg-[#A46E05BD] text-white p-2" color="primary" content={cartItems.length} size="sm"> 
-            <Avatar src="cart.svg" alt="logo" className="w-[25px] h-[25px] mr-auto" />
+          <Badge className="bg-[#A46E05BD]  text-white p-2" color="primary" content={cartItems.length} size="sm"> 
+          <Image src={cart} alt="logo" width={20} height={20} />
           </Badge>
                 <span>
                   <Link href={"/cart"}>Cart</Link>

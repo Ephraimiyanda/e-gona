@@ -56,3 +56,44 @@ flex-direction: column;
 input{
   width: 100%;
 }
+.myDropItem span{
+padding-top: 4px;
+
+}
+.myProductInput >div>div{
+  padding: 0px;
+}
+.fileInput.group>div{
+  padding:6px;
+  border:1px dotted black;
+}
+.fileInput.group>div>div{
+  background:#D9D9D9 ;
+  padding-top: 6px;
+  padding-bottom:6px;
+}
+.myProductInput.group>div>div{
+  background: #D9D9D980;
+}
+.fileInput.group{
+  box-shadow: none;
+  border: none;
+}
+.fileInput.group div{
+  box-shadow: none;
+}
+.productDescriptionInput.group>div{
+background: unset;
+padding: 0;
+}
+.productDescriptionInput.group>div >textarea{
+  min-height: 160px !important;
+}
+.productDescriptionInput label{
+  border:1px solid black;
+  padding-left: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom: 0px;
+  
+}
