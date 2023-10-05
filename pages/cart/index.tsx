@@ -4,6 +4,7 @@ import cart from "/public/cart.svg";
 import { Image, Button } from "@nextui-org/react";
 import ProductCard from "@/components/productCard";
 import Cartitem from "@/components/cartItem";
+import Sidebar from "@/components/sidebar";
 export default function Cart() {
   const [count, setCount] = useState(0);
   const increament = () => {
@@ -17,7 +18,7 @@ export default function Cart() {
   const { cartItems, list } = useContext(AppContext);
   console.log(cartItems.length);
   return (
-    <div className="pt-6">
+    <div className="pt-6 ">
       <div className="flex max-w-[1280px] mx-auto px-6 gap-3 md:flex-row flex-col">
         <div
           className={`${
