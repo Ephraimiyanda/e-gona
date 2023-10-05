@@ -121,7 +121,7 @@ export default function SellerForm() {
                 <MyInput
                   value={form.shopName}
                   placeholder="kasuwa"
-                  required
+                  isRequired
                   radius="md"
                   style={{
                     backgroundColor: "white",
@@ -183,7 +183,7 @@ export default function SellerForm() {
                 <MyInput
                   value={form.accountManagerName}
                   placeholder="John doe"
-                  required
+                  isRequired
                   radius="md"
                   className="my_form text-black py-2 max-w-[600px] w-full md:w-[300px] "
                   labelPlacement="outside-left"
@@ -203,7 +203,7 @@ export default function SellerForm() {
                   value={form.accountManagerPhoneNumber}
                   placeholder="09012345678"
                   type="number"
-                  required
+                  isRequired
                   radius="md"
                   style={{
                     backgroundColor: "white",
@@ -227,7 +227,7 @@ export default function SellerForm() {
                   value={form.phoneNumber}
                   placeholder="09012345678"
                   type="number"
-                  required
+                  isRequired
                   radius="md"
                   style={{
                     backgroundColor: "white",
@@ -249,7 +249,7 @@ export default function SellerForm() {
                 <MyInput
                   startContent={<MailIcon />}
                   isClearable
-                  required
+                  isRequired
                   type="email"
                   placeholder="user@example.com"
                   radius="md"
@@ -271,7 +271,7 @@ export default function SellerForm() {
                 <MyInput
                   startContent={<MailIcon />}
                   isClearable
-                  required
+                  isRequired
                   type="email"
                   placeholder="user@example.com"
                   radius="md"
@@ -294,7 +294,7 @@ export default function SellerForm() {
                   Password *
                 </span>
                 <MyInput
-                  required
+                  isRequired
                   type="password"
                   placeholder="******"
                   radius="md"
@@ -316,7 +316,7 @@ export default function SellerForm() {
                   Re-type Password *
                 </span>
                 <MyInput
-                  required
+                  isRequired
                   type="password"
                   placeholder="******"
                   radius="md"
