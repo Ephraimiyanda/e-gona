@@ -60,6 +60,7 @@ export default function Cart() {
               </div>
               <span>₦10,000</span>
             </div>
+            <Button className="text-white text-sm bg-[#A46E05BD] rounded-md py-2 px-4">Checkout (₦10,000.00)</Button>
           </div>
         </div>
       </div>

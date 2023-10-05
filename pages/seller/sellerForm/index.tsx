@@ -54,7 +54,7 @@ export default function SellerForm() {
   const [form, setForm] = useReducer(reducer, {
     shopName: "",
     password: "",
-    businessType: [],
+    businessType: "",
     accountManagerPhoneNumber: "",
     phoneNumber: "",
     accountManagerName: "",
@@ -149,16 +149,14 @@ export default function SellerForm() {
                   Entity/Company *
                 </span>
                 <Select
-                  selectedKeys={form.businessType}
-                
-                  variant="bordered"
-                  className="my_form text-black py-2 max-w-[600px] w-full md:w-[300px] m-0 mr-auto "
+                style={{
+                  height:"35px",
+                  paddingTop:"5px"
+                }}
+                placeholder="Choose business organization type"
+                value={form.businessType}
+                  className="my_form text-black bg-white  max-w-[600px] w-full md:w-[300px]  mr-auto "
                   radius="lg"
-                  style={{
-                    background: "white",
-                    padding: "5px",
-                    gap: "0px",
-                  }}
                   onChange={(e) => {
                     setForm({
                       type: "businessType-change",
@@ -166,11 +164,11 @@ export default function SellerForm() {
                     });
                   }}
                 >
-                  <SelectItem className="bg-white h-10" key={"Individual"} value={"Individual"} >
+                  <SelectItem className="bg-white " key={"Individual"} value={"Individual"} >
                     Individual
                   </SelectItem>
                   <SelectItem
-                    className="bg-white border-t border-t-stone-300 -mt-1 h-10"
+                    className="bg-white border-t border-t-stone-300 -mt-1 "
                     key={"Registered business company"}
                     value={"Registered business company"}
                   >

@@ -8,6 +8,14 @@ import { useState } from "react";
 import Footer from "@/components/footer";
 import { AppContext } from "@/utils/AppContext";
 import Head from "next/head";
+interface cartItem {
+  img: string;
+  index: number;
+  price: string;
+  saleScale: string;
+  title: string;
+  seller:string
+}
 
 interface product {
   src: string;
@@ -95,10 +103,17 @@ function App({ Component, pageProps }: AppProps) {
     setCartItems([...cartItems, { ...product }]);
   };
 
+  const removeFromCart = (cartItemIndex:number) => {
+    const updatedCart = cartItems.filter(
+      (cartItem:any,index:number) => index !== cartItemIndex
+    );
+    setCartItems(updatedCart);
+  };
+
   const router = useRouter();
   return (
     <NextUIProvider>
-      <AppContext.Provider value={{ cartItems, setCartItems, addToCart, list }}>
+      <AppContext.Provider value={{ cartItems, setCartItems, addToCart, list,removeFromCart }}>
         <Head>
           {/* Define metadata for the app */}
           <meta name="viewport" content="width=device-width, initial-scale=1" />

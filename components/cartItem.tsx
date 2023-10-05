@@ -1,5 +1,6 @@
 import { Button,Image } from "@nextui-org/react"
-import { useState } from "react";
+import { useState,useContext } from "react";
+import { AppContext } from "@/utils/AppContext";
 interface cartItem {
     img: string;
     index: number;
@@ -8,8 +9,10 @@ interface cartItem {
     title: string;
     seller:string
   }
+
 export default function Cartitem({img,index,title,saleScale,seller,price}:cartItem){
     const [count, setCount] = useState(0);
+    const {cartItems,list,removeFromCart} =useContext(AppContext)
     const increament = () => {
       setCount(count + 1);
     };
@@ -18,6 +21,11 @@ export default function Cartitem({img,index,title,saleScale,seller,price}:cartIt
         setCount(count - 1);
       }
     };
+   function deleteFromCart(index:number){
+      removeFromCart(index)
+    }
+
+  
     return(
         <div className="cartItem w-full flex gap-2 " key={index}>
         <Image
@@ -56,6 +64,7 @@ export default function Cartitem({img,index,title,saleScale,seller,price}:cartIt
                 +
               </Button>
             </div>
+            <Button onClick={()=>{deleteFromCart(index)}} className="p-2 bg-[#A46E05BD] text-white rounded-md mt-auto">Remove Item</Button>
           </div>
         </div>
       </div>
