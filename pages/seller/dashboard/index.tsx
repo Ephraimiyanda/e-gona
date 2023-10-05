@@ -7,6 +7,7 @@ import coin from "public/coin.svg";
 import bag from "public/bag.svg";
 import Image from "next/image";
 import egg from "public/egg.svg";
+import Sidebar from "@/components/sidebar";
 
 const Dashboard: React.FC = () => {
   return (
@@ -17,9 +18,11 @@ const Dashboard: React.FC = () => {
           minHeight: "100vh",
           display: "flex",
           flexDirection: "column",
-          padding: "0 3%",
+          padding: "0",
         }}
       >
+        <div style={{ display: "flex" }}>
+        <Sidebar />
         <Card className="mx-auto mt-10">
           <div className="p-4">
             <div className="flex items-center">
@@ -193,7 +196,9 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
         </Card>
+        </div>
       </div>
+      <Spacer y={10} />
       <Footer />
     </div>
   );
