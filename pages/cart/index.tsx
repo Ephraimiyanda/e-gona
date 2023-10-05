@@ -4,6 +4,7 @@ import cart from "/public/cart.svg";
 import { Image, Button } from "@nextui-org/react";
 import ProductCard from "@/components/productCard";
 import Cartitem from "@/components/cartItem";
+import Sidebar from "@/components/sidebar";
 export default function Cart() {
   const [count, setCount] = useState(0);
   const increament = () => {
@@ -17,7 +18,7 @@ export default function Cart() {
   const { cartItems, list } = useContext(AppContext);
   console.log(cartItems.length);
   return (
-    <div className="pt-6">
+    <div className="pt-6 ">
       <div className="flex max-w-[1280px] mx-auto px-6 gap-3 md:flex-row flex-col">
         <div
           className={`${
@@ -29,7 +30,14 @@ export default function Cart() {
           </h1>
           {cartItems.length > 0 ? (
             cartItems.map((items: any, index: number) => (
-            <Cartitem img={items.img} index={index} price={items.price} saleScale={items.saleScale} title={items.title} seller={items.seller}/>
+              <Cartitem
+                img={items.img}
+                index={index}
+                price={items.price}
+                saleScale={items.saleScale}
+                title={items.title}
+                seller={items.seller}
+              />
             ))
           ) : (
             <div className="h-[50vh] gap-2 flex justify-center items-center w-full">
@@ -40,16 +48,19 @@ export default function Cart() {
         </div>
 
         <div className="lg:w-[30%] h-[180px] bg-white">
-            <div className="flex flex-col gap-2 px-3 bg-white py-3">
-                <h2 className="border-b border-b-black text-xl font-semibold">Cart Summary</h2>
-                <div className="flex justify-between">
-                    <div className="flex flex-col"> 
-                        <span className="font-bold text-md">Subtotal</span>
-                        <p  className="text-stone-600">Delivery not included yet</p>
-                    </div>
-                    <span>₦10,000</span>
-                </div>
+          <div className="flex flex-col gap-2 px-3 bg-white py-3">
+            <h2 className="border-b border-b-black text-xl font-semibold">
+              Cart Summary
+            </h2>
+            <div className="flex justify-between">
+              <div className="flex flex-col">
+                <span className="font-bold text-md">Subtotal</span>
+                <p className="text-stone-600">Delivery not included yet</p>
+              </div>
+              <span>₦10,000</span>
             </div>
+            <Button className="text-white text-sm bg-[#A46E05BD] rounded-md py-2 px-4">Checkout (₦10,000.00)</Button>
+          </div>
         </div>
       </div>
       <div className="flex flex-col w-full max-w-[1280px] mx-auto  py-10 gap-2">

@@ -110,7 +110,7 @@ function App({ Component, pageProps }: AppProps) {
             sizes="<generated>"
           />
         </Head>
-        {!router.pathname.includes("auth/") && <Nav />}
+        {!router.pathname.includes("auth/")&&!router.pathname.includes("seller/sellerForm") && <Nav />}
         <Component {...pageProps} />
         {!router.pathname.includes("auth/") && <Footer />}
       </AppContext.Provider>
