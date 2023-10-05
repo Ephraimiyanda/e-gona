@@ -1,11 +1,11 @@
 import { Button, Card, Input, Spacer } from "@nextui-org/react";
 import React from "react";
 import Footer from "@/components/footer";
-import star from "public/star.svg";
+import bag from "public/bag.svg";
 import Image from "next/image";
 import Sidebar from "@/components/sidebar";
 
-const Reviews: React.FC = () => {
+const Dashboard: React.FC = () => {
   return (
     <div>
       <div
@@ -19,31 +19,29 @@ const Reviews: React.FC = () => {
       >
         <div style={{ display: "flex" }}>
           <Sidebar />
-          <Card className="mt-10" style={{ flex: 1 }}>
+          <Card className=" mt-10">
             <div className="p-4">
               <div className="flex items-center">
                 <Image
-                  src={star}
+                  src={bag}
                   alt="logo"
                   width={35}
                   height={45}
                   className="mr-2"
                 />
-                <h1 className="font-bold text-2xl">Reviews</h1>
+                <h1 className="font-bold text-2xl">Add Products</h1>
               </div>
               <Spacer y={2} />
-            </div>
 
-            <div className="flex justify-center items-center h-96 text-gray-400">
-              You have no reviews at the moment. Reviews will appear here when
-              you have a review.
+              <Spacer y={20} />
             </div>
           </Card>
         </div>
       </div>
+      <Spacer y={10} />
       <Footer />
     </div>
   );
 };
 
-export default Reviews;
+export default Dashboard;
