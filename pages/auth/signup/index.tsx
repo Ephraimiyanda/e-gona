@@ -18,7 +18,9 @@ const SignUpForm: React.FC = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        width:"100%"
+        width:"100%",
+        padding: "0 5%",
+
       }}
     >
       <div className="flex justify-center items-center mb-4">
