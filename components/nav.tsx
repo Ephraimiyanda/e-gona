@@ -10,6 +10,7 @@ import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
+  Badge,
 } from "@nextui-org/react";
 import Image from "next/image";
 import logo from "../public/logo.svg";
@@ -23,8 +24,11 @@ import Account from "../public/acount-2.svg"
 import drop from "../public/drop.svg"
 import savedItems from "../public/saved.svg"
 import Orders from "../public/orders.svg"
+import { useContext } from "react";
+import { AppContext } from "@/utils/AppContext";
 
 export default function Nav() {
+  const {cartItems,list} =useContext(AppContext)
   return (
     <Navbar maxWidth="xl" className="justify-around shadow px-3 bg-white p-0 sm:px-6" >
       <NavbarBrand className="w-fit flex-grow-[0.2] md:flex-grow-[0.6]" as={Link} href="/">
@@ -110,7 +114,9 @@ export default function Nav() {
             </DropdownItem>
             <DropdownItem className="flex sm:hidden">
             <div className="flex gap-1 justify-start items-center">
-                <Image src={cart} alt="logo" width={20} height={20} />
+            <Badge className="bg-[#A46E05BD] text-white p-2" color="primary" content={cartItems.length} size="sm"> 
+            <Avatar src="cart.svg" alt="logo" className="w-[25px] h-[25px] mr-auto" />
+            </Badge>
                 <span>
                   <Link href={"/cart"}>Cart</Link>
                 </span>
@@ -121,7 +127,9 @@ export default function Nav() {
       </NavbarContent>
         <NavbarItem className="hidden sm:flex">
         <div className="flex gap-1 justify-start items-center">
-                <Image src={cart} alt="logo" width={20} height={20} />
+          <Badge className="bg-[#A46E05BD] text-white p-2" color="primary" content={cartItems.length} size="sm"> 
+            <Avatar src="cart.svg" alt="logo" className="w-[25px] h-[25px] mr-auto" />
+          </Badge>
                 <span>
                   <Link href={"/cart"}>Cart</Link>
                 </span>
