@@ -37,6 +37,7 @@ export default function Cart() {
                 saleScale={items.saleScale}
                 title={items.title}
                 seller={items.seller}
+                key={index}
               />
             ))
           ) : (

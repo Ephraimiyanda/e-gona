@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import dashboard from "../public/dashboard.svg";
+import dashboard from "../public/dashboardIcon.svg";
 import products from "../public/product.svg";
 import orders from "../public/ordersIcon.svg";
 import reviews from "../public/reviews.svg";
