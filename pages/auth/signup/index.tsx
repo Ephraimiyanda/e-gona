@@ -1,13 +1,35 @@
 import { Button, Card, Spacer } from "@nextui-org/react";
-import React from "react";
+import React, { useState } from "react";
 import logo from "public/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
+import { useRouter } from "next/router";
+
+const API_BASE_URL = "https://kasuwa-b671.onrender.com/";
 
 const SignUpForm: React.FC = () => {
-  const handleSignUp = () => {
-    // Handle form submission
+  const router = useRouter();
+  const handleSignUp = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}users/register`,
+        formData
+      );
+      console.log("Signup successful", response);
+      router.push("/");
+    } catch (error) {
+      console.log("Signup error", error);
+    }
   };
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+  });
 
   return (
     <div
@@ -18,9 +40,8 @@ const SignUpForm: React.FC = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        width:"100%",
+        width: "100%",
         padding: "0 5%",
-
       }}
     >
       <div className="flex justify-center items-center mb-4">
@@ -38,23 +59,27 @@ const SignUpForm: React.FC = () => {
               <div className="mb-4">
                 <div className="flex flex-wrap -mx-4">
                   <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0">
-                    <label htmlFor="firstName" className="block mb-2">
+                    <label htmlFor="first_name" className="block mb-2">
                       First Name
                     </label>
                     <input
-                      id="firstName"
+                      id="first_name"
                       name="firstName"
                       type="text"
+                      value={formData.first_name}
+                      onChange={(e) =>
+                        setFormData({ ...formData, first_name: e.target.value })
+                      }
                       required
                       className="border border-[#ccc] rounded-lg h-12 px-3 w-full focus:outline-none focus:border-[#A46E05]"
                     />
                   </div>
                   <div className="w-full md:w-1/2 px-4">
-                    <label htmlFor="lastName" className="block mb-2">
+                    <label htmlFor="last_name" className="block mb-2">
                       Last Name
                     </label>
                     <input
-                      id="lastName"
+                      id="last_name"
                       name="lastName"
                       type="text"
                       required
@@ -75,6 +100,10 @@ const SignUpForm: React.FC = () => {
                       name="email"
                       type="email"
                       required
+                      value={formData.email}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
                       className="border border-[#ccc] rounded-lg h-12 px-3 w-full focus:outline-none focus:border-[#A46E05]"
                     />
                   </div>
@@ -86,7 +115,7 @@ const SignUpForm: React.FC = () => {
                       id="phone"
                       name="phone"
                       type="tel"
-                      required
+                      // required
                       className="border border-[#ccc] rounded-lg h-12 px-3 w-full focus:outline-none focus:border-[#A46E05]"
                     />
                   </div>
@@ -104,6 +133,10 @@ const SignUpForm: React.FC = () => {
                       name="password"
                       type="password"
                       required
+                      value={formData.password}
+                      onChange={(e) =>
+                        setFormData({ ...formData, password: e.target.value })
+                      }
                       className="border border-[#ccc] rounded-lg h-12 px-3 w-full focus:outline-none focus:border-[#A46E05]"
                     />
                   </div>
@@ -160,7 +193,7 @@ const SignUpForm: React.FC = () => {
             </p>
             <p>
               Have an account?
-              <Link href={"#"} className="text-[#38B419]">
+              <Link href={"/auth/signIn"} className="text-[#38B419]">
                 {""} Login
               </Link>
             </p>

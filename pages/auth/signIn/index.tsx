@@ -1,12 +1,30 @@
 import { Button, Card, Spacer } from "@nextui-org/react";
-import React from "react";
+import React, { useState } from "react";
 import logo from "public/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
+import { useRouter } from "next/router";
+
+const API_BASE_URL = "https://kasuwa-b671.onrender.com/";
 
 const SignInForm: React.FC = () => {
-  const handleSignUp = () => {
-    // Handle form submission
+  const router = useRouter();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleSignIn = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(`${API_BASE_URL}users/login`, formData);
+      console.log("Signin successful", response);
+      router.push("/");
+    } catch (error) {
+      console.log("Signin error", error);
+    }
   };
 
   return (
@@ -30,7 +48,7 @@ const SignInForm: React.FC = () => {
           <h2 className="text-center font-semibold text-2xl">Sign in</h2>
           <hr className="bg-gray-400 w-full mt-4 " />
           <div className="my-4">
-            <form className="w-full mt-5" onSubmit={handleSignUp}>
+            <form className="w-full mt-5" onSubmit={handleSignIn}>
               <div className="mb-6">
                 <label htmlFor="emailOrPhone" className="block mb-2">
                   Email or Phone Number
@@ -40,6 +58,10 @@ const SignInForm: React.FC = () => {
                   name="emailOrPhone"
                   type="text"
                   required
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   className="border border-[#ccc] rounded h-12 px-3 w-full focus:outline-none focus:border-[#A46E05]"
                 />
               </div>
@@ -52,6 +74,10 @@ const SignInForm: React.FC = () => {
                   id="password"
                   name="password"
                   type="password"
+                  value={formData.password}
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
                   required
                   className="border border-[#ccc] rounded h-12 px-3 w-full focus:outline-none focus:border-[#A46E05]"
                 />
@@ -94,7 +120,7 @@ const SignInForm: React.FC = () => {
             </p>
             <p>
               Don't have an account?
-              <Link href={"#"} className="text-[#38B419]">
+              <Link href="/auth/signup" className="text-[#38B419]">
                 {" "}
                 Sign up
               </Link>
