@@ -25,6 +25,7 @@ interface actionInterface {
 
 
 const Dashboard: React.FC = () => {
+  const API_URL = "https://kasuwa-b671.onrender.com";
   const [form, setForm] = useReducer(reducer, {
     image: null,
     nameOfProduct: "",
@@ -64,8 +65,57 @@ const Dashboard: React.FC = () => {
     const { name, value } = e.target;
     setForm({ type: `${name}-change`, payload: value });
   };
+  const handleImageUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("file", form.image);
+      formData.append("api_key", "743174149656362");
+      formData.append("upload_preset", "j1d4ychj");
+      const uploadRes = await fetch(
+        "https://api.cloudinary.com/v1_1/dg0kdnwt1/auto/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      }catch(error){
+        console.log(error);
+      }
+    }
+  const AddProduct=async()=>{
+  
+    try{
+      const productDetails={
+        name:form.nameOfProduct,
+        description:form.productDescription,
+        category:form.productCategory,
+        tags:"tag 1",
+        stock:form.quantityAvailable,
+        discountPrice:(parseFloat(form.originalPrice)-parseFloat(form.salePrice)).toString(),
+        originalPrice:form.salePrice,
+        images:form.image
+      }
+      const CONFIG = {
+        method: "POST",
+        body: JSON.stringify(productDetails),
+        headers: {
+          'Accept': 'application/json',
+          "Content-Type": "application/json", 
+        },
+      };
+      const addProduct=await fetch(`${API_URL}/products/addProduct`,
+      CONFIG
+      )
+      const addProductRes = await addProduct.json()
+      console.log(addProductRes);
+      console.log(productDetails);
+    }
+    catch(error){
+      console.log(error);
+    }
+  } 
 
-  return (
+ return (
     <div>
       <div
         className="px-6"
@@ -98,7 +148,10 @@ const Dashboard: React.FC = () => {
             </Card>
             <form
               className="flex flex-col gap-8 sm:px-4 border border-black py-6 rounded-lg"
-              action=""
+             onSubmit={(e)=>{
+              e.preventDefault();
+              AddProduct()
+             }}
             >
               <div className="px-6">
                 <span className="text-xl font-semibold">Product Details</span>
@@ -113,6 +166,7 @@ const Dashboard: React.FC = () => {
                   </p>
                 </div>
                 <Input
+                isRequired
                   startContent={
                     <Image
                       src={uploadIcon}
@@ -126,7 +180,7 @@ const Dashboard: React.FC = () => {
                   type="file"
                   label={""}
                   labelPlacement="outside"
-                  accept="image/png, image/gif, image/jpeg,image/svg,"
+                  accept=".png,.gif, .jpeg,.svg,"
                   placeholder="Drag and drop your product images or Browse"
                   onChange={(e) => {
                     setForm({
@@ -137,6 +191,7 @@ const Dashboard: React.FC = () => {
                 ></Input>
               </div>
               <Input
+              isRequired
                 name="nameOfProduct" // Add a name attribute
                 placeholder="Name of Product"
                 label="Name of Product"
@@ -156,6 +211,7 @@ const Dashboard: React.FC = () => {
               </Input>
               <div className="flex flex-col md:flex-row">
                 <Input
+                isRequired
                   name="salePrice" // Add a name attribute
                   type="number"
                   label="Sale Price (NGN)*"
@@ -175,6 +231,7 @@ const Dashboard: React.FC = () => {
                 >
                 </Input>
                 <Input
+                isRequired
                   name="originalPrice" // Add a name attribute
                   type="number"
                   label="Original Price (NGN)*"
@@ -194,6 +251,7 @@ const Dashboard: React.FC = () => {
                 >
                 </Input>
                 <Input
+                isRequired
                   name="quantityAvailable" // Add a name attribute
                   type="number"
                   label="Quantity Available*"
@@ -232,6 +290,7 @@ const Dashboard: React.FC = () => {
               >
               </Textarea>
               <Input
+              isRequired
                 name="productCategory" // Add a name attribute
                 label="Product Category*"
                 labelPlacement="outside"
@@ -250,6 +309,7 @@ const Dashboard: React.FC = () => {
               >
               </Input>
               <Input
+              isRequired
                 name="subCategory" // Add a name attribute
                 label="Sub Category"
                 labelPlacement="outside"
@@ -268,7 +328,7 @@ const Dashboard: React.FC = () => {
               >
               </Input>
               <div className="px-6 mx-auto w-full flex justify-end">
-                <Button className="bg-[#A46E05BD] rounded-md px-3 w-[200px] py-[7px] ml-auto text-white">
+                <Button type="submit" className="bg-[#A46E05BD] rounded-md px-3 w-[200px] py-[7px] ml-auto text-white">
                   Add Product
                 </Button>
               </div>

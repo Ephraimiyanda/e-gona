@@ -1,0 +1,9 @@
+.relative div ul{
+    gap:0px;
+    background: white;
+}
+
+.relative div ul li{
+    border-bottom: 1px solid rgb(101, 100, 100);
+    
+}

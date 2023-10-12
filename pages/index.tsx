@@ -121,9 +121,8 @@ export default function Home() {
             <div className="flex flex-col gap-3 lg:pl-5 py-3">
               <div>
                 <span className="text-[#38B419]">Categories</span>
-                <h1 className="text-3xl font-semibold text-white ">
+                <h1 className="text-3xl font-semibold text-white max-w-[300px]">
                   Enhance Your <span className="text-[#38B419]">Plant</span>{" "}
-                  <br />
                   Growth Experience
                 </h1>
                 <p className="text-[#38B419]">
