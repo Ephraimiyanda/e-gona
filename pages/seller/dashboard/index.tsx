@@ -67,10 +67,9 @@ const Dashboard: React.FC = () => {
               </div>
             </div>
 
-            <Spacer y={2} />
 
-            <div className="w-full mt-6 bg-white py-4 flex p-8 items-center justify-between rounded-xl flex-col md:flex-row">
-              <div className="flex flex-col md:flex-row items-center">
+            <div className="w-full mt-6 bg-white py-4 flex p-8 items-center justify-between rounded-xl flex-col gap-2 md:flex-row">
+              <div className="flex  items-center">
                 <Image
                   src={bag}
                   alt="logo"
@@ -82,12 +81,12 @@ const Dashboard: React.FC = () => {
                   Jump into Course creation
                 </h1>
               </div>
-              <Button className="bg-[#A46E05] text-white h-12 w-48 md:ml-4 rounded-xl">
+              <Button className="bg-[#A46E05] text-white h-12 w-full md:w-48 md:ml-4 rounded-xl">
                 Create Course
               </Button>
             </div>
 
-            <Spacer y={20} />
+            <Spacer y={6} />
 
             <div>
               <h1 className="text-2xl font-medium">Latest Products</h1>
@@ -190,7 +189,6 @@ const Dashboard: React.FC = () => {
                   <div className="text-black font-bold cursor-pointer">
                     See All Reviews
                   </div>
-                  <Spacer y={10} />
                 </div>
               </Card>
             </div>
@@ -198,7 +196,6 @@ const Dashboard: React.FC = () => {
         </Card>
         </div>
       </div>
-      <Spacer y={10} />
       <Footer />
     </div>
   );

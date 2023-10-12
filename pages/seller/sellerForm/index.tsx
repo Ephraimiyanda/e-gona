@@ -11,6 +11,10 @@ import {
 import { useState, useReducer } from "react";
 import CheckIcon from "@/components/checkIcon";
 import { MailIcon } from "@/components/mailIcon";
+import { useRouter } from "next/router";
+import "../../../app/form style.css";
+
+const API_URL = "https://kasuwa-b671.onrender.com";
 
 interface Form {
   shopName: string;
@@ -22,6 +26,7 @@ interface Form {
   retypeEmail: string;
   retypepassword: string;
   accountManagerPhoneNumber: string;
+  state: string;
 }
 
 interface ActionType {
@@ -48,9 +53,51 @@ export const MyInput = extendVariants(Input, {
     color: "white",
   },
 });
-
+const states = [
+  "Abia",
+  "Adamawa",
+  "Akwa Ibom",
+  "Anambra",
+  "Bauchi",
+  "Bayelsa",
+  "Benue",
+  "Borno",
+  "Cross River",
+  "Delta",
+  "Ebonyi",
+  "Edo",
+  "Ekiti",
+  "Enugu",
+  "Gombe",
+  "Imo",
+  "Jigawa",
+  "Kaduna",
+  "Kano",
+  "Katsina",
+  "Kebbi",
+  "Kogi",
+  "Kwara",
+  "Lagos",
+  "Nasarawa",
+  "Niger",
+  "Ogun",
+  "Ondo",
+  "Osun",
+  "Oyo",
+  "Plateau",
+  "Rivers",
+  "Sokoto",
+  "Taraba",
+  "Yobe",
+  "Zamfara",
+];
 export default function SellerForm() {
   const [hasReadContract, setHasReadContract] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [contractError, setContractError] = useState("");
+  
+  const router = useRouter();
   const [form, setForm] = useReducer(reducer, {
     shopName: "",
     password: "",
@@ -60,6 +107,7 @@ export default function SellerForm() {
     accountManagerName: "",
     email: "",
     retypeEmail: "",
+    state: "",
     retypepassword: "",
   });
 
@@ -70,6 +118,8 @@ export default function SellerForm() {
 
       case "businessType-change":
         return { ...state, businessType: action.payload };
+      case "state-change":
+        return { ...state, state: action.payload };
       case "accountManagerName-change":
         return { ...state, accountManagerName: action.payload };
       case "accountManagerPhoneNumber-change":
@@ -91,7 +141,60 @@ export default function SellerForm() {
         return { ...state };
     }
   }
-  console.log(form);
+
+  const signupFarmer = async () => {
+    try {
+      const farmerDetails = {
+        fullname: form.accountManagerName,
+        email: form.email,
+        location: form.state,
+        shop_name: form.shopName,
+        password: form.password,
+      };
+      console.log(farmerDetails);
+      const CONFIG = {
+        method: "POST",
+        body: JSON.stringify( farmerDetails),
+         headers: {
+            "Content-Type": "application/json", 
+          },
+      };
+      if (
+        form.password === form.retypepassword &&
+        form.email === form.retypeEmail&&
+        hasReadContract===true
+      ) {
+        const signup = await fetch(`${API_URL}/farmers/farmerRegister`, 
+        CONFIG
+        );
+        const signupRes = await signup.json();
+        console.log(signupRes);
+        if (signupRes.success) {
+          router.push("/seller/dashboard");
+        }
+      }
+      else {
+        // Set error messages when conditions are not met
+        if (form.password !== form.retypepassword) {
+          setPasswordError("Passwords do not match.");
+        } else {
+          setPasswordError("");
+        }
+        if (form.email !== form.retypeEmail) {
+          setEmailError("Emails do not match.");
+        } else {
+          setEmailError("");
+        }
+        if (!hasReadContract) {
+          setContractError("Please accept the e-contract.");
+        } else {
+          setContractError("");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       <nav className="py-2 px-2 bg-white shadow-sm top-[0] sticky z-20">
@@ -113,7 +216,13 @@ export default function SellerForm() {
             <span className="text-xl font-semibold">
               Add Seller Information
             </span>
-            <form className=" text-black flex flex-col gap-2 justify-center lg:items-center">
+            <form
+              className=" text-black flex flex-col gap-2 justify-center lg:items-center"
+              onSubmit={(e)=>{
+                e.preventDefault();
+                signupFarmer();
+              }}
+            >
               <div className="flex gap max-w-[600px] flex-col lg:flex-row justify-between lg:items-center w-full">
                 <span className="font-semibold lg:text-right pr-1">
                   Shop Name *
@@ -149,12 +258,12 @@ export default function SellerForm() {
                   Entity/Company *
                 </span>
                 <Select
-                style={{
-                  height:"35px",
-                  paddingTop:"5px"
-                }}
-                placeholder="Choose business organization type"
-                value={form.businessType}
+                  style={{
+                    height: "35px",
+                    paddingTop: "5px",
+                  }}
+                  placeholder="Choose business organization type"
+                  value={form.businessType}
                   className="my_form text-black bg-white  max-w-[600px] w-full md:w-[300px]  mr-auto "
                   radius="lg"
                   onChange={(e) => {
@@ -164,7 +273,11 @@ export default function SellerForm() {
                     });
                   }}
                 >
-                  <SelectItem className="bg-white " key={"Individual"} value={"Individual"} >
+                  <SelectItem
+                    className="bg-white "
+                    key={"Individual"}
+                    value={"Individual"}
+                  >
                     Individual
                   </SelectItem>
                   <SelectItem
@@ -174,6 +287,44 @@ export default function SellerForm() {
                   >
                     Registered business company
                   </SelectItem>
+                </Select>
+              </div>
+              <div className="my_states my_form flex gap max-w-[600px] flex-col lg:flex-row justify-between lg:items-center w-full">
+                <span className="font-semibold w-full  max-w-[300px] pr-1">
+                  Choose your state
+                </span>
+                <Select
+                  style={{
+                    height: "35px",
+                    paddingTop: "5px",
+                    background: "white",
+                  }}
+                  scrollShadowProps={{
+                    isEnabled:false
+                  }}
+                  placeholder="Choose your state"
+                  value={form.state}
+                  className=" text-black bg-white  max-w-[600px] w-full md:w-[300px]  mr-auto "
+                  radius="lg"
+                  onChange={(e) => {
+                    setForm({
+                      type: "state-change",
+                      payload: e.target.value,
+                    });
+                  }}
+                >
+                  {states.map((state) => (
+                    <SelectItem
+                      className="bg-white "
+                      key={state}
+                      value={state}
+                      style={{
+                        background: "white",
+                      }}
+                    >
+                      {state}
+                    </SelectItem>
+                  ))}
                 </Select>
               </div>
               <div className="flex gap max-w-[600px] flex-col lg:flex-row justify-between lg:items-center w-full">
@@ -289,6 +440,7 @@ export default function SellerForm() {
                   }}
                 />
               </div>
+              {emailError && <div className="text-red-500">{emailError}</div>}
               <div className="flex gap max-w-[600px] flex-col lg:flex-row justify-between lg:items-center w-full">
                 <span className="font-semibold lg:text-right pr-1">
                   Password *
@@ -333,16 +485,19 @@ export default function SellerForm() {
                   }}
                 />
               </div>
+              {/* Password Error Message */}
+              {passwordError && <div className="text-red-500">{passwordError}</div>}
               <div className="w-full mx-auto max-w-[600px] py-5">
                 <Checkbox
                   isSelected={hasReadContract}
-                  onValueChange={setHasReadContract}
+                  onValueChange={()=>{setHasReadContract(true)}}
                   className="mr-auto"
                   color="primary"
                 >
                   I have read and accepted the kasuwa e-contract.{" "}
                 </Checkbox>
               </div>
+              {contractError && <div className="text-red-500">{contractError}</div>}
               <div className="w-full mx-auto max-w-[600px] py-5 flex px-6">
                 <Button
                   type="submit"

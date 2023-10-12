@@ -11,6 +11,7 @@ import {
   DropdownItem,
   DropdownMenu,
   Badge,
+  NavbarMenuToggle,
 } from "@nextui-org/react";
 import Image from "next/image";
 import logo from "../public/logo.svg";
@@ -26,11 +27,15 @@ import savedItems from "../public/saved.svg"
 import Orders from "../public/orders.svg"
 import { useContext } from "react";
 import { AppContext } from "@/utils/AppContext";
-
+import { useRouter } from "next/router";
 export default function Nav() {
-  const {cartItems,list} =useContext(AppContext)
+  const router= useRouter()
+  const {cartItems,list,setIsNavOpen,isNavOpen} =useContext(AppContext)
   return (
     <Navbar maxWidth="xl" className="justify-around shadow px-3 bg-white p-0 sm:px-6" >
+    {  router.pathname.includes("/seller")&&
+        <NavbarMenuToggle className="flex sm:hidden" onClick={()=>{setIsNavOpen(!isNavOpen)}} aria-label={isNavOpen ? "Close menu" : "Open menu"} />
+      }
       <NavbarBrand className="w-fit flex-grow-[0.2] md:flex-grow-[0.6]" as={Link} href="/">
         <Image src={logo} alt="logo" width={35} height={45} />
         <p className="hidden md:flex text-3xl font-bold text-[#A46E05] ">KASUWA</p>

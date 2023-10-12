@@ -98,7 +98,7 @@ const list = [
 ];
 function App({ Component, pageProps }: AppProps) {
   const [cartItems, setCartItems] = useState<any>([]);
-
+  const [isNavOpen,setIsNavOpen]=useState(false)
   const addToCart = (product: any) => {
     setCartItems([...cartItems, { ...product }]);
   };
@@ -113,7 +113,7 @@ function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   return (
     <NextUIProvider>
-      <AppContext.Provider value={{ cartItems, setCartItems, addToCart, list,removeFromCart }}>
+      <AppContext.Provider value={{ cartItems, setCartItems, addToCart, list,removeFromCart,isNavOpen,setIsNavOpen }}>
         <Head>
           {/* Define metadata for the app */}
           <meta name="viewport" content="width=device-width, initial-scale=1" />
