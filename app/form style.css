@@ -5,5 +5,8 @@
 
 .relative div ul li{
     border-bottom: 1px solid rgb(101, 100, 100);
-    
+    background: white;
+}
+.my_states div{
+    padding-bottom: 0;
 }

@@ -1,11 +1,11 @@
-import { Button, Card, Input, Spacer, Textarea } from "@nextui-org/react";
+import { Button, Card, Input, Select, SelectItem, Spacer, Textarea } from "@nextui-org/react";
 import React, { useReducer } from "react";
 import Footer from "@/components/footer";
 import bag from "public/bag.svg";
 import Image from "next/image";
 import Sidebar from "@/components/sidebar";
 import uploadIcon from "../../../public/upload.svg";
-
+import "../../../app/form style.css";
 //interface for form
 interface reducerInterface {
   image: any;
@@ -23,6 +23,7 @@ interface actionInterface {
   type: string;
 }
 
+const categories=["Dairy products","Legumes","Tubers","Grains","Livestock","Vegetables","Fertilizers"]
 
 const Dashboard: React.FC = () => {
   const API_URL = "https://kasuwa-b671.onrender.com";
@@ -93,7 +94,7 @@ const Dashboard: React.FC = () => {
         stock:form.quantityAvailable,
         discountPrice:(parseFloat(form.originalPrice)-parseFloat(form.salePrice)).toString(),
         originalPrice:form.salePrice,
-        images:form.image
+        images:[form.image]
       }
       const CONFIG = {
         method: "POST",
@@ -178,6 +179,7 @@ const Dashboard: React.FC = () => {
                   }
                   className="fileInput border px-6 shadow-none"
                   type="file"
+                  multiple
                   label={""}
                   labelPlacement="outside"
                   accept=".png,.gif, .jpeg,.svg,"
@@ -185,7 +187,7 @@ const Dashboard: React.FC = () => {
                   onChange={(e) => {
                     setForm({
                       type: "image-change",
-                      payload: e.target.files?.[0],
+                      payload: e.target.files,
                     });
                   }} 
                 ></Input>
@@ -289,44 +291,41 @@ const Dashboard: React.FC = () => {
                 onChange={handleInputChange} // Handle input change
               >
               </Textarea>
-              <Input
-              isRequired
-                name="productCategory" // Add a name attribute
-                label="Product Category*"
-                labelPlacement="outside"
-                className="p-0 myProductInput px-6"
-                style={{
-                  border: "1px solid black",
-                  paddingBottom: "10px",
-                  paddingTop: "10px",
-                  paddingLeft: "10px",
-                  paddingRight: "10px",
-                  borderRadius: "7px",
-                  width: "100%",
-                }}
-                placeholder="Enter product category"
-                onChange={handleInputChange} // Handle input change
-              >
-              </Input>
-              <Input
-              isRequired
-                name="subCategory" // Add a name attribute
-                label="Sub Category"
-                labelPlacement="outside"
-                className="p-0 myProductInput px-6"
-                style={{
-                  border: "1px solid black",
-                  paddingBottom: "10px",
-                  paddingTop: "10px",
-                  paddingLeft: "10px",
-                  paddingRight: "10px",
-                  borderRadius: "7px",
-                  width: "100%",
-                }}
-                placeholder="Enter sub category"
-                onChange={handleInputChange} // Handle input change
-              >
-              </Input>
+              <div className="px-6 my_states">
+              <Select
+                  style={{
+                    height: "35px",
+                    paddingTop: "5px",
+                    background: "white",
+                  }}
+                  scrollShadowProps={{
+                    isEnabled:false
+                  }}
+                  placeholder="Choose the product category"
+                  value={form.productCategory}
+                  className=" text-black bg-white  max-w-[600px] w-full md:w-[300px]  mr-auto border border-black py-1"
+                  radius="lg"
+                  onChange={(e) => {
+                    setForm({
+                      type: "productCategory-change",
+                      payload: e.target.value,
+                    });
+                  }}
+                >
+                  {categories.map((category) => (
+                    <SelectItem
+                      className="bg-white "
+                      key={category}
+                      value={category}
+                      style={{
+                        background: "white",
+                      }}
+                    >
+                      {category}
+                    </SelectItem>
+                  ))}
+                </Select>
+                </div>
               <div className="px-6 mx-auto w-full flex justify-end">
                 <Button type="submit" className="bg-[#A46E05BD] rounded-md px-3 w-[200px] py-[7px] ml-auto text-white">
                   Add Product

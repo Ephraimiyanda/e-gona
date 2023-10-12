@@ -1,12 +1,16 @@
-import { useContext, useState } from "react";
+import { useContext, useState,useEffect} from "react";
 import { AppContext } from "@/utils/AppContext";
 import cart from "/public/cart.svg";
-import { Image, Button } from "@nextui-org/react";
+import { Image, Button, card } from "@nextui-org/react";
 import ProductCard from "@/components/productCard";
 import Cartitem from "@/components/cartItem";
 import Sidebar from "@/components/sidebar";
+
 export default function Cart() {
+  const [totalPrice, setTotalPrice] = useState("");
   const [count, setCount] = useState(0);
+  const { cartItems, list } = useContext(AppContext);
+  console.log(totalPrice);
   const increament = () => {
     setCount(count + 1);
   };
@@ -15,8 +19,18 @@ export default function Cart() {
       setCount(count - 1);
     }
   };
-  const { cartItems, list } = useContext(AppContext);
-  console.log(cartItems.length);
+  function calculateTotalPrice() {
+    let total = 0;
+    for (const item of cartItems) {
+      total += parseFloat(item.price);
+    }
+    setTotalPrice((total * count).toFixed(2));
+  }
+
+  useEffect(() => {
+    calculateTotalPrice();
+  }, [cartItems, count]);
+
   return (
     <div className="pt-6 ">
       <div className="flex max-w-[1280px] mx-auto px-6 gap-3 md:flex-row flex-col">
@@ -58,9 +72,9 @@ export default function Cart() {
                 <span className="font-bold text-md">Subtotal</span>
                 <p className="text-stone-600">Delivery not included yet</p>
               </div>
-              <span>₦10,000</span>
+              <span>₦{totalPrice}</span>
             </div>
-            <Button className="text-white text-sm bg-[#A46E05BD] rounded-md py-2 px-4">Checkout (₦10,000.00)</Button>
+            <Button className="text-white text-sm bg-[#A46E05BD] rounded-md py-2 px-4">Checkout ({totalPrice})</Button>
           </div>
         </div>
       </div>

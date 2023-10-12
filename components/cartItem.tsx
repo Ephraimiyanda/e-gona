@@ -47,7 +47,7 @@ export default function Cartitem({img,index,title,saleScale,seller,price}:cartIt
             </div>
             <span className="text-stone-600">In stock</span>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-3">
             <p className="text-center">{price}</p>
             <div className="flex justify-center gap-1 text-white items-center">
               <Button

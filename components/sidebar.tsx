@@ -71,7 +71,7 @@ export default function Sidebar() {
           </Link>
         </li>
       </ul>
-      <ul className="flex flex-col gap-3 py-4 border-t border-t-[#A46E05] px-4">
+      <ul className="flex flex-col gap-3 py-4 border-t border-t-[#A46E05] px-8">
         <li
           className={`py-2 px-2 w-full  hover:bg-[#A46E054D] rounded-md flex gap-2 justify-start items-center  ${
             pathname.includes("feedback") && "bg-[#A46E054D]"
