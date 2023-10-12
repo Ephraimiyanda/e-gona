@@ -120,7 +120,9 @@ const SignInForm: React.FC = () => {
             </p>
             <p>
               Don't have an account?
+
               <Link href="/auth/signup" className="text-[#38B419]">
+
                 {" "}
                 Sign up
               </Link>

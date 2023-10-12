@@ -120,7 +120,7 @@ export default function Footer(){
                     </ul>
                     <ul className="w-[150px] pt-[20px]">
                         <li className="text-lg text-white font-semibold">EARN ON KASUWA</li>
-                        <li><Link href={"#"} className="text-white">Become a Seller</Link></li>
+                        <li><Link href={"/seller/sellerForm"} className="text-white">Become a Seller</Link></li>
                         <li><Link href={"#"} className="text-white">Become an Affiliate</Link></li>
                         <li><Link href={"#"} className="text-white">Become a Delivery Partner</Link></li>
                     </ul>

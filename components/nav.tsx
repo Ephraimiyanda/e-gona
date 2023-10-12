@@ -106,7 +106,8 @@ export default function Nav() {
             variant="flat"
             className="bg-white rounded-md p-3 shadow"
           >
-            <DropdownItem key="team_settings" className="myDropItem flex gap-1">
+
+            <DropdownItem className="myDropItem" key="analytics">
               <Link href={"/auth/signIn"}>
                 <Button className="w-full bg-[#A46E05BD] py-2 rounded-md ">
                   Sign In
