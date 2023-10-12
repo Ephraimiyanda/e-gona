@@ -21,24 +21,39 @@ import account from "../public/account.svg";
 import setting from "../public/setting-2.svg";
 import Link from "next/link";
 import SearchIcon from "./searchIcon";
-import Account from "../public/acount-2.svg"
-import drop from "../public/drop.svg"
-import savedItems from "../public/saved.svg"
-import Orders from "../public/orders.svg"
+import Account from "../public/acount-2.svg";
+import drop from "../public/drop.svg";
+import savedItems from "../public/saved.svg";
+import Orders from "../public/orders.svg";
 import { useContext } from "react";
 import { AppContext } from "@/utils/AppContext";
 import { useRouter } from "next/router";
 export default function Nav() {
-  const router= useRouter()
-  const {cartItems,list,setIsNavOpen,isNavOpen} =useContext(AppContext)
+  const router = useRouter();
+  const { cartItems, list, setIsNavOpen, isNavOpen } = useContext(AppContext);
   return (
-    <Navbar maxWidth="xl" className="justify-around shadow px-3 bg-white p-0 sm:px-6" >
-    {  router.pathname.includes("/seller")&&
-        <NavbarMenuToggle className="flex sm:hidden" onClick={()=>{setIsNavOpen(!isNavOpen)}} aria-label={isNavOpen ? "Close menu" : "Open menu"} />
-      }
-      <NavbarBrand className="w-fit flex-grow-[0.2] md:flex-grow-[0.6]" as={Link} href="/">
+    <Navbar
+      maxWidth="xl"
+      className="justify-around shadow px-3 bg-white p-0 sm:px-6"
+    >
+      {router.pathname.includes("/seller") && (
+        <NavbarMenuToggle
+          className="flex sm:hidden"
+          onClick={() => {
+            setIsNavOpen(!isNavOpen);
+          }}
+          aria-label={isNavOpen ? "Close menu" : "Open menu"}
+        />
+      )}
+      <NavbarBrand
+        className="w-fit flex-grow-[0.2] md:flex-grow-[0.6]"
+        as={Link}
+        href="/"
+      >
         <Image src={logo} alt="logo" width={35} height={45} />
-        <p className="hidden md:flex text-3xl font-bold text-[#A46E05] ">KASUWA</p>
+        <p className="hidden md:flex text-3xl font-bold text-[#A46E05] ">
+          KASUWA
+        </p>
       </NavbarBrand>
       <NavbarContent className="sm:flex-grow-[1] flex-grow-[1.2]">
         <NavbarItem className="bg-white rounded-md w-full border border-[#A46E05]">
@@ -53,32 +68,37 @@ export default function Nav() {
             }}
             placeholder="Search"
           />
-          
         </NavbarItem>
-        <Button className="bg-[#A46E05BD] rounded-md px-3 py-[7px] text-white">Search</Button>
+        <Button className="bg-[#A46E05BD] rounded-md px-3 py-[7px] text-white">
+          Search
+        </Button>
       </NavbarContent>
-      <NavbarContent as="div" justify="end" style={{
-        flexGrow:"0.3"
-      }} className="">
+      <NavbarContent
+        as="div"
+        justify="end"
+        style={{
+          flexGrow: "0.3",
+        }}
+        className=""
+      >
         <Dropdown placement="bottom-end">
-          <DropdownTrigger >
+          <DropdownTrigger>
             <div className="flex gap-2 justify-between items-center cursor-pointer">
               <Image
-              className="transition-transform"
-              src={Account}
-              width={25}
-              height={25}
-              alt="account"
-            />
-            <span className="hidden sm:flex">Account</span>
-            <Image
-              className="transition-transform mt-1"
-              src={drop}
-              width={10}
-              height={10}
-              alt=""
-              
-            />
+                className="transition-transform"
+                src={Account}
+                width={25}
+                height={25}
+                alt="account"
+              />
+              <span className="hidden sm:flex">Account</span>
+              <Image
+                className="transition-transform mt-1"
+                src={drop}
+                width={10}
+                height={10}
+                alt=""
+              />
             </div>
           </DropdownTrigger>
           <DropdownMenu
@@ -86,11 +106,25 @@ export default function Nav() {
             variant="flat"
             className="bg-white rounded-md p-3 shadow"
           >
-            <DropdownItem  key="team_settings" className="myDropItem flex gap-1">
-             <Button className="w-full bg-[#A46E05BD] py-2 rounded-md ">Sign In</Button>
+            <DropdownItem key="team_settings" className="myDropItem flex gap-1">
+              <Button
+                className="w-full bg-[#A46E05BD] py-2 rounded-md text-white"
+                onClick={() => {
+                  router.push("/auth/signIn");
+                }}
+              >
+                Sign In
+              </Button>
             </DropdownItem>
             <DropdownItem className="myDropItem" key="analytics">
-             <Button className="w-full bg-[#A46E05BD] py-2 rounded-md ">Sign Up</Button>
+              <Button
+                className="w-full bg-[#A46E05BD] py-2 rounded-md text-white"
+                onClick={() => {
+                  router.push("/auth/signup");
+                }}
+              >
+                Sign Up
+              </Button>
             </DropdownItem>
             <DropdownItem className="myDropItem" key="system">
               <div className="flex gap-1 justify-start items-center">
@@ -110,7 +144,7 @@ export default function Nav() {
             </DropdownItem>
             <DropdownItem className="myDropItem" key="sell">
               <div className="flex gap-2 justify-start items-center">
-              <Image src={savedItems} alt="logo" width={20} height={20} />
+                <Image src={savedItems} alt="logo" width={20} height={20} />
                 <span>
                   {" "}
                   <Link href={"#"}>Saved Items</Link>
@@ -118,28 +152,38 @@ export default function Nav() {
               </div>
             </DropdownItem>
             <DropdownItem className="myDropItem flex sm:hidden h-[50px]">
-            <div className="flex gap-1 justify-start items-center">
-            <Badge className="bg-[#A46E05BD] text-white p-2 z-10" color="primary" content={cartItems.length} size="sm"> 
-            <Image src={cart} alt="logo" width={24} height={20} />
-            </Badge>
+              <div className="flex gap-1 justify-start items-center">
+                <Badge
+                  className="bg-[#A46E05BD] text-white p-2 z-10"
+                  color="primary"
+                  content={cartItems.length}
+                  size="sm"
+                >
+                  <Image src={cart} alt="logo" width={24} height={20} />
+                </Badge>
                 <span>
                   <Link href={"/cart"}>Cart</Link>
                 </span>
               </div>
-              </DropdownItem>
+            </DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </NavbarContent>
-        <NavbarItem className="hidden sm:flex">
+      <NavbarItem className="hidden sm:flex">
         <div className="flex gap-1 justify-start items-center">
-          <Badge className="bg-[#A46E05BD]  text-white p-2" color="primary" content={cartItems.length} size="sm"> 
-          <Image src={cart} alt="logo" width={20} height={20} />
+          <Badge
+            className="bg-[#A46E05BD]  text-white p-2"
+            color="primary"
+            content={cartItems.length}
+            size="sm"
+          >
+            <Image src={cart} alt="logo" width={20} height={20} />
           </Badge>
-                <span>
-                  <Link href={"/cart"}>Cart</Link>
-                </span>
-              </div>
-        </NavbarItem>
+          <span>
+            <Link href={"/cart"}>Cart</Link>
+          </span>
+        </div>
+      </NavbarItem>
     </Navbar>
   );
 }

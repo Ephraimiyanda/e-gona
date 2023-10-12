@@ -160,7 +160,7 @@ const SignUpForm: React.FC = () => {
             </p>
             <p>
               Have an account?
-              <Link href={"#"} className="text-[#38B419]">
+              <Link href={"/auth/signIn"} className="text-[#38B419]">
                 {""} Login
               </Link>
             </p>
