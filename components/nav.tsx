@@ -106,31 +106,29 @@ export default function Nav() {
             variant="flat"
             className="bg-white rounded-md p-3 shadow"
           >
-            <DropdownItem key="team_settings" className="myDropItem flex gap-1">
-              <Button
-                className="w-full bg-[#A46E05BD] py-2 rounded-md text-white"
-                onClick={() => {
-                  router.push("/auth/signIn");
-                }}
-              >
-                Sign In
-              </Button>
+
+            <DropdownItem className="myDropItem" key="analytics">
+              <Link href={"/auth/signIn"}>
+                <Button className="w-full bg-[#A46E05BD] py-2 rounded-md ">
+                  Sign In
+                </Button>
+              </Link>
             </DropdownItem>
             <DropdownItem className="myDropItem" key="analytics">
-              <Button
-                className="w-full bg-[#A46E05BD] py-2 rounded-md text-white"
-                onClick={() => {
-                  router.push("/auth/signup");
-                }}
+              <Link 
+              href={"/auth/signup"}
               >
+              
+              <Button className="w-full bg-[#A46E05BD] py-2 rounded-md ">
                 Sign Up
               </Button>
+              </Link>
             </DropdownItem>
             <DropdownItem className="myDropItem" key="system">
               <div className="flex gap-1 justify-start items-center">
                 <Image src={account} alt="logo" width={20} height={20} />
                 <span>
-                  <Link href={"#"}>My Account</Link>
+                  <Link href="/account">My Account</Link>
                 </span>{" "}
               </div>
             </DropdownItem>
