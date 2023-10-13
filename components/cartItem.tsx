@@ -13,7 +13,7 @@ interface cartItem {
 
 export default function Cartitem({img,index,title,saleScale,seller,price,quantity}:cartItem){
     const [count, setCount] = useState(quantity);
-    const {removeFromCart} =useContext(AppContext)
+    const {removeFromCart,increaseQuantity,decreaseQuantity} =useContext(AppContext)
     const increament = () => {
       setCount(count + 1);
     };
@@ -25,8 +25,14 @@ export default function Cartitem({img,index,title,saleScale,seller,price,quantit
    function deleteFromCart(index:number){
       removeFromCart(index)
     }
-
-  
+    const increaseCountQuantity = () => {
+      // Pass the index of the item to update its quantity
+      increaseQuantity(index);
+    };
+    const decreaseCountQuantity = () => {
+      // Pass the index of the item to update its quantity
+      decreaseQuantity(index);
+    };
     return(
         <div className="cartItem w-full flex gap-2 " key={index}>
         <Image
@@ -53,14 +59,20 @@ export default function Cartitem({img,index,title,saleScale,seller,price,quantit
             <div className="flex justify-center gap-1 text-white items-center">
               <Button
                 className="w-[25px] h-[25px] p-1 bg-[#A46E0580]"
-                onClick={decreament}
+                onClick={()=>{
+                  decreaseCountQuantity()
+                  decreament()
+                }}
               >
                 -
               </Button>
               <span className="text-black">{count}</span>
               <Button
                 className="w-[25px] h-[25px] p-1 bg-[#A46E05]"
-                onClick={increament}
+                onClick={()=>{
+                  increaseCountQuantity()
+                  increament()
+                }}
               >
                 +
               </Button>

@@ -111,10 +111,25 @@ function App({ Component, pageProps }: AppProps) {
     );
     setCartItems(updatedCart);
   };
+
+  const increaseQuantity = (index: number) => {
+    // Create a new array with the updated quantity for the specific item
+    const updatedCartItems = cartItems.map((item:any, i:any) =>
+      i === index ? { ...item, quantity: item.quantity + 1 } : item
+    );
+    setCartItems(updatedCartItems);
+  };
+  const decreaseQuantity = (index: number) => {
+    // Create a new array with the updated quantity for the specific item
+    const updatedCartItems = cartItems.map((item:any, i:any) =>
+      i === index ? { ...item, quantity: item.quantity - 1 } : item
+    );
+    setCartItems(updatedCartItems);
+  };
   const router = useRouter();
   return (
     <NextUIProvider>
-      <AppContext.Provider value={{ cartItems, setCartItems, addToCart, list,removeFromCart,isNavOpen,setIsNavOpen ,count,setCount}}>
+      <AppContext.Provider value={{ cartItems, setCartItems, addToCart, list,removeFromCart,isNavOpen,setIsNavOpen ,count,setCount,increaseQuantity,decreaseQuantity}}>
         <Head>
           {/* Define metadata for the app */}
           <meta name="viewport" content="width=device-width, initial-scale=1" />
