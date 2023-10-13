@@ -42,6 +42,7 @@ const SignUpForm: React.FC = () => {
     last_name: "",
     email: "",
     password: "",
+    location:""
   });
 
   return (
@@ -129,6 +130,37 @@ const SignUpForm: React.FC = () => {
                       name="phone"
                       type="tel"
                       // required
+                      className="border border-[#ccc] rounded-lg h-12 px-3 w-full focus:outline-none focus:border-[#A46E05]"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="mb-4">
+                <div className="flex flex-wrap -mx-4">
+                  <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0">
+                    <label htmlFor="address" className="block mb-2">
+                      Address
+                    </label>
+                    < textarea
+                      id="address"
+                      name="address"
+                      required
+                      value={formData.location}
+                      onChange={(e) =>
+                        setFormData({ ...formData, location: e.target.value })
+                      }
+                      className="border border-[#ccc] rounded-lg py-2 px-3 w-full focus:outline-none focus:border-[#A46E05] min-h-[12px] h-12 " 
+                    />
+                  </div>
+                  <div className="w-full md:w-1/2 px-4">
+                    <label htmlFor="confirmPassword" className="block mb-2">
+                      Confirm Password
+                    </label>
+                    <input
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      type="password"
+                      required
                       className="border border-[#ccc] rounded-lg h-12 px-3 w-full focus:outline-none focus:border-[#A46E05]"
                     />
                   </div>

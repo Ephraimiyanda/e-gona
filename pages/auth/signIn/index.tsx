@@ -24,6 +24,7 @@ const SignInForm: React.FC = () => {
       console.log("Signin successful", response);
       router.push("/");
       setLoading("loading");
+      console.log(response);
     } catch (error) {
       console.log("Signin error", error);
       setLoading("failed");
@@ -34,7 +35,7 @@ const SignInForm: React.FC = () => {
     if(loading==="idle"){
       return <div>Sign In</div>
     }else if (loading === "loading") {
-      return <div className="flex justify-center items-center gap-1"><Spinner className="z-50" size="md" color="primary"/>Signing up...</div>;
+      return <div className="flex justify-center items-center gap-1"><Spinner className="z-50" size="md" color="primary"/>Signing In...</div>;
     } else if (loading === "failed") {
       return <div>Signup failed. Please try again.</div>;
     }
@@ -110,7 +111,7 @@ const SignInForm: React.FC = () => {
                 type="submit"
                 className="bg-[#A46E05BD] text-white rounded-lg h-12 w-full"
               >
-                Sign in
+                {renderLoadingUI()}
               </Button>
             </form>
           </div>
@@ -133,11 +134,11 @@ const SignInForm: React.FC = () => {
               </span>
             </p>
             <p>
-              Don't have an account?
+              Don't have an account? 
 
               <Link href="/auth/signup" className="text-[#38B419]">
-
-               {renderLoadingUI()}
+                {" "}Sign up
+               
               </Link>
             </p>
           </div>
