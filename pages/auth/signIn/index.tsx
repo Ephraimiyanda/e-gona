@@ -1,4 +1,4 @@
-import { Button, Card, Spacer } from "@nextui-org/react";
+import { Button, Card, Spacer,Spinner } from "@nextui-org/react";
 import React, { useState } from "react";
 import logo from "public/logo.svg";
 import Image from "next/image";
@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 const API_BASE_URL = "https://kasuwa-b671.onrender.com/";
 
 const SignInForm: React.FC = () => {
+  const [loading,setLoading]=useState("idle")
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
@@ -22,9 +23,23 @@ const SignInForm: React.FC = () => {
       const response = await axios.post(`${API_BASE_URL}users/login`, formData);
       console.log("Signin successful", response);
       router.push("/");
+      setLoading("loading");
+      console.log(response);
     } catch (error) {
       console.log("Signin error", error);
+      setLoading("failed");
     }
+  };
+
+  const renderLoadingUI = () => {
+    if(loading==="idle"){
+      return <div>Sign In</div>
+    }else if (loading === "loading") {
+      return <div className="flex justify-center items-center gap-1"><Spinner className="z-50" size="md" color="primary"/>Signing In...</div>;
+    } else if (loading === "failed") {
+      return <div>Signup failed. Please try again.</div>;
+    }
+    return null;
   };
 
   return (
@@ -96,7 +111,7 @@ const SignInForm: React.FC = () => {
                 type="submit"
                 className="bg-[#A46E05BD] text-white rounded-lg h-12 w-full"
               >
-                Sign in
+                {renderLoadingUI()}
               </Button>
             </form>
           </div>
@@ -119,12 +134,11 @@ const SignInForm: React.FC = () => {
               </span>
             </p>
             <p>
-              Don't have an account?
+              Don't have an account? 
 
               <Link href="/auth/signup" className="text-[#38B419]">
-
-                {" "}
-                Sign up
+                {" "}Sign up
+               
               </Link>
             </p>
           </div>

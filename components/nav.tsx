@@ -109,7 +109,7 @@ export default function Nav() {
 
             <DropdownItem className="myDropItem" key="analytics">
               <Link href={"/auth/signIn"}>
-                <Button className="w-full bg-[#A46E05BD] py-2 rounded-md ">
+                <Button className="w-full text-white bg-[#A46E05BD] py-2 rounded-md ">
                   Sign In
                 </Button>
               </Link>
@@ -119,7 +119,7 @@ export default function Nav() {
               href={"/auth/signup"}
               >
               
-              <Button className="w-full bg-[#A46E05BD] py-2 rounded-md ">
+              <Button className="w-full bg-[#A46E05BD] text-white py-2 rounded-md ">
                 Sign Up
               </Button>
               </Link>

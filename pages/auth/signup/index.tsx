@@ -1,4 +1,4 @@
-import { Button, Card, Spacer } from "@nextui-org/react";
+import { Button, Card, Spacer, Spinner } from "@nextui-org/react";
 import React, { useState } from "react";
 import logo from "public/logo.svg";
 import Image from "next/image";
@@ -9,26 +9,40 @@ import { useRouter } from "next/router";
 const API_BASE_URL = "https://kasuwa-b671.onrender.com/";
 
 const SignUpForm: React.FC = () => {
+  const [loading,setLoading]=useState("idle")
   const router = useRouter();
   const handleSignUp = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-
+    setLoading("loading");
     try {
       const response = await axios.post(
         `${API_BASE_URL}users/register`,
         formData
       );
       console.log("Signup successful", response);
-      router.push("/");
+    router.push("/");
+      
     } catch (error) {
       console.log("Signup error", error);
+      setLoading("failed");
     }
+  };
+  const renderLoadingUI = () => {
+    if(loading==="idle"){
+      return <div>Sign up</div>
+    }else if (loading === "loading") {
+      return <div className="flex justify-center items-center gap-1"><Spinner className="z-50" size="md" color="primary"/>Signing up...</div>;
+    } else if (loading === "failed") {
+      return <div>Signup failed. Please try again.</div>;
+    }
+    return null;
   };
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
     email: "",
     password: "",
+    location:""
   });
 
   return (
@@ -121,6 +135,37 @@ const SignUpForm: React.FC = () => {
                   </div>
                 </div>
               </div>
+              <div className="mb-4">
+                <div className="flex flex-wrap -mx-4">
+                  <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0">
+                    <label htmlFor="address" className="block mb-2">
+                      Address
+                    </label>
+                    < textarea
+                      id="address"
+                      name="address"
+                      required
+                      value={formData.location}
+                      onChange={(e) =>
+                        setFormData({ ...formData, location: e.target.value })
+                      }
+                      className="border border-[#ccc] rounded-lg py-2 px-3 w-full focus:outline-none focus:border-[#A46E05] min-h-[12px] h-12 " 
+                    />
+                  </div>
+                  <div className="w-full md:w-1/2 px-4">
+                    <label htmlFor="confirmPassword" className="block mb-2">
+                      Confirm Password
+                    </label>
+                    <input
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      type="password"
+                      required
+                      className="border border-[#ccc] rounded-lg h-12 px-3 w-full focus:outline-none focus:border-[#A46E05]"
+                    />
+                  </div>
+                </div>
+              </div>
 
               <div className="mb-4">
                 <div className="flex flex-wrap -mx-4">
@@ -169,7 +214,7 @@ const SignUpForm: React.FC = () => {
                 type="submit"
                 className="bg-[#A46E05BD] text-white rounded-lg h-12 w-full"
               >
-                Sign up
+                {renderLoadingUI()}
               </Button>
             </form>
           </div>
