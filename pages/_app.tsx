@@ -29,91 +29,92 @@ const list = [
     title: "corn",
     saleScale: "kg",
     img: "corn.svg",
-    price: "₦5.50",
+    price: "5.50",
     seller: "shadrach",
   },
   {
     title: "Eggs",
     saleScale: "crate",
     img: "eggs.svg",
-    price: "₦3.00",
+    price: "3.00",
     seller: "Godman",
   },
   {
     title: "Egpytian Sheep",
     saleScale: "sheep",
     img: "egyptian sheep.svg",
-    price: "₦10.00",
+    price: "10.00",
     seller: "Ephraim",
   },
   {
     title: "Fertilizer",
     saleScale: "kg",
     img: "fertilizer.svg",
-    price: "₦5.30",
+    price: "5.30",
     seller: "Ephraim backend",
   },
   {
     title: "milk",
     saleScale: "bottle",
     img: "milk.svg",
-    price: "₦15.70",
+    price: "15.70",
     seller: "jesse",
   },
   {
     title: "potatoe",
     saleScale: "kg",
     img: "potatoe.svg",
-    price: "₦8.00",
+    price: "8.00",
     seller: "E-max b",
   },
   {
     title: "cattle",
     saleScale: "cattle",
     img: "cattle.svg",
-    price: "₦7.50",
+    price: "7.50",
     seller: "mallam b",
   },
   {
     title: "Fertilizer",
     saleScale: "kg",
     img: "fertilizer.svg",
-    price: "₦5.30",
+    price: "5.30",
     seller: "mallam a",
   },
   {
     title: "milk",
     saleScale: "bottle",
     img: "milk.svg",
-    price: "₦15.70",
+    price: "15.70",
     seller: "mallam c",
   },
   {
     title: "potatoe",
     saleScale: "kg",
     img: "potatoe.svg",
-    price: "₦8.00",
+    price: "8.00",
     seller: "mallam d",
   },
 ];
 function App({ Component, pageProps }: AppProps) {
   const [cartItems, setCartItems] = useState<any>([]);
   const [isNavOpen,setIsNavOpen]=useState(false)
-  const addToCart = (product: any) => {
-    setCartItems([...cartItems, { ...product }]);
-  };
+  const [count, setCount] = useState(1);
 
+  const addToCart = (product:any,count:number) => {
+    const itemWithCount = { ...product, quantity: count };
+    setCartItems([...cartItems, itemWithCount]);
+  };
   const removeFromCart = (cartItemIndex:number) => {
     const updatedCart = cartItems.filter(
       (cartItem:any,index:number) => index !== cartItemIndex
     );
     setCartItems(updatedCart);
   };
-
   const router = useRouter();
   return (
     <NextUIProvider>
-      <AppContext.Provider value={{ cartItems, setCartItems, addToCart, list,removeFromCart,isNavOpen,setIsNavOpen }}>
+      <AppContext.Provider value={{ cartItems, setCartItems, addToCart, list,removeFromCart,isNavOpen,setIsNavOpen ,count,setCount}}>
         <Head>
           {/* Define metadata for the app */}
           <meta name="viewport" content="width=device-width, initial-scale=1" />

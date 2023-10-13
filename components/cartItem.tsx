@@ -7,12 +7,13 @@ interface cartItem {
     price: string;
     saleScale: string;
     title: string;
-    seller:string
+    seller:string;
+    quantity:number
   }
 
-export default function Cartitem({img,index,title,saleScale,seller,price}:cartItem){
-    const [count, setCount] = useState(0);
-    const {cartItems,list,removeFromCart} =useContext(AppContext)
+export default function Cartitem({img,index,title,saleScale,seller,price,quantity}:cartItem){
+    const [count, setCount] = useState(quantity);
+    const {removeFromCart} =useContext(AppContext)
     const increament = () => {
       setCount(count + 1);
     };
@@ -48,7 +49,7 @@ export default function Cartitem({img,index,title,saleScale,seller,price}:cartIt
             <span className="text-stone-600">In stock</span>
           </div>
           <div className="flex flex-col gap-3">
-            <p className="text-center">{price}</p>
+            <p className="text-center">₦{price}</p>
             <div className="flex justify-center gap-1 text-white items-center">
               <Button
                 className="w-[25px] h-[25px] p-1 bg-[#A46E0580]"

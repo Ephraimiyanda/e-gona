@@ -30,13 +30,13 @@ interface card {
 }
 
 export default function Home() {
+  const {cartItems,list,count} =useContext(AppContext)
   const date = new Date();
   const seconds = date.getSeconds();
   const hours = date.getHours();
   const days = date.getDay();
   const minutes = date.getMinutes();
 
-  const {cartItems,list} =useContext(AppContext)
  
   return (
     <div className="mx-auto flex flex-col w-full">
@@ -196,6 +196,7 @@ export default function Home() {
             price={items.price}
             saleScale={items.saleScale}
             title={items.title}
+            count={count}
           />
         ))}
       </div>
@@ -236,6 +237,7 @@ export default function Home() {
             price={items.price}
             saleScale={items.saleScale}
             title={items.title}
+            count={count}
           />
         ))}
       </div>
@@ -254,6 +256,7 @@ export default function Home() {
               price={items.price}
               saleScale={items.saleScale}
               title={items.title}
+              count={count}
             />
           ))}
         </div>

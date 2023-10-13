@@ -7,37 +7,19 @@ import Cartitem from "@/components/cartItem";
 import Sidebar from "@/components/sidebar";
 
 export default function Cart() {
-  const [totalPrice, setTotalPrice] = useState("");
-  const [count, setCount] = useState(0);
-  const { cartItems, list } = useContext(AppContext);
-  console.log(totalPrice);
-  const increament = () => {
-    setCount(count + 1);
-  };
-  const decreament = () => {
-    if (count > 0) {
-      setCount(count - 1);
-    }
-  };
-  function calculateTotalPrice() {
-    let total = 0;
-    for (const item of cartItems) {
-      total += parseFloat(item.price);
-    }
-    setTotalPrice((total * count).toFixed(2));
-  }
+  const { cartItems, list ,count} = useContext(AppContext);
 
-  useEffect(() => {
-    calculateTotalPrice();
-  }, [cartItems, count]);
-
+  const total = cartItems.reduce(
+    (item:any, current:any) => (item +( parseFloat(current.price) * current.quantity)),
+    0.00
+  );
+ 
+ 
   return (
     <div className="pt-6 ">
       <div className="flex max-w-[1280px] mx-auto px-6 gap-3 md:flex-row flex-col">
         <div
-          className={`${
-            cartItems.length < 3 && "h-[55vh]"
-          } w-full h-full flex flex-col gap-3 bg-white p-4`}
+          className={`min-h-[55vh] w-full h-full flex flex-col gap-3 bg-white p-4`}
         >
           <h1 className="border-b border-b-black text-3xl font-semibold">
             Cart({cartItems.length})
@@ -52,6 +34,7 @@ export default function Cart() {
                 title={items.title}
                 seller={items.seller}
                 key={index}
+                quantity={items.quantity}
               />
             ))
           ) : (
@@ -72,9 +55,9 @@ export default function Cart() {
                 <span className="font-bold text-md">Subtotal</span>
                 <p className="text-stone-600">Delivery not included yet</p>
               </div>
-              <span>₦{totalPrice}</span>
+              <span>₦{total.toFixed(2)}</span>
             </div>
-            <Button className="text-white text-sm bg-[#A46E05BD] rounded-md py-2 px-4">Checkout ({totalPrice})</Button>
+            <Button className="text-white text-sm bg-[#A46E05BD] rounded-md py-2 px-4">Checkout (₦{total.toFixed(2)})</Button>
           </div>
         </div>
       </div>
@@ -102,6 +85,7 @@ export default function Cart() {
                 price={items.price}
                 saleScale={items.saleScale}
                 title={items.title}
+                count={count}
               />
             )
           )}
