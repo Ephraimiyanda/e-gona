@@ -4,7 +4,7 @@ import type { AppProps } from "next/app";
 import Nav from "@/components/nav";
 import "../app/globals.css";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import Footer from "@/components/footer";
 import { AppContext } from "@/utils/AppContext";
 import Head from "next/head";
@@ -100,6 +100,19 @@ function App({ Component, pageProps }: AppProps) {
   const [cartItems, setCartItems] = useState<any>([]);
   const [isNavOpen,setIsNavOpen]=useState(false)
   const [count, setCount] = useState(1);
+
+  useEffect(() => {
+    // Load cart items from local storage when the app starts
+    const savedCartItems = localStorage.getItem("cartItems");
+    if (savedCartItems) {
+      setCartItems(JSON.parse(savedCartItems));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Save cart items to local storage whenever they change
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const addToCart = (product:any,count:number) => {
     const itemWithCount = { ...product, quantity: count };

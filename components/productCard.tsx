@@ -81,7 +81,7 @@ export default function ProductCard({
             </div>
             <div className="flex justify-between">
               <p>price(per {saleScale}):</p>
-              <p className="text-default-500">₦{price}</p>
+              <p className="text-default-500">₦{price.toLocaleString ()}</p>
             </div>
           </div>
           <Button
@@ -91,7 +91,7 @@ export default function ProductCard({
               addToCart(item, localCount);
             }}
           >
-            <Image src="cart copy.svg" />
+            <Image src="cart copy.svg" alt="cart"/>
             <span>Add to cart</span>
           </Button>
         </CardFooter>
