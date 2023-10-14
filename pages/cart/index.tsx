@@ -1,22 +1,120 @@
-import { useContext, useState,useEffect} from "react";
+import { useContext, useState, useEffect } from "react";
 import { AppContext } from "@/utils/AppContext";
 import cart from "/public/cart.svg";
-import { Image, Button, card } from "@nextui-org/react";
+import {
+  Image,
+  Button,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+  Input,
+} from "@nextui-org/react";
 import ProductCard from "@/components/productCard";
 import Cartitem from "@/components/cartItem";
 import Sidebar from "@/components/sidebar";
+import { useRouter } from "next/router";
 
 export default function Cart() {
-  const { cartItems, list ,count} = useContext(AppContext);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const router = useRouter();
+  const { cartItems, list, count } = useContext(AppContext);
+  const userDetails =
+    typeof window !== "undefined" ? window.localStorage.getItem("user") : false;
 
+  const user = JSON.parse(userDetails as string);
   const total = cartItems.reduce(
-    (item:any, current:any) => (item +( parseFloat(current.price) * current.quantity)),
-    0.00
+    (item: any, current: any) =>
+      item + parseFloat(current.price) * current.quantity,
+    0.0
   );
- 
- 
+  const checkout = () => {
+    if (!user) {
+      router.push("/auth/signIn");
+    } else {
+      onOpen();
+    }
+  };
+  const DeliveryFee = 1000;
   return (
     <div className="pt-6 ">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Check Out
+              </ModalHeader>
+
+              <div className="bg-stone-200 px-6">ORDER SUMMARY</div>
+              <ModalBody>
+                <div className=" border-b border-b-gray-400 pb-1">
+                  <div className="flex justify-between">
+                    <p>Item's total({cartItems.length})</p>
+                    <span className="font-semibold">
+                      ₦{total.toLocaleString("en-US")}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <p>Delivery fees</p>
+                    <span className="font-semibold">
+                      ₦{DeliveryFee.toLocaleString("en-US")}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex justify-between  border-b border-b-gray-400 pb-1">
+                  <p>Total</p>
+                  <span className="font-semibold">
+                    ₦{(total + DeliveryFee).toLocaleString("en-US")}
+                  </span>
+                </div>
+                <div className="flex gap-[3px]">
+                  <Input
+                    placeholder="Enter discount code here"
+                    className="border text-black border-gray-400 rounded-md"
+                    radius="sm"
+                  />
+                  <Button className="text-white bg-[#A46E05] rounded-md">
+                    Apply{" "}
+                  </Button>
+                </div>
+                <div className="border border-gray-400 rounded-md">
+                  <div className="flex justify-between p-2 border-b border-gray-400">
+                    <p>we support</p>
+                    <div className="flex gap-[4px] justify-center items-center">
+                      <Image src="mastercard.svg"></Image>
+                      <Image src="verve.svg"></Image>
+                      <Image src="interswitch.svg"></Image>
+                    </div>
+                  </div>
+                  <p className="p-2 ">
+                    please note that you will be directed to our paystack
+                    payment account to complete your purchase of goods...
+                  </p>
+                </div>
+
+                <div className="flex gap-2 w-fit ml-auto">
+                  <p>powered by</p>
+                  <div className="flex">
+                    <Image src="logo.svg" alt="logo" className="w-[20px]" />
+                    <span className="text-[#A46E05]">KASUWA</span>
+                  </div>
+                </div>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Cancel Order
+                </Button>
+                <Button color="primary" onPress={onClose}>
+                  Place order
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
       <div className="flex max-w-[1280px] mx-auto px-6 gap-3 md:flex-row flex-col">
         <div
           className={`min-h-[55vh] w-full h-full flex flex-col gap-3 bg-white p-4`}
@@ -57,7 +155,15 @@ export default function Cart() {
               </div>
               <span>₦{total.toFixed(2)}</span>
             </div>
-            <Button className="text-white text-sm bg-[#A46E05BD] rounded-md py-2 px-4">Checkout (₦{total.toFixed(2)})</Button>
+            {cartItems.length>0&&(
+               <Button
+              onPress={checkout}
+              className="text-white text-sm bg-[#A46E05BD] rounded-md py-2 px-4"
+            >
+              Checkout (₦{total.toFixed(2)})
+            </Button>
+            )}
+           
           </div>
         </div>
       </div>

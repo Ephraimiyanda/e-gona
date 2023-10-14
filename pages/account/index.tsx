@@ -1,3 +1,4 @@
+"use client"
 import { Button, Card, Input, Spacer } from "@nextui-org/react";
 import React from "react";
 import Footer from "@/components/footer";
@@ -9,9 +10,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Account: React.FC = () => {
+  const userDetails =    typeof window !== "undefined" ? window.localStorage.getItem("user") : false;
+  const user =userDetails&& JSON.parse(userDetails as string);
+  const{first_name,email,location}=user;
   return (
     <div>
       <div
+      className="items-center justify-center"
         style={{
           backgroundColor: "#f2f2f2",
           minHeight: "100vh",
@@ -33,9 +38,9 @@ const Account: React.FC = () => {
                 <div className="border  p-4 rounded-xl h-48 mb-4">
                   <p>Account Details</p>
                   <hr className="bg-gray-400 w-full mt-4 " />
-                  <h1 className="mt-3">Bashir Sheidu </h1>
+                  <h1 className="mt-3">{first_name} </h1>
                   <p className="font-light text-gray-400 ">
-                    bashirsheidu@kasuwa.com
+                    {email}
                   </p>
                 </div>
               </div>
@@ -49,10 +54,8 @@ const Account: React.FC = () => {
                   </div>
                   <hr className="bg-gray-400 w-full mt-4 " />
                   <h1 className="mt-3">Your default shipping Address</h1>
-                  <p className="font-light text-gray-400 text-sm mt ">
-                    3rd floor TAEN Business Building, <br />
-                    Old Airport, Jos <br />
-                    +2348066899097 / +23470856577
+                  <p className="font-light text-gray-400 text-sm mt max-w-[350px] ">
+                    {location}
                   </p>
                 </div>
               </div>
@@ -99,7 +102,6 @@ const Account: React.FC = () => {
           </div>
         </Card>
       </div>
-      <Footer />
     </div>
   );
 };

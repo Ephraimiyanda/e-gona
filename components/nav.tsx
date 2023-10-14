@@ -1,3 +1,4 @@
+import React, { useState } from "react"; // Import React and useState
 import {
   Navbar,
   NavbarBrand,
@@ -12,6 +13,8 @@ import {
   DropdownMenu,
   Badge,
   NavbarMenuToggle,
+  Radio,
+  RadioGroup,
 } from "@nextui-org/react";
 import Image from "next/image";
 import logo from "../public/logo.svg";
@@ -28,9 +31,26 @@ import Orders from "../public/orders.svg";
 import { useContext } from "react";
 import { AppContext } from "@/utils/AppContext";
 import { useRouter } from "next/router";
+import logout from "../public/logout copy.svg";
+
 export default function Nav() {
   const router = useRouter();
   const { cartItems, list, setIsNavOpen, isNavOpen } = useContext(AppContext);
+  const userDetails =
+    typeof window !== "undefined" ? window.localStorage.getItem("user") : false;
+  const user = JSON.parse(userDetails as string);
+  const [isDropdownOpen, setDropdownOpen] = useState(false); // Use state to control the dropdown
+
+  const handleDropdownClick = () => {
+    if (!user) {
+      // If no user is logged in, redirect to the Sign In page
+      router.push("/auth/signIn");
+    } else {
+      // If a user is logged in, toggle the dropdown
+      setDropdownOpen(!isDropdownOpen);
+    }
+  };
+
   return (
     <Navbar
       maxWidth="xl"
@@ -56,20 +76,22 @@ export default function Nav() {
         </p>
       </NavbarBrand>
       <NavbarContent className="sm:flex-grow-[1] flex-grow-[1.2]">
-        <NavbarItem className="bg-white rounded-md w-full border border-[#A46E05]">
+        <NavbarItem className="bg-white rounded-md w-full border ">
           <Input
             startContent={<SearchIcon />}
-            className="text-black  w-full m-auto"
-            radius="full"
+            className="text-black  w-full m-auto border border-[#A46E05] rounded-[7px] bg-white"
+            radius="sm"
             style={{
               paddingTop: "7px",
               paddingBottom: "7px",
               width: "100%",
+              borderColor: "#A46E05",
+              background: "white",
             }}
             placeholder="Search"
           />
         </NavbarItem>
-        <Button className="bg-[#A46E05BD] rounded-md px-3 py-[7px] text-white">
+        <Button className="bg-[#A46E05BD] rounded-md px-3 py-[6px] text-white">
           Search
         </Button>
       </NavbarContent>
@@ -81,7 +103,7 @@ export default function Nav() {
         }}
         className=""
       >
-        <Dropdown placement="bottom-end">
+        <Dropdown placement="bottom-end" onClick={handleDropdownClick}>
           <DropdownTrigger>
             <div className="flex gap-2 justify-between items-center cursor-pointer">
               <Image
@@ -104,27 +126,29 @@ export default function Nav() {
           <DropdownMenu
             aria-label="Profile Actions"
             variant="flat"
-            className="bg-white rounded-md p-3 shadow"
+            className="bg-white rounded-md p-3 flex flex-col gap-2"
           >
+            {!user && (
+              <DropdownItem variant="flat" className="p-0" key="sign in">
+                <Link href={"/auth/signIn"}>
+                  <Button className="w-full text-white bg-[#A46E05BD] py-2 rounded-md">
+                    Sign In
+                  </Button>
+                </Link>
+              </DropdownItem>
+            )}
 
-            <DropdownItem className="myDropItem" key="analytics">
-              <Link href={"/auth/signIn"}>
-                <Button className="w-full text-white bg-[#A46E05BD] py-2 rounded-md ">
-                  Sign In
-                </Button>
-              </Link>
-            </DropdownItem>
-            <DropdownItem className="myDropItem" key="analytics">
-              <Link 
-              href={"/auth/signup"}
-              >
-              
-              <Button className="w-full bg-[#A46E05BD] text-white py-2 rounded-md ">
-                Sign Up
-              </Button>
-              </Link>
-            </DropdownItem>
-            <DropdownItem className="myDropItem" key="system">
+            {!user && (
+              <DropdownItem variant="flat" className=" p-0" key="sign up">
+                <Link href={"/auth/signup"}>
+                  <Button className="w-full bg-[#A46E05BD] text-white py-2 rounded-md">
+                    Sign Up
+                  </Button>
+                </Link>
+              </DropdownItem>
+            )}
+
+            <DropdownItem variant="flat" className=" py-2" key="account">
               <div className="flex gap-1 justify-start items-center">
                 <Image src={account} alt="logo" width={20} height={20} />
                 <span>
@@ -132,7 +156,7 @@ export default function Nav() {
                 </span>{" "}
               </div>
             </DropdownItem>
-            <DropdownItem className="myDropItem" key="settings">
+            <DropdownItem variant="flat" className=" py-2" key="settings">
               <div className="flex gap-1 justify-start items-center">
                 <Image src={Orders} alt="logo" width={20} height={20} />
                 <span>
@@ -140,7 +164,7 @@ export default function Nav() {
                 </span>
               </div>
             </DropdownItem>
-            <DropdownItem className="myDropItem" key="sell">
+            <DropdownItem variant="flat" className=" py-2" key="saved items">
               <div className="flex gap-2 justify-start items-center">
                 <Image src={savedItems} alt="logo" width={20} height={20} />
                 <span>
@@ -149,19 +173,43 @@ export default function Nav() {
                 </span>
               </div>
             </DropdownItem>
-            <DropdownItem className="myDropItem flex sm:hidden h-[50px]">
-              <div className="flex gap-1 justify-start items-center">
-                <Badge
-                  className="bg-[#A46E05BD] text-white p-2 z-10"
-                  color="primary"
-                  content={cartItems.length}
-                  size="sm"
-                >
-                  <Image src={cart} alt="logo" width={24} height={20} />
-                </Badge>
+            <DropdownItem
+              variant="flat"
+              className="myDropItem flex sm:hidden   py-1"
+            >
+              <div className="flex gap-2 justify-start items-center">
+                {cartItems.length > 0 ? (
+                  <Badge
+                    className="bg-[#A46E05BD] text-white p-1 pt-0 z-10 mt-[2px]"
+                    color="primary"
+                    content={cartItems.length}
+                  >
+                    <Image src={cart} alt="logo" width={21} height={20} />
+                  </Badge>
+                ) : (
+                  <Image src={cart} alt="logo" width={21} height={20} />
+                )}
+
                 <span>
                   <Link href={"/cart"}>Cart</Link>
                 </span>
+              </div>
+            </DropdownItem>
+            <DropdownItem
+              onClick={() => {
+                localStorage.removeItem("user");
+                router.push("/");
+              }}
+              variant="flat"
+              className="text-danger"
+              key="logout"
+              color="danger"
+            >
+              <div className="flex gap-1 justify-start items-center">
+                <Image src={logout} alt="logo" width={21} height={20} />
+                <span>
+                  <Link href="/account">Logout</Link>
+                </span>{" "}
               </div>
             </DropdownItem>
           </DropdownMenu>
@@ -169,14 +217,17 @@ export default function Nav() {
       </NavbarContent>
       <NavbarItem className="hidden sm:flex">
         <div className="flex gap-1 justify-start items-center">
-          <Badge
-            className="bg-[#A46E05BD]  text-white p-2"
-            color="primary"
-            content={cartItems.length}
-            size="sm"
-          >
-            <Image src={cart} alt="logo" width={20} height={20} />
-          </Badge>
+          {cartItems.length > 0 ? (
+            <Badge
+              className="bg-[#A46E05BD] text-white p-1 pt-0 z-10 mt-[2px]"
+              color="primary"
+              content={cartItems.length}
+            >
+              <Image src={cart} alt="logo" width={21} height={20} />
+            </Badge>
+          ) : (
+            <Image src={cart} className="pt-0" alt="logo" width={21} height={20} />
+          )}
           <span>
             <Link href={"/cart"}>Cart</Link>
           </span>

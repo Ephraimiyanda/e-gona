@@ -34,7 +34,10 @@ export default function Footer(){
             <div className="flex gap-1 max-w-[400px]">
               <Input
                 startContent={<MailIcon />}
-                className="text-black py-2 rounded-md bg-white"
+                style={{
+                  padding:"8px"
+                }}
+                className="text-black rounded-md bg-white"
                 placeholder="Enter your email address"
               />
               <Button className="text-white text-sm bg-[#A46E05BD] rounded-md py-2 px-4">
@@ -50,9 +53,8 @@ export default function Footer(){
               </p>
               <p className="text-white">Get Access to our exclusive offers</p>
               <div className="flex sm:flex-row flex-col gap-2">
-                <div className="border border-white rounded-[10px] w-[200px]  ">
                   <Button
-                    className="w-full"
+                    className="w-[200px] border-white border h-[55px] py-2 bg-transparent "
                     startContent={
                       <Image
                         src={ioslogo}
@@ -63,7 +65,7 @@ export default function Footer(){
                       />
                     }
                   >
-                    <p className="flex flex-col leading-[13px] p-2 h-full w-full text-white">
+                    <p className="flex flex-col leading-[13px]  h-full w-full text-white">
                       <span className="text-[14px] font-light text-left">
                         Download on the
                       </span>
@@ -72,10 +74,8 @@ export default function Footer(){
                       </span>
                     </p>
                   </Button>
-                </div>
-                <div className="border border-white rounded-[10px] w-[200px] ">
                   <Button
-                    className="w-full"
+                    className=" w-[200px] border-white border h-[55px] py-2 bg-transparent"
                     startContent={
                       <Image
                         src={googleplay}
@@ -86,7 +86,7 @@ export default function Footer(){
                       />
                     }
                   >
-                    <p className="flex flex-col leading-[13px] p-2 h-full w-full text-white">
+                    <p className="flex flex-col leading-[13px]  h-full w-full text-white">
                       <span className="text-[14px] font-light text-left">
                         Get it on
                       </span>
@@ -95,7 +95,6 @@ export default function Footer(){
                       </span>
                     </p>
                   </Button>
-                </div>
               </div>
             </div>
           </div>

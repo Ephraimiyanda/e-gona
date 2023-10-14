@@ -1,6 +1,7 @@
 import { Button,Image } from "@nextui-org/react"
 import { useState,useContext } from "react";
 import { AppContext } from "@/utils/AppContext";
+import {MdOutlineDeleteForever} from "react-icons/md"
 interface cartItem {
     img: string;
     index: number;
@@ -36,6 +37,7 @@ export default function Cartitem({img,index,title,saleScale,seller,price,quantit
     return(
         <div className="cartItem w-full flex gap-2 " key={index}>
         <Image
+        radius="none"
           removeWrapper
           className="w-[150px] h-[120px] object-cover max-w-[150px]"
           src={img}
@@ -55,10 +57,11 @@ export default function Cartitem({img,index,title,saleScale,seller,price,quantit
             <span className="text-stone-600">In stock</span>
           </div>
           <div className="flex flex-col gap-3">
-            <p className="text-center">₦{price}</p>
-            <div className="flex justify-center gap-1 text-white items-center">
+            <p className="text-center">₦{price.toLocaleString ()}</p>
+            <div className="flex justify-between px-1 gap-1 text-white items-center">
               <Button
-                className="w-[25px] h-[25px] p-1 bg-[#A46E0580]"
+                radius="none"
+                className="w-[25px] h-[25px] min-w-[25px] p-1 bg-[#A46E0580]"
                 onClick={()=>{
                   decreaseCountQuantity()
                   decreament()
@@ -68,7 +71,8 @@ export default function Cartitem({img,index,title,saleScale,seller,price,quantit
               </Button>
               <span className="text-black">{count}</span>
               <Button
-                className="w-[25px] h-[25px] p-1 bg-[#A46E05]"
+                radius="none"
+                className="w-[25px] h-[25px] min-w-[25px] p-1 bg-[#A46E05]"
                 onClick={()=>{
                   increaseCountQuantity()
                   increament()
@@ -77,7 +81,7 @@ export default function Cartitem({img,index,title,saleScale,seller,price,quantit
                 +
               </Button>
             </div>
-            <Button onClick={()=>{deleteFromCart(index)}} className="p-2 bg-[#A46E05BD] text-white rounded-md mt-auto">Remove Item</Button>
+            <Button startContent={<MdOutlineDeleteForever size={25}/>} onClick={()=>{deleteFromCart(index)}} className="p-2 bg-[#A46E05BD] text-white rounded-md mt-auto">Remove Item</Button>
           </div>
         </div>
       </div>

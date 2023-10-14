@@ -16,10 +16,10 @@ export default function Sidebar() {
 
 
   return (
-    <div className={` sm:w-[270px] flex flex-col gap-10 py-8  bg-white transition-all duration-100   left-[0] ${!isNavOpen?"w-[0] overflow-hidden relative  p-0":"w-[270px] z-50 h-full fixed"} `}>
+    <div className={` sm:w-[270px] flex flex-col gap-10 py-8  bg-white transition-all duration-75   left-[0] ${!isNavOpen?"w-[0] overflow-hidden relative ":"w-[270px] z-50 h-full fixed overflow-auto"} `}>
       <ul className="flex flex-col gap-3 px-8">
         <li
-          className={`py-2 px-2 w-full  hover:bg-[#A46E054D] rounded-md flex gap-2 justify-start items-center ${
+          className={`py-2 px-2 w-full transition-all duration-150  hover:bg-[#A46E054D] rounded-md flex gap-2 justify-start items-center ${
             pathname.includes("dashboard") && "bg-[#A46E054D]"
           } `}
         >
@@ -32,7 +32,7 @@ export default function Sidebar() {
           </Link>
         </li>
         <li
-          className={`py-2 px-2 w-full  hover:bg-[#A46E054D] rounded-md flex gap-2 justify-start items-center  ${
+          className={`py-2 px-2 w-full transition-all duration-150  hover:bg-[#A46E054D] rounded-md flex gap-2 justify-start items-center  ${
             pathname.includes("products") && "bg-[#A46E054D]"
           } `}
         >
@@ -45,7 +45,7 @@ export default function Sidebar() {
           </Link>
         </li>
         <li
-          className={`py-2 px-2 w-full  hover:bg-[#A46E054D] rounded-md flex gap-2 justify-start items-center  ${
+          className={`py-2 px-2 w-full transition-all duration-150  hover:bg-[#A46E054D] rounded-md flex gap-2 justify-start items-center  ${
             pathname.includes("orders") && "bg-[#A46E054D]"
           } `}
         >
@@ -58,7 +58,7 @@ export default function Sidebar() {
           </Link>
         </li>
         <li
-          className={`py-2 px-2 w-full  hover:bg-[#A46E054D] rounded-md flex gap-2 justify-start items-center  ${
+          className={`py-2 px-2 w-full transition-all duration-150  hover:bg-[#A46E054D] rounded-md flex gap-2 justify-start items-center  ${
             pathname.includes("reviews") && "bg-[#A46E054D]"
           } `}
         >
@@ -73,7 +73,7 @@ export default function Sidebar() {
       </ul>
       <ul className="flex flex-col gap-3 py-4 border-t border-t-[#A46E05] px-8">
         <li
-          className={`py-2 px-2 w-full  hover:bg-[#A46E054D] rounded-md flex gap-2 justify-start items-center  ${
+          className={`py-2 px-2 w-full transition-all duration-150  hover:bg-[#A46E054D] rounded-md flex gap-2 justify-start items-center  ${
             pathname.includes("feedback") && "bg-[#A46E054D]"
           }`}
         >
@@ -86,7 +86,7 @@ export default function Sidebar() {
           </Link>
         </li>
         <li
-          className={`py-2 px-2 w-full  hover:bg-[#A46E054D] rounded-md flex gap-2 justify-start items-center  ${
+          className={`py-2 px-2 w-full transition-all duration-150  hover:bg-[#A46E054D] rounded-md flex gap-2 justify-start items-center  ${
             pathname.includes("logout") && "bg-[#A46E054D]"
           } `}
         >
