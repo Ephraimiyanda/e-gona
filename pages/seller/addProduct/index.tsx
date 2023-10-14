@@ -117,9 +117,9 @@ const Dashboard: React.FC = () => {
   } 
 
  return (
-    <div>
+    <div >
       <div
-        className="px-6"
+        className="px-6 gap-4"
         style={{
           backgroundColor: "#f2f2f2",
           minHeight: "100vh",
@@ -130,8 +130,8 @@ const Dashboard: React.FC = () => {
       >
         <div style={{ display: "flex" }}>
           <Sidebar />
-          <div className="w-full flex flex-col px-10 pt-6 pb-6">
-            <Card className=" mt-6 h-[100px]">
+          <div className="w-full flex flex-col px-10 pt-6 pb-6 gap-[20px]">
+            <Card className=" mt-6 h-[100px] px-10 pt-6">
               <div className="">
                 <div className="flex items-center">
                   <Image
@@ -297,13 +297,14 @@ const Dashboard: React.FC = () => {
                     height: "35px",
                     paddingTop: "5px",
                     background: "white",
+                    width:"100%"
                   }}
                   scrollShadowProps={{
                     isEnabled:false
                   }}
                   placeholder="Choose the product category"
                   value={form.productCategory}
-                  className=" text-black bg-white  max-w-[600px] w-full md:w-[300px]  mr-auto border border-black py-1"
+                  className=" text-black bg-white  w-full   mr-auto border border-black py-1 pb-0"
                   radius="lg"
                   onChange={(e) => {
                     setForm({
@@ -314,12 +315,9 @@ const Dashboard: React.FC = () => {
                 >
                   {categories.map((category) => (
                     <SelectItem
-                      className="bg-white "
                       key={category}
                       value={category}
-                      style={{
-                        background: "white",
-                      }}
+                     
                     >
                       {category}
                     </SelectItem>

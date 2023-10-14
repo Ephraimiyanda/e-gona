@@ -31,7 +31,7 @@ const SignUpForm: React.FC = () => {
     if(loading==="idle"){
       return <div>Sign up</div>
     }else if (loading === "loading") {
-      return <div className="flex justify-center items-center gap-1"><Spinner className="z-50" size="md" color="primary"/>Signing up...</div>;
+      return <div className="flex justify-center items-center gap-1"><Spinner className="z-50" size="md" color="default"/>Signing up...</div>;
     } else if (loading === "failed") {
       return <div>Signup failed. Please try again.</div>;
     }

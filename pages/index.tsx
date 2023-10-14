@@ -156,7 +156,7 @@ export default function Home() {
                   <span className="text-[11px]">Seconds</span>
                 </div>
               </div>
-              <Button className="bg-[#38B419] w-[100px] py-3 px-6  text-xs text-white">
+              <Button radius="sm" className="bg-[#38B419] w-[100px] py-3 px-6  text-xs text-white">
                 Buy Now!
               </Button>
             </div>
@@ -246,7 +246,7 @@ export default function Home() {
           {" "}
           Most Searched Product
         </span>
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))]  w-full gap-x-[1.50rem] gap-y-4 pt-10 max-w-[1280px] px-6 py-10 mx-auto ">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))]  w-full gap-x-[1.50rem] justify-between gap-y-4 pt-10 max-w-[1280px] px-6 py-10 mx-auto ">
           {list.slice(1, 6).map((items: { img: string; price: string; saleScale: string; title: string; }, index: number) => (
             <ProductCard
             item={items}

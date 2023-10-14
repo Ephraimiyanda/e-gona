@@ -36,6 +36,7 @@ export default function Cartitem({img,index,title,saleScale,seller,price,quantit
     return(
         <div className="cartItem w-full flex gap-2 " key={index}>
         <Image
+        radius="none"
           removeWrapper
           className="w-[150px] h-[120px] object-cover max-w-[150px]"
           src={img}
@@ -56,9 +57,10 @@ export default function Cartitem({img,index,title,saleScale,seller,price,quantit
           </div>
           <div className="flex flex-col gap-3">
             <p className="text-center">₦{price}</p>
-            <div className="flex justify-center gap-1 text-white items-center">
+            <div className="flex justify-between px-1 gap-1 text-white items-center">
               <Button
-                className="w-[25px] h-[25px] p-1 bg-[#A46E0580]"
+                radius="none"
+                className="w-[25px] h-[25px] min-w-[25px] p-1 bg-[#A46E0580]"
                 onClick={()=>{
                   decreaseCountQuantity()
                   decreament()
@@ -68,7 +70,8 @@ export default function Cartitem({img,index,title,saleScale,seller,price,quantit
               </Button>
               <span className="text-black">{count}</span>
               <Button
-                className="w-[25px] h-[25px] p-1 bg-[#A46E05]"
+                radius="none"
+                className="w-[25px] h-[25px] min-w-[25px] p-1 bg-[#A46E05]"
                 onClick={()=>{
                   increaseCountQuantity()
                   increament()

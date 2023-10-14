@@ -264,7 +264,7 @@ export default function SellerForm() {
                   }}
                   placeholder="Choose business organization type"
                   value={form.businessType}
-                  className="my_form text-black bg-white  max-w-[600px] w-full md:w-[300px]  mr-auto "
+                  className="my_form text-black   max-w-[600px] w-full md:w-[300px]  mr-auto "
                   radius="lg"
                   onChange={(e) => {
                     setForm({
@@ -274,14 +274,14 @@ export default function SellerForm() {
                   }}
                 >
                   <SelectItem
-                    className="bg-white "
+                    className=""
                     key={"Individual"}
                     value={"Individual"}
                   >
                     Individual
                   </SelectItem>
                   <SelectItem
-                    className="bg-white border-t border-t-stone-300 -mt-1 "
+                    className=" "
                     key={"Registered business company"}
                     value={"Registered business company"}
                   >
@@ -304,7 +304,7 @@ export default function SellerForm() {
                   }}
                   placeholder="Choose your state"
                   value={form.state}
-                  className=" text-black bg-white  max-w-[600px] w-full md:w-[300px]  mr-auto "
+                  className=" text-black  max-w-[600px] w-full md:w-[300px]  mr-auto "
                   radius="lg"
                   onChange={(e) => {
                     setForm({
@@ -490,7 +490,7 @@ export default function SellerForm() {
               <div className="w-full mx-auto max-w-[600px] py-5">
                 <Checkbox
                   isSelected={hasReadContract}
-                  onValueChange={()=>{setHasReadContract(true)}}
+                  onValueChange={()=>{setHasReadContract(!hasReadContract)}}
                   className="mr-auto"
                   color="primary"
                 >

@@ -18,12 +18,14 @@ const SignInForm: React.FC = () => {
 
   const handleSignIn = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-
+    setLoading("loading");
     try {
       const response = await axios.post(`${API_BASE_URL}users/login`, formData);
-      console.log("Signin successful", response);
-      router.push("/");
-      setLoading("loading");
+      console.log("Signin successful", response.data.data);
+      const userDetails=response.data.data
+      localStorage.setItem("user",JSON.stringify(userDetails))
+      router.back();
+      
       console.log(response);
     } catch (error) {
       console.log("Signin error", error);
@@ -35,9 +37,9 @@ const SignInForm: React.FC = () => {
     if(loading==="idle"){
       return <div>Sign In</div>
     }else if (loading === "loading") {
-      return <div className="flex justify-center items-center gap-1"><Spinner className="z-50" size="md" color="primary"/>Signing In...</div>;
+      return <div className="flex justify-center items-center gap-1"><Spinner className="z-50" size="md" color="default"/>Signing In...</div>;
     } else if (loading === "failed") {
-      return <div>Signup failed. Please try again.</div>;
+      return <div>Sign in failed. Please try again.</div>;
     }
     return null;
   };
