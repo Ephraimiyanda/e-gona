@@ -83,7 +83,7 @@ export default function Cart() {
                 <div className="border border-gray-400 rounded-md">
                   <div className="flex justify-between p-2 border-b border-gray-400">
                     <p>we support</p>
-                    <div className="flex gap-[3px] justify-center items-center">
+                    <div className="flex gap-[4px] justify-center items-center">
                       <Image src="mastercard.svg"></Image>
                       <Image src="verve.svg"></Image>
                       <Image src="interswitch.svg"></Image>
@@ -155,12 +155,15 @@ export default function Cart() {
               </div>
               <span>₦{total.toFixed(2)}</span>
             </div>
-            <Button
+            {cartItems.length>0&&(
+               <Button
               onPress={checkout}
               className="text-white text-sm bg-[#A46E05BD] rounded-md py-2 px-4"
             >
               Checkout (₦{total.toFixed(2)})
             </Button>
+            )}
+           
           </div>
         </div>
       </div>

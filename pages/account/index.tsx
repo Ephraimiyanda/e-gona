@@ -102,7 +102,6 @@ const Account: React.FC = () => {
           </div>
         </Card>
       </div>
-      <Footer />
     </div>
   );
 };

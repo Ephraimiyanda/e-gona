@@ -1,6 +1,7 @@
 import { Button,Image } from "@nextui-org/react"
 import { useState,useContext } from "react";
 import { AppContext } from "@/utils/AppContext";
+import {MdOutlineDeleteForever} from "react-icons/md"
 interface cartItem {
     img: string;
     index: number;
@@ -80,7 +81,7 @@ export default function Cartitem({img,index,title,saleScale,seller,price,quantit
                 +
               </Button>
             </div>
-            <Button onClick={()=>{deleteFromCart(index)}} className="p-2 bg-[#A46E05BD] text-white rounded-md mt-auto">Remove Item</Button>
+            <Button startContent={<MdOutlineDeleteForever size={25}/>} onClick={()=>{deleteFromCart(index)}} className="p-2 bg-[#A46E05BD] text-white rounded-md mt-auto">Remove Item</Button>
           </div>
         </div>
       </div>
