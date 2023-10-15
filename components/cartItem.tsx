@@ -23,8 +23,8 @@ export default function Cartitem({img,index,title,saleScale,seller,price,quantit
         setCount(count - 1);
       }
     };
-   function deleteFromCart(index:number){
-      removeFromCart(index)
+   function deleteFromCart(title:string,index:number){
+      removeFromCart(title,index)
     }
     const increaseCountQuantity = () => {
       // Pass the index of the item to update its quantity
@@ -81,7 +81,7 @@ export default function Cartitem({img,index,title,saleScale,seller,price,quantit
                 +
               </Button>
             </div>
-            <Button startContent={<MdOutlineDeleteForever size={25}/>} onClick={()=>{deleteFromCart(index)}} className="p-2 bg-[#A46E05BD] text-white rounded-md mt-auto">Remove Item</Button>
+            <Button startContent={<MdOutlineDeleteForever size={25}/>} onClick={()=>{deleteFromCart(title,index)}} className="p-2 bg-[#A46E05BD] text-white rounded-md mt-auto">Remove Item</Button>
           </div>
         </div>
       </div>

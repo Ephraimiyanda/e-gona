@@ -126,29 +126,30 @@ export default function Nav() {
           <DropdownMenu
             aria-label="Profile Actions"
             variant="flat"
-            className="bg-white rounded-md p-3 flex flex-col gap-2"
+            className="bg-white rounded-md p-3 flex flex-col gap-[2px]"
           >
+            <DropdownItem variant="flat" className="p-0" key="sign in">
             {!user && (
-              <DropdownItem variant="flat" className="p-0" key="sign in">
+              
                 <Link href={"/auth/signIn"}>
                   <Button className="w-full text-white bg-[#A46E05BD] py-2 rounded-md">
                     Sign In
                   </Button>
                 </Link>
-              </DropdownItem>
             )}
+            </DropdownItem>
 
+            <DropdownItem variant="flat" className=" p-0 mt-1" key="sign up">
             {!user && (
-              <DropdownItem variant="flat" className=" p-0" key="sign up">
                 <Link href={"/auth/signup"}>
                   <Button className="w-full bg-[#A46E05BD] text-white py-2 rounded-md">
                     Sign Up
                   </Button>
                 </Link>
-              </DropdownItem>
             )}
+            </DropdownItem>
 
-            <DropdownItem variant="flat" className=" py-2" key="account">
+            <DropdownItem variant="flat" className=" py-2 mt-1" key="account">
               <div className="flex gap-1 justify-start items-center">
                 <Image src={account} alt="logo" width={20} height={20} />
                 <span>
@@ -169,7 +170,7 @@ export default function Nav() {
                 <Image src={savedItems} alt="logo" width={20} height={20} />
                 <span>
                   {" "}
-                  <Link href={"#"}>Saved Items</Link>
+                  <Link href={"/savedItems"}>Saved Items</Link>
                 </span>
               </div>
             </DropdownItem>
@@ -180,7 +181,7 @@ export default function Nav() {
               <div className="flex gap-2 justify-start items-center">
                 {cartItems.length > 0 ? (
                   <Badge
-                    className="bg-[#A46E05BD] text-white p-1 pt-0 z-10 mt-[2px]"
+                    className="bg-[#A46E05] bg-opacity-100 text-white p-1 pt-0 z-10 mt-[2px] opacity-100"
                     color="primary"
                     content={cartItems.length}
                   >
@@ -216,12 +217,13 @@ export default function Nav() {
         </Dropdown>
       </NavbarContent>
       <NavbarItem className="hidden sm:flex">
-        <div className="flex gap-1 justify-start items-center">
+        <div className="flex gap-[6px] justify-start items-center">
           {cartItems.length > 0 ? (
             <Badge
-              className="bg-[#A46E05BD] text-white p-1 pt-0 z-10 mt-[2px]"
+              className="bg-[#A46E05BD] text-white p-1 pt-0 z-10 mt-[1px]"
               color="primary"
               content={cartItems.length}
+              variant="flat"
             >
               <Image src={cart} alt="logo" width={21} height={20} />
             </Badge>

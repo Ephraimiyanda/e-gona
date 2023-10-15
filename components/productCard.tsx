@@ -1,8 +1,9 @@
 "use client";
-import { Card, CardBody, CardFooter, Button, Image } from "@nextui-org/react";
+import { Card, CardBody, CardFooter, Button, Image,CardHeader } from "@nextui-org/react";
 import { useState, useContext } from "react";
 import { AppContext } from "@/utils/AppContext";
 import cart from "../public/cart.svg";
+ 
 interface card {
   src: string;
   index: number;
@@ -12,6 +13,7 @@ interface card {
   item: any;
   count: number;
 }
+import Bookmark from "./bookmark";
 export default function ProductCard({
   item,
   src,
@@ -23,7 +25,6 @@ export default function ProductCard({
 }: card) {
   const [localCount, setLocalCount] = useState(count);
   const { addToCart } = useContext(AppContext);
-
   const increament = () => {
     if (localCount < 10) {
       setLocalCount(localCount + 1);
@@ -44,6 +45,18 @@ export default function ProductCard({
       }}
       radius="none"
     >
+          <CardHeader className="absolute z-20 top-1 flex-col !items-start ">
+          <Button style={{
+            background:"transparent",
+            marginLeft:"auto",
+            width:"fit",
+            padding:"4px",
+            borderRadius:"23px",
+            minWidth:"fit-content"
+          }}
+          startContent={<Bookmark title={title} item={item}/>}>
+          </Button>
+        </CardHeader>
       <CardBody
         className="p-0 max-w-[unset] w-full"
         style={{
@@ -54,7 +67,7 @@ export default function ProductCard({
           radius="none"
           removeWrapper
           src={src}
-          className="w-full m-auto  h-[200px] object-cover max-w-[unset] rounded-s-md rounded-e-md"
+          className="w-full m-auto  h-[200px] object-cover max-w-[unset] "
           alt="img"
         />
         <CardFooter className="text-small justify-between flex flex-col gap-3 w-full p-0 pt-2">
