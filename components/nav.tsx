@@ -321,6 +321,10 @@ export default function Nav() {
                     )
                   )}
                 </div>
+                {filteredList.length<=0 &&<div className="flex justify-center items-center w-full">
+                  <p>No item matches your search !!</p>
+                    
+                  </div>}
               </ModalBody>
             </>
           )}
