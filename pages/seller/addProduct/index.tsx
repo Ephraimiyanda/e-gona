@@ -130,8 +130,8 @@ const Dashboard: React.FC = () => {
       >
         <div style={{ display: "flex" }}>
           <Sidebar />
-          <div className="w-full flex flex-col px-10 pt-6 pb-6 gap-[20px]">
-            <Card className=" mt-6 h-[100px] px-10 pt-6">
+          <div className="w-full flex flex-col px-2 sm:px-10 pt-6 pb-6 gap-[20px]">
+            <Card className=" mt-6 h-[100px] px-2 sm:px-10 pt-6">
               <div className="">
                 <div className="flex items-center">
                   <Image
