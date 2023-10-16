@@ -8,6 +8,7 @@ export default function SearchIcon(){
         width={25}
         height={20}
         alt="search"
+        className="cursor-pointer"
         />
         </>
     )
