@@ -1,6 +1,6 @@
 import React from "react";
 
-export const MailIcon = (props:any) => (
+export const MailIcon = (props: any) => (
   <svg
     aria-hidden="true"
     fill="none"

@@ -10,13 +10,18 @@ import { useRouter } from "next/router";
 import { useContext } from "react";
 import { AppContext } from "@/utils/AppContext";
 export default function Sidebar() {
-  const{isNavOpen}=useContext(AppContext)
+  const { isNavOpen } = useContext(AppContext);
   const router = useRouter();
   const pathname = router.pathname;
 
-
   return (
-    <div className={` sm:w-[270px] flex flex-col gap-10 py-8  bg-white transition-all duration-75   left-[0] ${!isNavOpen?"w-[0] overflow-hidden relative ":"w-[270px] z-50 h-full fixed overflow-auto"} `}>
+    <div
+      className={` sm:w-[270px] flex flex-col gap-10 py-8  bg-white transition-all duration-75   left-[0] ${
+        !isNavOpen
+          ? "w-[0] overflow-hidden relative "
+          : "w-[270px] z-50 h-full fixed overflow-auto"
+      } `}
+    >
       <ul className="flex flex-col gap-3 px-8">
         <li
           className={`py-2 px-2 w-full transition-all duration-150  hover:bg-[#A46E054D] rounded-md flex gap-2 justify-start items-center ${

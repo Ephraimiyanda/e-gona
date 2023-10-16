@@ -5,7 +5,8 @@ import { useState, useContext } from "react";
 import { AppContext } from "@/utils/AppContext";
 
 export default function Bookmark({ title, item }: any) {
-  const { addToSavedItems, removeFromSavedItems, savedItems } = useContext(AppContext);
+  const { addToSavedItems, removeFromSavedItems, savedItems } =
+    useContext(AppContext);
 
   const isFavourite = savedItems.includes(item);
 
