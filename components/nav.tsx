@@ -13,8 +13,12 @@ import {
   DropdownMenu,
   Badge,
   NavbarMenuToggle,
-  Radio,
-  RadioGroup,
+  Modal, 
+  ModalContent, 
+  ModalHeader, 
+  ModalBody, 
+  ModalFooter,
+  useDisclosure
 } from "@nextui-org/react";
 import Image from "next/image";
 import logo from "../public/logo.svg";
@@ -34,12 +38,13 @@ import { useRouter } from "next/router";
 import logout from "../public/logout copy.svg";
 
 export default function Nav() {
+  const [isDropdownOpen, setDropdownOpen] = useState(false); // Use state to control the dropdown
   const router = useRouter();
   const { cartItems, list, setIsNavOpen, isNavOpen } = useContext(AppContext);
   const userDetails =
     typeof window !== "undefined" ? window.localStorage.getItem("user") : false;
   const user = JSON.parse(userDetails as string);
-  const [isDropdownOpen, setDropdownOpen] = useState(false); // Use state to control the dropdown
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
   const handleDropdownClick = () => {
     if (!user) {
@@ -52,9 +57,10 @@ export default function Nav() {
   };
 
   return (
+    
     <Navbar
       maxWidth="xl"
-      className="justify-around shadow px-3 bg-white p-0 sm:px-6"
+      className="justify-around shadow px-3 bg-white p-0 sm:px-6 top-[0]"
     >
       {router.pathname.includes("/seller") && (
         <NavbarMenuToggle
@@ -71,15 +77,15 @@ export default function Nav() {
         href="/"
       >
         <Image src={logo} alt="logo" width={35} height={45} />
-        <p className="hidden md:flex text-3xl font-bold text-[#A46E05] ">
+        <p className="flex text-3xl font-bold text-[#A46E05] ">
           KASUWA
         </p>
       </NavbarBrand>
-      <NavbarContent className="sm:flex-grow-[1] flex-grow-[1.2]">
-        <NavbarItem className="bg-white rounded-md w-full border ">
+      <NavbarContent className="sm:flex-grow-[1] flex-grow-[1.2] ">
+        <NavbarItem className="bg-white rounded-md md:m-0 ml-auto border md:w-full w-[50px] cursor-pointer" onClick={onOpen}>
           <Input
-            startContent={<SearchIcon />}
-            className="text-black  w-full m-auto border border-[#A46E05] rounded-[7px] bg-white"
+            startContent={<SearchIcon/>}
+            className="text-black  w-full m-auto border border-[#A46E05] rounded-[7px] bg-white cursor-pointer"
             radius="sm"
             style={{
               paddingTop: "7px",
@@ -87,24 +93,24 @@ export default function Nav() {
               width: "100%",
               borderColor: "#A46E05",
               background: "white",
+              cursor:"pointer"
             }}
             placeholder="Search"
+            
           />
         </NavbarItem>
-        <Button className="bg-[#A46E05BD] rounded-md px-3 py-[6px] text-white">
+        <Button className="bg-[#A46E05BD] rounded-md px-3 py-[6px] text-white hidden sm:flex">
           Search
         </Button>
       </NavbarContent>
       <NavbarContent
         as="div"
         justify="end"
-        style={{
-          flexGrow: "0.3",
-        }}
-        className=""
+        className="trigger sm:flex-grow-[0.4] flex-grow-[0.3]"
+        
       >
-        <Dropdown placement="bottom-end" onClick={handleDropdownClick}>
-          <DropdownTrigger>
+        <Dropdown className="" placement="bottom-end" onClick={handleDropdownClick}>
+          <DropdownTrigger  >
             <div className="flex gap-2 justify-between items-center cursor-pointer">
               <Image
                 className="transition-transform"
@@ -149,7 +155,7 @@ export default function Nav() {
             )}
             </DropdownItem>
 
-            <DropdownItem variant="flat" className=" py-2 mt-1" key="account">
+            <DropdownItem variant="flat" className=" py-2 mt-1 " key="account">
               <div className="flex gap-1 justify-start items-center">
                 <Image src={account} alt="logo" width={20} height={20} />
                 <span>
@@ -235,6 +241,39 @@ export default function Nav() {
           </span>
         </div>
       </NavbarItem>
-    </Navbar>
+   
+
+    <Modal 
+        isOpen={isOpen} 
+        onOpenChange={onOpenChange}
+        placement="top"
+        backdrop="blur"
+        className=" min-h-[60vh] "
+        size={"3xl"}
+        
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                  <Input
+                  autoFocus
+                  endContent={
+                    <SearchIcon />
+                  }
+                  placeholder="search for products"
+                  variant="bordered"
+                  className="text-black mt-5"
+                /> 
+              </ModalHeader>
+              <ModalBody>
+             
+             
+              </ModalBody>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+      </Navbar> 
   );
 }

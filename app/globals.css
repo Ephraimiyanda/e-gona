@@ -97,8 +97,20 @@ padding: 0;
   border-bottom: 0px;
   
 }
+.group{
+  cursor: pointer;
+}
 @media (max-width:300px) {
   .goods{
     flex-direction: column;
+  }
+}
+.trigger{
+  flex-grow: 0.4 !important;
+  cursor: pointer;
+}
+@media (max-width:768px) {
+  .trigger{
+    flex-grow: 0.2 !important;
   }
 }
