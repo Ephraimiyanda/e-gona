@@ -30,7 +30,7 @@ import Link from "next/link";
 import SearchIcon from "./searchIcon";
 import Account from "../public/acount-2.svg";
 import drop from "../public/drop.svg";
-import savedItems from "../public/saved.svg";
+import savedIcon from "../public/saved.svg";
 import Orders from "../public/orders.svg";
 import { useContext } from "react";
 import { AppContext } from "@/utils/AppContext";
@@ -40,7 +40,7 @@ import logout from "../public/logout copy.svg";
 export default function Nav() {
   const [isDropdownOpen, setDropdownOpen] = useState(false); // Use state to control the dropdown
   const router = useRouter();
-  const { cartItems, list, setIsNavOpen, isNavOpen } = useContext(AppContext);
+  const { cartItems, list, setIsNavOpen, isNavOpen,savedItems } = useContext(AppContext);
   const userDetails =
     typeof window !== "undefined" ? window.localStorage.getItem("user") : false;
   const user = JSON.parse(userDetails as string);
@@ -173,7 +173,17 @@ export default function Nav() {
             </DropdownItem>
             <DropdownItem variant="flat" className=" py-2" key="saved items">
               <div className="flex gap-2 justify-start items-center">
-                <Image src={savedItems} alt="logo" width={20} height={20} />
+              {savedItems.length > 0 ? (
+                  <Badge
+                    className="bg-[#A46E05] bg-opacity-100 text-white p-1 pt-1 z-10 mt-[5px] opacity-100"
+                    color="primary"
+                    content={savedItems.length}
+                  >
+                    <Image src={savedIcon} alt="logo" width={19} height={20} />
+                  </Badge>
+                ) : (
+                  <Image src={savedIcon} alt="logo" width={19} height={20} />
+                )}
                 <span>
                   {" "}
                   <Link href={"/savedItems"}>Saved Items</Link>
