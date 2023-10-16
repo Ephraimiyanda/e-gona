@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 const API_BASE_URL = "https://kasuwa-b671.onrender.com/";
 
 const SignUpForm: React.FC = () => {
-  const [loading,setLoading]=useState("idle")
+  const [loading, setLoading] = useState("idle");
   const router = useRouter();
   const handleSignUp = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -20,18 +20,22 @@ const SignUpForm: React.FC = () => {
         formData
       );
       console.log("Signup successful", response);
-    router.push("/");
-      
+      router.push("/");
     } catch (error) {
       console.log("Signup error", error);
       setLoading("failed");
     }
   };
   const renderLoadingUI = () => {
-    if(loading==="idle"){
-      return <div>Sign up</div>
-    }else if (loading === "loading") {
-      return <div className="flex justify-center items-center gap-1"><Spinner className="z-50" size="md" color="default"/>Signing up...</div>;
+    if (loading === "idle") {
+      return <div>Sign up</div>;
+    } else if (loading === "loading") {
+      return (
+        <div className="flex justify-center items-center gap-1">
+          <Spinner className="z-50" size="md" color="default" />
+          Signing up...
+        </div>
+      );
     } else if (loading === "failed") {
       return <div>Signup failed. Please try again.</div>;
     }
@@ -42,7 +46,7 @@ const SignUpForm: React.FC = () => {
     last_name: "",
     email: "",
     password: "",
-    location:""
+    location: "",
   });
 
   return (
@@ -137,11 +141,11 @@ const SignUpForm: React.FC = () => {
               </div>
               <div className="mb-4">
                 <div className="flex flex-wrap -mx-4">
-                  <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0">
+                  <div className="w-full px-4 mb-4 md:mb-0">
                     <label htmlFor="address" className="block mb-2">
                       Address
                     </label>
-                    < textarea
+                    <textarea
                       id="address"
                       name="address"
                       required
@@ -149,19 +153,7 @@ const SignUpForm: React.FC = () => {
                       onChange={(e) =>
                         setFormData({ ...formData, location: e.target.value })
                       }
-                      className="border border-[#ccc] rounded-lg py-2 px-3 w-full focus:outline-none focus:border-[#A46E05] min-h-[12px] h-12 " 
-                    />
-                  </div>
-                  <div className="w-full md:w-1/2 px-4">
-                    <label htmlFor="confirmPassword" className="block mb-2">
-                      Confirm Password
-                    </label>
-                    <input
-                      id="confirmPassword"
-                      name="confirmPassword"
-                      type="password"
-                      required
-                      className="border border-[#ccc] rounded-lg h-12 px-3 w-full focus:outline-none focus:border-[#A46E05]"
+                      className="border border-[#ccc] rounded-lg py-16 px-3 w-full focus:outline-none focus:border-[#A46E05] min-h-[12px] h-12 "
                     />
                   </div>
                 </div>
