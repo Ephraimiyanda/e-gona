@@ -43,7 +43,7 @@ export default function Sidebar() {
         >
           <Link
             className="flex gap-2 justify-start w-full items-center text-[#A46E05]"
-            href={"#"}
+            href={"/seller/review"}
           >
             <Image src={products} width={20} height={20} alt="img"></Image>
             <span>Products</span>

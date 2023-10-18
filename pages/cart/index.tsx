@@ -16,6 +16,7 @@ import ProductCard from "@/components/productCard";
 import Cartitem from "@/components/cartItem";
 import Sidebar from "@/components/sidebar";
 import { useRouter } from "next/router";
+import { usePaystackPayment } from "react-paystack";
 
 export default function Cart() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -38,6 +39,30 @@ export default function Cart() {
     }
   };
   const DeliveryFee = 1000;
+
+  const publicKey = "pk_test_861fff4e3acc786df9a3e54d2889fc2633e0f888"; // Paystack test public key
+  const amount = (total + DeliveryFee) * 100;
+  const reference = `order_${Math.floor(Math.random() * 1000000) + 1}`; // Generate a unique reference for each transaction
+
+  const onSuccess = (reference: any) => {
+    console.log(reference);
+  };
+
+  const config = {
+    reference,
+    email: user.email,
+    amount,
+    publicKey,
+    onSuccess,
+  };
+
+  const initializePayment = usePaystackPayment(config);
+
+  const handlePayment = () => {
+    // Trigger the Paystack payment process
+    initializePayment();
+  };
+
   return (
     <div className="pt-6 ">
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
@@ -107,7 +132,11 @@ export default function Cart() {
                 <Button color="danger" variant="light" onPress={onClose}>
                   Cancel Order
                 </Button>
-                <Button color="primary" onPress={onClose}>
+                <Button
+                  color="primary"
+                  disabled={cartItems.length === 0}
+                  onPress={handlePayment}
+                >
                   Place order
                 </Button>
               </ModalFooter>
@@ -155,15 +184,14 @@ export default function Cart() {
               </div>
               <span>₦{total.toFixed(2)}</span>
             </div>
-            {cartItems.length>0&&(
-               <Button
-              onPress={checkout}
-              className="text-white text-sm bg-[#A46E05BD] rounded-md py-2 px-4"
-            >
-              Checkout (₦{total.toFixed(2)})
-            </Button>
+            {cartItems.length > 0 && (
+              <Button
+                onPress={checkout}
+                className="text-white text-sm bg-[#A46E05BD] rounded-md py-2 px-4"
+              >
+                Checkout (₦{total.toFixed(2)})
+              </Button>
             )}
-           
           </div>
         </div>
       </div>
