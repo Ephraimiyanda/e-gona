@@ -115,7 +115,6 @@ export default function SellerForm() {
     switch (action.type) {
       case "shopName-change":
         return { ...state, shopName: action.payload };
-
       case "businessType-change":
         return { ...state, businessType: action.payload };
       case "state-change":
