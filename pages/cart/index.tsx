@@ -44,8 +44,6 @@ const DeliveryFee = 1000;
   };
 
   
-=======
-  const DeliveryFee = 1000;
 
   const publicKey = "pk_test_861fff4e3acc786df9a3e54d2889fc2633e0f888"; // Paystack test public key
   const amount = (total + DeliveryFee) * 100;
