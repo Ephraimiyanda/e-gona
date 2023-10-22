@@ -44,8 +44,6 @@ const DeliveryFee = 1000;
   };
 
   
-=======
-  const DeliveryFee = 1000;
 
   const publicKey = "pk_test_861fff4e3acc786df9a3e54d2889fc2633e0f888"; // Paystack test public key
   const amount = (total + DeliveryFee) * 100;
@@ -162,7 +160,7 @@ const DeliveryFee = 1000;
           {cartItems.length > 0 ? (
             cartItems.map((items: any, index: number) => (
               <Cartitem
-                img={items.img}
+                img={items.images[0].url}
                 index={index}
                 originalPrice={items.originalPrice}
                 title={items.name}
