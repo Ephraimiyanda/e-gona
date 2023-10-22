@@ -50,7 +50,7 @@ export default function Nav() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const filteredList = list.filter((item: any) => {
-    return item.title.toLowerCase().includes(searchQuery.toLowerCase());
+    return item.name.toLowerCase().includes(searchQuery.toLowerCase());
   });
 
   const handleSearchChange = (event: any) => {
@@ -148,7 +148,7 @@ export default function Nav() {
             variant="flat"
             className="bg-white rounded-md p-3 flex flex-col gap-[2px]"
           >
-            <DropdownItem variant="flat" className="p-0" key="sign in">
+            <DropdownItem variant="flat" className={`${!user&& "no-space"} p-0`} key="sign in">
               {!user && (
                 <Link href={"/auth/signIn"}>
                   <Button className="w-full text-white bg-[#A46E05BD] py-2 rounded-md">
@@ -158,7 +158,7 @@ export default function Nav() {
               )}
             </DropdownItem>
 
-            <DropdownItem variant="flat" className=" p-0 mt-1" key="sign up">
+            <DropdownItem variant="flat" className={`${!user&& "no-space"} mt-1`} key="sign up">
               {!user && (
                 <Link href={"/auth/signup"}>
                   <Button className="w-full bg-[#A46E05BD] text-white py-2 rounded-md">
@@ -168,25 +168,29 @@ export default function Nav() {
               )}
             </DropdownItem>
 
-            <DropdownItem variant="flat" className=" py-2 mt-1 " key="account">
+            <DropdownItem variant="flat" className={`${!user&& "no-space"} py-2 mt-1`}  key="account">
+              {user&&(
               <div className="flex gap-1 justify-start items-center">
                 <Image src={account} alt="logo" width={20} height={20} />
                 <span>
                   <Link href="/account">My Account</Link>
                 </span>{" "}
               </div>
+              )}
             </DropdownItem>
-            <DropdownItem variant="flat" className=" py-2" key="settings">
+            <DropdownItem variant="flat" className={`${!user&& "no-space"} py-2`}  key="settings">
+            {user&&(
               <div className="flex gap-1 justify-start items-center">
                 <Image src={Orders} alt="logo" width={20} height={20} />
                 <span>
                   <Link href={"#"}>My Orders</Link>
                 </span>
               </div>
+              )}
             </DropdownItem>
             <DropdownItem variant="flat" className=" py-2" key="saved items">
               <div className="flex gap-2 justify-start items-center">
-                {savedItems.length > 0 ? (
+                {savedItems?.length > 0 ? (
                   <Badge
                     className="bg-[#A46E05] bg-opacity-100 text-white p-1 pt-1 z-10 mt-[5px] opacity-100"
                     color="primary"
@@ -208,7 +212,7 @@ export default function Nav() {
               className="myDropItem flex sm:hidden   py-1"
             >
               <div className="flex gap-2 justify-start items-center">
-                {cartItems.length > 0 ? (
+                {cartItems?.length > 0 ? (
                   <Badge
                     className="bg-[#A46E05] bg-opacity-100 text-white p-1 pt-0 z-10 mt-[2px] opacity-100"
                     color="primary"
@@ -225,22 +229,25 @@ export default function Nav() {
                 </span>
               </div>
             </DropdownItem>
+
             <DropdownItem
               onClick={() => {
                 localStorage.removeItem("user");
                 router.push("/");
               }}
               variant="flat"
-              className="text-danger"
+              className={`${!user&& "no-space"} py-2`}
               key="logout"
               color="danger"
             >
-              <div className="flex gap-1 justify-start items-center">
-                <Image src={logout} alt="logo" width={21} height={20} />
-                <span>
-                  <Link href="/account">Logout</Link>
-                </span>{" "}
-              </div>
+              {user && (
+                <div className="flex gap-1 justify-start items-center">
+                  <Image src={logout} alt="logo" width={21} height={20} />
+                  <span>
+                    <Link href="/account">Logout</Link>
+                  </span>{" "}
+                </div>
+              )}
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
@@ -276,7 +283,7 @@ export default function Nav() {
         onOpenChange={onOpenChange}
         placement="top"
         backdrop="blur"
-        className="h-screen max-h-[unset] sm:max-h-[60vh] "
+        className="h-screen max-h-[unset] w-[95%] sm:max-h-[60vh] "
         size={"3xl"}
         scrollBehavior="inside"
       >
@@ -294,37 +301,35 @@ export default function Nav() {
                   value={searchQuery}
                 />
               </ModalHeader>
-              <ModalBody 
-              
-              >
-                <div className=" grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))]  w-full gap-x-[1.50rem] gap-y-4 pt-10 max-w-[1280px] px-6 py-10 mx-auto ">
+              <ModalBody>
+                <div className=" grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))]  w-full gap-x-[1.50rem] gap-y-4 pt-10 max-w-[1280px] px-6 py-10 mx-auto ">
                   {filteredList.map(
                     (
                       items: {
-                        img: string;
-                        price: string;
+                        images: any;
+                        originalPrice: string;
                         saleScale: string;
-                        title: string;
+                        name: string;
                       },
                       index: number
                     ) => (
                       <ProductCard
                         item={items}
                         key={index}
-                        src={items.img}
+                        src={items.images[0].url}
                         index={index}
-                        price={items.price}
-                        saleScale={items.saleScale}
-                        title={items.title}
+                        originalPrice={items.originalPrice}
+                        title={items.name}
                         count={count}
                       />
                     )
                   )}
                 </div>
-                {filteredList.length<=0 &&<div className="flex justify-center items-center w-full">
-                  <p>No item matches your search !!</p>
-                    
-                  </div>}
+                {filteredList.length <= 0 && (
+                  <div className="flex justify-center items-center w-full">
+                    <p>No item matches your search !!</p>
+                  </div>
+                )}
               </ModalBody>
             </>
           )}

@@ -7,8 +7,9 @@ import {
   SelectItem,
   Spacer,
   Textarea,
+  Spinner,
 } from "@nextui-org/react";
-import React, { useReducer, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import Footer from "@/components/footer";
 import bag from "public/bag.svg";
 import Image from "next/image";
@@ -16,6 +17,7 @@ import Sidebar from "@/components/sidebar";
 import uploadIcon from "../../../public/upload.svg";
 import "../../../app/form style.css";
 import axios from "axios";
+import { AppContext } from "@/utils/AppContext";
 
 //interface for form
 interface reducerInterface {
@@ -46,7 +48,8 @@ const categories = [
 const API_URL = "https://kasuwa-b671.onrender.com";
 
 export default function AddProduct() {
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [productExists, setProductExists] = useState(false);
+  const [loading, setLoading] = useState("idle");
   const [form, setForm] = useReducer(reducer, {
     image: null,
     nameOfProduct: "",
@@ -57,28 +60,23 @@ export default function AddProduct() {
     productCategory: "",
     subCategory: "",
   });
+  const { setNotificationAction, showNotification } = useContext(AppContext);
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const selectedImage = e.target.files[0];
-      setForm({
-        type: "image-change",
-        payload: selectedImage,
-      });
-
-      // Display a preview of the selected image
-      if (selectedImage) {
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          setImagePreview(e?.target.result as string);
-        };
-        reader.readAsDataURL(selectedImage);
-      } else {
-        setImagePreview(null);
-      }
+  const Loader = () => {
+    if (loading === "idle") {
+      return <p>Add product</p>;
+    } else if (loading === "loading") {
+      return (
+        <div className="flex gap-2 justify-center items-center">
+          <Spinner color="default" />
+          <p>Adding product</p>
+        </div>
+      );
+    } else if (loading === "failed") {
+      return <p>retry</p>;
     }
   };
-  console.log([form.image]);
+
   //reducer function for handling state changes for form
   function reducer(
     state: reducerInterface,
@@ -106,24 +104,8 @@ export default function AddProduct() {
     }
   }
 
-  const handleImageUpload = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("file", form.image);
-      formData.append("api_key", "743174149656362");
-      formData.append("upload_preset", "j1d4ychj");
-      const uploadRes = await fetch(
-        "https://api.cloudinary.com/v1_1/dg0kdnwt1/auto/upload",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-    } catch (error) {
-      console.log(error); 
-    }
-  };
   const AddProduct = async () => {
+    setLoading("loading");
     try {
       const formData = new FormData();
       formData.append("name", form.nameOfProduct);
@@ -136,21 +118,69 @@ export default function AddProduct() {
         (parseFloat(form.originalPrice) - parseFloat(form.salePrice)).toString()
       );
       formData.append("originalPrice", form.salePrice);
-      formData.append("images", [form.image]);
+      formData.append("images", form.image);
 
       // Use Axios to make the POST request
       const addProductRes = await axios.post(
         `${API_URL}/products/addProduct`,
         formData,
         {
-          headers: { 'Content-Type':`multipart/form-data ` },
+          headers: {
+            "Content-Type": `multipart/form-data`,
+          },
+          maxBodyLength: Infinity,
+          maxContentLength: Infinity,
         }
       );
-         // Handle the response, e.g., show success message or perform other actions
+      // Handle the response, e.g., show success message or perform other actions
       console.log("Product added successfully:", addProductRes.data);
       console.log(form.image);
+      if (addProductRes.status === 200) {
+        showNotification(form.nameOfProduct);
+        setNotificationAction("added to kasuwa");
+        setLoading("idle");
+        setForm({
+          type: "image-change",
+          payload: null,
+        });
+        setForm({
+          type: "nameOfProduct-change",
+          payload: "",
+        });
+        setForm({
+          type: "salePrice-change",
+          payload: "",
+        });
+        setForm({
+          type: "originalPrice-change",
+          payload: "",
+        });
+        setForm({
+          type: "quantityAvailable-change",
+          payload: "",
+        });
+        setForm({
+          type: "productDescription-change",
+          payload: "",
+        });
+        setForm({
+          type: "productCategory-change",
+          payload: "",
+        });
+        setForm({
+          type: "subCategory-change",
+          payload: "",
+        });      
+        
+      }
+      if (addProductRes.status === 409) {
+        setProductExists(true);
+        setLoading("failed");
+      }
+      console.log(addProductRes);
     } catch (error) {
       console.log(error);
+      setLoading("failed");
     }
   };
 
@@ -206,6 +236,7 @@ export default function AddProduct() {
                   </p>
                 </div>
                 <Input
+                  isRequired
                   aria-label="Add Image"
                   startContent={
                     <Image
@@ -223,6 +254,7 @@ export default function AddProduct() {
                   labelPlacement="outside"
                   accept=".png,.gif, .jpeg,.svg,"
                   placeholder="Drag and drop your product images or Browse"
+                  
                   onChange={(e) => {
                     setForm({
                       type: "image-change",
@@ -235,25 +267,24 @@ export default function AddProduct() {
                     {form.image && (
                       <div className="mt-4 text-center gap-2 px-6 flex flex-wrap">
                         {form.image &&
-                          Array.from(form.image).map(
-                            (image: any, index: number) => (
-                              <div className="w-fit" key={index}>
+                          
+                              <div className="w-fit">
                                 <Image
-                                  src={URL.createObjectURL(image)}
-                                  alt={`Selected Image ${index + 1}`}
-                                  className="w-[120px] h-[150px]"
+                                  src={URL.createObjectURL(form.image)}
+                                  alt={`Selected Image`}
+                                  className="w-[150px] h-[150px]"
                                   width={100}
                                   height={100}
                                 />
                               </div>
-                            )
-                          )}
+                          }
                       </div>
                     )}
                   </div>
                 </div>
               </div>
               <Input
+                isRequired
                 aria-label="Name of Product"
                 name="nameOfProduct"
                 placeholder="Name of Product"
@@ -269,6 +300,7 @@ export default function AddProduct() {
                   borderRadius: "7px",
                   width: "100%",
                 }}
+                value={form.nameOfProduct}
                 onChange={(e) => {
                   setForm({
                     type: "nameOfProduct-change",
@@ -278,6 +310,7 @@ export default function AddProduct() {
               ></Input>
               <div className="flex flex-col md:flex-row">
                 <Input
+                  isRequired
                   aria-label="Sale Price"
                   name="salePrice"
                   type="number"
@@ -294,6 +327,7 @@ export default function AddProduct() {
                     width: "100%",
                   }}
                   placeholder="0"
+                  value={form.salePrice}
                   onChange={(e) => {
                     setForm({
                       type: "salePrice-change",
@@ -302,6 +336,7 @@ export default function AddProduct() {
                   }}
                 ></Input>
                 <Input
+                  isRequired
                   aria-label="Original Price"
                   name="originalPrice"
                   type="number"
@@ -318,6 +353,7 @@ export default function AddProduct() {
                     width: "100%",
                   }}
                   placeholder="0"
+                  value={form.originalPrice}
                   onChange={(e) => {
                     setForm({
                       type: "originalPrice-change",
@@ -326,6 +362,7 @@ export default function AddProduct() {
                   }}
                 ></Input>
                 <Input
+                  isRequired
                   aria-label="Quantity Available"
                   name="quantityAvailable"
                   type="number"
@@ -342,6 +379,7 @@ export default function AddProduct() {
                     width: "100%",
                   }}
                   placeholder="0"
+                  value={form.quantityAvailable}
                   onChange={(e) => {
                     setForm({
                       type: "quantityAvailable-change",
@@ -367,6 +405,7 @@ export default function AddProduct() {
                 }}
                 radius="md"
                 placeholder={"insert text here..."}
+                value={form.productDescription}
                 onChange={(e) => {
                   setForm({
                     type: "productDescription-change",
@@ -404,12 +443,17 @@ export default function AddProduct() {
                   ))}
                 </Select>
               </div>
+              {productExists && (
+                <div className="px-6 ">
+                  <p className="text-red-500">Product already exists</p>
+                </div>
+              )}
               <div className="px-6 mx-auto w-full flex justify-end">
                 <Button
                   type="submit"
                   className="bg-[#A46E05BD] rounded-md px-3 w-[200px] py-[7px] ml-auto text-white"
                 >
-                  Add Product
+                  {Loader()}
                 </Button>
               </div>
             </form>

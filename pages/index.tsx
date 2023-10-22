@@ -9,8 +9,16 @@ import fertilizer from "../public/fertilizers.svg";
 import fruitGrp from "../public/fruitgroup.svg";
 import nairabag from "../public/sack-of-naira-removebg-preview 1.svg";
 import Image from "next/image";
-import { Button, Input } from "@nextui-org/react";
-import { useEffect, useState,useContext } from "react";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Input,
+  Skeleton,
+} from "@nextui-org/react";
+import { useEffect, useState, useContext } from "react";
 import { AppContext } from "@/utils/AppContext";
 import ProductCard from "@/components/productCard";
 import Flash from "../public/flash.svg";
@@ -19,25 +27,24 @@ import { MailIcon } from "@/components/mailIcon";
 import ioslogo from "../public/ios store.svg";
 import googleplay from "../public/google play.svg";
 import Footer from "@/components/footer";
-
-
+import SkeletonLoading from "@/components/skeletonLoading";
+import { title } from "process";
 interface card {
-  src: string;
+  images: any;
   index: number;
-  price: string;
+  originalPrice: string;
   saleScale: string;
   title: string;
 }
 
 export default function Home() {
-  const {cartItems,list,count} =useContext(AppContext)
+  const { cartItems, list, count } = useContext(AppContext);
   const date = new Date();
   const seconds = date.getSeconds();
   const hours = date.getHours();
   const days = date.getDay();
   const minutes = date.getMinutes();
 
- 
   return (
     <div className="mx-auto flex flex-col w-full">
       <div className=" m-auto flex-col flex gap-3 lg:flex-row sm:flex-col w-full pt-10 max-w-[1280px] px-6 py-10 ">
@@ -156,7 +163,10 @@ export default function Home() {
                   <span className="text-[11px]">Seconds</span>
                 </div>
               </div>
-              <Button radius="sm" className="bg-[#38B419] w-[100px] py-3 px-6  text-xs text-white">
+              <Button
+                radius="sm"
+                className="bg-[#38B419] w-[100px] py-3 px-6  text-xs text-white"
+              >
                 Buy Now!
               </Button>
             </div>
@@ -187,18 +197,32 @@ export default function Home() {
         </div>
       </div>
       <div className=" grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))]  w-full gap-x-[1.50rem] gap-y-4 pt-10 max-w-[1280px] px-6 py-10 mx-auto ">
-        {list.map((items: { img: string; price: string; saleScale: string; title: string; }, index: number) => (
-          <ProductCard
-          item={items}
-            key={index}
-            src={items.img}
-            index={index}
-            price={items.price}
-            saleScale={items.saleScale}
-            title={items.title}
-            count={count}
-          />
-        ))}
+        {list && list.length > 0 ? (
+          list.map(
+            (
+              items: {
+                name: string;
+                images: any;
+                originalPrice: string;
+                saleScale: string;
+                title: string;
+              },
+              index: number
+            ) => (
+              <ProductCard
+                item={items}
+                key={index}
+                src={items.images[0].url}
+                index={index}
+                originalPrice={items.originalPrice}
+                title={items.name}
+                count={count}
+              />
+            )
+          )
+        ) : (
+          <SkeletonLoading />
+        )}
       </div>
       <div className="w-full bg-[#F20E0E]">
         <div className="max-w-[1280px] mx-auto  gap-8    flex justify-between text-white scroll-parent">
@@ -228,18 +252,33 @@ export default function Home() {
         </div>
       </div>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))]  w-full gap-x-[1.50rem] gap-y-4 pt-10 max-w-[1280px] px-6 py-10 mx-auto  ">
-        {list.slice(3, 8).map((items: { img: string; price: string; saleScale: string; title: string; }, index:number) => (
-          <ProductCard
-          item={items}
-            key={index}
-            src={items.img}
-            index={index}
-            price={items.price}
-            saleScale={items.saleScale}
-            title={items.title}
-            count={count}
-          />
-        ))}
+       
+        {list && list.length > 0 ? (
+          list.slice(3, 8).map(
+            (
+              items: {
+                name: string;
+                images: any;
+                originalPrice: string;
+                saleScale: string;
+                title: string;
+              },
+              index: number
+            ) => (
+              <ProductCard
+                item={items}
+                key={index}
+                src={items.images[0].url}
+                index={index}
+                originalPrice={items.originalPrice}
+                title={items.name}
+                count={count}
+              />
+            )
+          )
+        ) : (
+          <SkeletonLoading />
+        )}
       </div>
       <div className="flex flex-col w-full max-w-[1280px] mx-auto  py-10 gap-2">
         <span className="text-[27px] font-semibold px-6">
@@ -247,22 +286,34 @@ export default function Home() {
           Most Searched Product
         </span>
         <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))]  w-full gap-x-[1.50rem] justify-between gap-y-4 pt-10 max-w-[1280px] px-6 py-10 mx-auto ">
-          {list.slice(1, 6).map((items: { img: string; price: string; saleScale: string; title: string; }, index: number) => (
-            <ProductCard
-            item={items}
-              key={index}
-              src={items.img}
-              index={index}
-              price={items.price}
-              saleScale={items.saleScale}
-              title={items.title}
-              count={count}
-            />
-          ))}
+          {list&& list.length > 0  ? (
+            list.slice(1, 6).map(
+              (
+                items: {
+                  name: string;
+                  images: any;
+                  originalPrice: string;
+                  saleScale: string;
+                  title: string;
+                },
+                index: number
+              ) => (
+                <ProductCard
+                  item={items}
+                  key={index}
+                  src={items.images[0].url}
+                  index={index}
+                  originalPrice={items.originalPrice}
+                  title={items.name}
+                  count={count}
+                />
+              )
+            )
+          ) : (
+            <SkeletonLoading />
+          )}
         </div>
       </div>
-     
-      
     </div>
   );
 }
