@@ -126,7 +126,7 @@ const DeliveryFee = 1000;
           {cartItems.length > 0 ? (
             cartItems.map((items: any, index: number) => (
               <Cartitem
-                img={items.img}
+                img={items.images[0].url}
                 index={index}
                 originalPrice={items.originalPrice}
                 title={items.name}
