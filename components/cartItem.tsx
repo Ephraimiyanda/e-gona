@@ -5,10 +5,9 @@ import { MdOutlineDeleteForever } from "react-icons/md";
 interface cartItem {
   img: string;
   index: number;
-  price: string;
-  saleScale: string;
+  originalPrice: string;
   title: string;
-  seller: string;
+
   quantity: number;
 }
 
@@ -16,9 +15,7 @@ export default function Cartitem({
   img,
   index,
   title,
-  saleScale,
-  seller,
-  price,
+  originalPrice,
   quantity,
 }: cartItem) {
   const [count, setCount] = useState(quantity);
@@ -57,8 +54,14 @@ export default function Cartitem({
       <div className="goods flex justify-between w-full">
         <div className="flex flex-col gap-2">
           <p className="font-semibold">
-            A {saleScale} of {title}
+
+             {title}
           </p>
+          <span className="text-stone-600">In stock</span>
+        </div>
+        <div className="flex flex-col gap-3">
+          <p className="text-center">₦{originalPrice.toLocaleString()}</p>
+
           <div className="flex gap-1">
             <span className="text-stone-600">seller:</span>
             <p className="font-semibold">{seller}</p>
@@ -67,6 +70,7 @@ export default function Cartitem({
         </div>
         <div className="flex flex-col gap-3">
           <p className="text-center">₦{price.toLocaleString()}</p>
+
           <div className="flex justify-between px-1 gap-1 text-white items-center">
             <Button
               radius="none"

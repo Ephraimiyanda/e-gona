@@ -10,7 +10,8 @@ import { useRouter } from "next/router";
 import { useContext } from "react";
 import { AppContext } from "@/utils/AppContext";
 export default function Sidebar() {
-  const { isNavOpen } = useContext(AppContext);
+  const{isNavOpen,setIsNavOpen}=useContext(AppContext)
+
   const router = useRouter();
   const pathname = router.pathname;
 
@@ -43,10 +44,11 @@ export default function Sidebar() {
         >
           <Link
             className="flex gap-2 justify-start w-full items-center text-[#A46E05]"
-            href={"/seller/review"}
+            href={"/seller/addProduct"}
+
           >
             <Image src={products} width={20} height={20} alt="img"></Image>
-            <span>Products</span>
+            <span>Add Products</span>
           </Link>
         </li>
         <li

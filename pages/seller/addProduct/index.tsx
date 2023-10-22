@@ -1,12 +1,24 @@
 // million-ignore
-import { Button, Card, Input, Select, SelectItem, Spacer, Textarea } from "@nextui-org/react";
-import React, { useReducer,useState } from "react";
+import {
+  Button,
+  Card,
+  Input,
+  Select,
+  SelectItem,
+  Spacer,
+  Textarea,
+  Spinner,
+} from "@nextui-org/react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import Footer from "@/components/footer";
 import bag from "public/bag.svg";
 import Image from "next/image";
 import Sidebar from "@/components/sidebar";
 import uploadIcon from "../../../public/upload.svg";
 import "../../../app/form style.css";
+import axios from "axios";
+import { AppContext } from "@/utils/AppContext";
+
 //interface for form
 interface reducerInterface {
   image: any;
@@ -24,11 +36,20 @@ interface actionInterface {
   type: string;
 }
 
-const categories=["Dairy products","Legumes","Tubers","Grains","Livestock","Vegetables","Fertilizers"]
+const categories = [
+  "Dairy products",
+  "Legumes",
+  "Tubers",
+  "Grains",
+  "Livestock",
+  "Vegetables",
+  "Fertilizers",
+];
 const API_URL = "https://kasuwa-b671.onrender.com";
 
-export default function AddProduct()  {
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+export default function AddProduct() {
+  const [productExists, setProductExists] = useState(false);
+  const [loading, setLoading] = useState("idle");
   const [form, setForm] = useReducer(reducer, {
     image: null,
     nameOfProduct: "",
@@ -39,33 +60,31 @@ export default function AddProduct()  {
     productCategory: "",
     subCategory: "",
   });
-  
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const selectedImage = e.target.files[0];
-      setForm({
-        type: "image-change",
-        payload: selectedImage,
-      });
+  const { setNotificationAction, showNotification } = useContext(AppContext);
 
-      // Display a preview of the selected image
-      if (selectedImage) {
-        const reader = new FileReader();
-        reader.onload = (e:any) => {
-          setImagePreview(e?.target.result as string);
-        };
-        reader.readAsDataURL(selectedImage);
-      } else {
-        setImagePreview(null);
-      }
+  const Loader = () => {
+    if (loading === "idle") {
+      return <p>Add product</p>;
+    } else if (loading === "loading") {
+      return (
+        <div className="flex gap-2 justify-center items-center">
+          <Spinner color="default" />
+          <p>Adding product</p>
+        </div>
+      );
+    } else if (loading === "failed") {
+      return <p>retry</p>;
     }
   };
-  console.log(form);
-//reducer function for handling state changes for form
-  function reducer(state: reducerInterface, action: actionInterface): reducerInterface {
+
+  //reducer function for handling state changes for form
+  function reducer(
+    state: reducerInterface,
+    action: actionInterface
+  ): reducerInterface {
     switch (action.type) {
-      case"image-change":
-      return{...state,image:action.payload}
+      case "image-change":
+        return { ...state, image: action.payload };
       case "nameOfProduct-change":
         return { ...state, nameOfProduct: action.payload };
       case "salePrice-change":
@@ -84,54 +103,86 @@ export default function AddProduct()  {
         return { ...state };
     }
   }
-  
 
-  const handleImageUpload = async () => {
+  const AddProduct = async () => {
+    setLoading("loading");
     try {
-      const formData = new FormData();
-      formData.append("file", form.image);
-      formData.append("api_key", "743174149656362");
-      formData.append("upload_preset", "j1d4ychj");
-      const uploadRes = await fetch(
-        "https://api.cloudinary.com/v1_1/dg0kdnwt1/auto/upload",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-      }catch(error){
-        console.log(error);
-      }
-    }
-  const AddProduct=async()=>{
-  
-    try{
       const formData = new FormData();
       formData.append("name", form.nameOfProduct);
       formData.append("description", form.productDescription);
       formData.append("category", form.productCategory);
       formData.append("tags", "tag 1");
       formData.append("stock", form.quantityAvailable);
-      formData.append("discountPrice", (parseFloat(form.originalPrice) - parseFloat(form.salePrice)).toString());
+      formData.append(
+        "discountPrice",
+        (parseFloat(form.originalPrice) - parseFloat(form.salePrice)).toString()
+      );
       formData.append("originalPrice", form.salePrice);
       formData.append("images", form.image);
-      const CONFIG = {
-        method: "POST",
-        body: formData,
-        headers:{
-          "Content-Type":"multipart/form-data"
+
+      // Use Axios to make the POST request
+      const addProductRes = await axios.post(
+        `${API_URL}/products/addProduct`,
+        formData,
+        {
+          headers: {
+            "Content-Type": `multipart/form-data`,
+          },
+          maxBodyLength: Infinity,
+          maxContentLength: Infinity,
         }
+      );
+      // Handle the response, e.g., show success message or perform other actions
+      console.log("Product added successfully:", addProductRes.data);
+      console.log(form.image);
+      if (addProductRes.status === 200) {
+        showNotification(form.nameOfProduct);
+        setNotificationAction("added to kasuwa");
+        setLoading("idle");
+        setForm({
+          type: "image-change",
+          payload: null,
+        });
+        setForm({
+          type: "nameOfProduct-change",
+          payload: "",
+        });
+        setForm({
+          type: "salePrice-change",
+          payload: "",
+        });
+        setForm({
+          type: "originalPrice-change",
+          payload: "",
+        });
+        setForm({
+          type: "quantityAvailable-change",
+          payload: "",
+        });
+        setForm({
+          type: "productDescription-change",
+          payload: "",
+        });
+        setForm({
+          type: "productCategory-change",
+          payload: "",
+        });
+        setForm({
+          type: "subCategory-change",
+          payload: "",
+        });      
         
-      };
-      const addProduct=await fetch(`${API_URL}/products/addProduct`,
-      CONFIG
-      )
-      const addProductRes = await addProduct.json()
-    }
-    catch(error){
+      }
+      if (addProductRes.status === 409) {
+        setProductExists(true);
+        setLoading("failed");
+      }
+      console.log(addProductRes);
+    } catch (error) {
       console.log(error);
+      setLoading("failed");
     }
-  } 
+  };
 
   return (
     <div>
@@ -180,12 +231,13 @@ export default function AddProduct()  {
                   <span>Images*</span>
                   <br />
                   <p className="text-sm font-normal">
-                    Your image needs to be at least 300×300 pixels, preferably a square image
+                    Your image needs to be at least 300×300 pixels, preferably a
+                    square image
                   </p>
                 </div>
                 <Input
+                  isRequired
                   aria-label="Add Image"
-                 
                   startContent={
                     <Image
                       src={uploadIcon}
@@ -202,37 +254,38 @@ export default function AddProduct()  {
                   labelPlacement="outside"
                   accept=".png,.gif, .jpeg,.svg,"
                   placeholder="Drag and drop your product images or Browse"
+                  
                   onChange={(e) => {
                     setForm({
                       type: "image-change",
-                      payload: e.target.files,
+                      payload: e.target.files?.[0],
                     });
                   }}
                 ></Input>
-                    <div>
-        <div className="mt-4 text-center gap-2 px-6 flex flex-wrap">
-        {form.image && (
-    <div className="mt-4 text-center gap-2 px-6 flex flex-wrap">
-      {form.image && Array.from(form.image).map((image: any, index: number) => (
-        <div className="w-fit" key={index}>
-          <Image
-            src={URL.createObjectURL(image)}
-            alt={`Selected Image ${index + 1}`}
-            className="w-[120px] h-[150px]"
-            width={100}
-            height={100}
-          />
-        </div>
-      ))}
-    </div>
-  )} 
-
-        </div>
-      </div>
+                <div>
+                  <div className="mt-4 text-center gap-2 px-6 flex flex-wrap">
+                    {form.image && (
+                      <div className="mt-4 text-center gap-2 px-6 flex flex-wrap">
+                        {form.image &&
+                          
+                              <div className="w-fit">
+                                <Image
+                                  src={URL.createObjectURL(form.image)}
+                                  alt={`Selected Image`}
+                                  className="w-[150px] h-[150px]"
+                                  width={100}
+                                  height={100}
+                                />
+                              </div>
+                          }
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
               <Input
+                isRequired
                 aria-label="Name of Product"
-               
                 name="nameOfProduct"
                 placeholder="Name of Product"
                 label="Name of Product"
@@ -247,18 +300,18 @@ export default function AddProduct()  {
                   borderRadius: "7px",
                   width: "100%",
                 }}
+                value={form.nameOfProduct}
                 onChange={(e) => {
                   setForm({
                     type: "nameOfProduct-change",
                     payload: e.target.value,
                   });
                 }}
-              >
-              </Input>
+              ></Input>
               <div className="flex flex-col md:flex-row">
                 <Input
+                  isRequired
                   aria-label="Sale Price"
-                 
                   name="salePrice"
                   type="number"
                   label="Sale Price (NGN)*"
@@ -274,17 +327,17 @@ export default function AddProduct()  {
                     width: "100%",
                   }}
                   placeholder="0"
+                  value={form.salePrice}
                   onChange={(e) => {
                     setForm({
                       type: "salePrice-change",
                       payload: e.target.value,
                     });
                   }}
-                >
-                </Input>
+                ></Input>
                 <Input
+                  isRequired
                   aria-label="Original Price"
-                 
                   name="originalPrice"
                   type="number"
                   label="Original Price (NGN)*"
@@ -300,17 +353,17 @@ export default function AddProduct()  {
                     width: "100%",
                   }}
                   placeholder="0"
+                  value={form.originalPrice}
                   onChange={(e) => {
                     setForm({
                       type: "originalPrice-change",
                       payload: e.target.value,
                     });
                   }}
-                >
-                </Input>
+                ></Input>
                 <Input
+                  isRequired
                   aria-label="Quantity Available"
-                 
                   name="quantityAvailable"
                   type="number"
                   label="Quantity Available*"
@@ -326,14 +379,14 @@ export default function AddProduct()  {
                     width: "100%",
                   }}
                   placeholder="0"
+                  value={form.quantityAvailable}
                   onChange={(e) => {
                     setForm({
                       type: "quantityAvailable-change",
                       payload: e.target.value,
                     });
                   }}
-                >
-                </Input>
+                ></Input>
               </div>
               <Textarea
                 aria-label="Product Description"
@@ -352,14 +405,14 @@ export default function AddProduct()  {
                 }}
                 radius="md"
                 placeholder={"insert text here..."}
+                value={form.productDescription}
                 onChange={(e) => {
                   setForm({
                     type: "productDescription-change",
                     payload: e.target.value,
                   });
                 }}
-              >
-              </Textarea>
+              ></Textarea>
               <div className="px-6 my_states">
                 <Select
                   aria-label="Choose Product Category"
@@ -390,9 +443,17 @@ export default function AddProduct()  {
                   ))}
                 </Select>
               </div>
+              {productExists && (
+                <div className="px-6 ">
+                  <p className="text-red-500">Product already exists</p>
+                </div>
+              )}
               <div className="px-6 mx-auto w-full flex justify-end">
-                <Button type="submit" className="bg-[#A46E05BD] rounded-md px-3 w-[200px] py-[7px] ml-auto text-white">
-                  Add Product
+                <Button
+                  type="submit"
+                  className="bg-[#A46E05BD] rounded-md px-3 w-[200px] py-[7px] ml-auto text-white"
+                >
+                  {Loader()}
                 </Button>
               </div>
             </form>
@@ -401,6 +462,4 @@ export default function AddProduct()  {
       </div>
     </div>
   );
-
-};
-
+}

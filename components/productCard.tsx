@@ -14,8 +14,7 @@ import cart from "../public/cart.svg";
 interface card {
   src: string;
   index: number;
-  price: string;
-  saleScale: string;
+  originalPrice: string;
   title: string;
   item: any;
   count: number;
@@ -26,8 +25,7 @@ export default function ProductCard({
   src,
   index,
   title,
-  saleScale,
-  price,
+  originalPrice,
   count,
 }: card) {
   const [localCount, setLocalCount] = useState(count);
@@ -46,7 +44,7 @@ export default function ProductCard({
     <Card
       shadow="md"
       key={index}
-      className="shadow-sm rounded-md w-full sm:w-[230px] p-0 bg-white mx-auto"
+      className="shadow-sm rounded-md w-full sm:w-[230px] p-0 bg-white mx-auto sm:max-w-[220px]"
       style={{
         padding: "0px",
       }}
@@ -101,8 +99,11 @@ export default function ProductCard({
               </div>
             </div>
             <div className="flex justify-between">
-              <p>price(per {saleScale}):</p>
-              <p className="text-default-500">₦{price.toLocaleString()}</p>
+              <p>Price:</p>
+              <p className="text-default-500">
+                ₦{parseFloat(originalPrice).toLocaleString()}
+              </p>
+
             </div>
           </div>
           <Button
