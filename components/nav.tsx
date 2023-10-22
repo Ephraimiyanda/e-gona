@@ -303,6 +303,7 @@ export default function Nav() {
               </ModalHeader>
               <ModalBody>
                 <div className=" grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))]  w-full gap-x-[1.50rem] gap-y-4 pt-10 max-w-[1280px] px-6 py-10 mx-auto ">
+
                   {filteredList.map(
                     (
                       items: {

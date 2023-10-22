@@ -103,6 +103,7 @@ export default function ProductCard({
               <p className="text-default-500">
                 ₦{parseFloat(originalPrice).toLocaleString()}
               </p>
+
             </div>
           </div>
           <Button

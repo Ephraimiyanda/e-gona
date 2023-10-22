@@ -1,3 +1,6 @@
+
+"use client";
+
 import { Button, Card, Input, Spacer } from "@nextui-org/react";
 import React from "react";
 import Footer from "@/components/footer";
@@ -5,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt, faCheck, faWallet } from "@fortawesome/free-solid-svg-icons";
 
 const Account: React.FC = () => {
+
   const userDetails = typeof window !== "undefined" ? window.localStorage.getItem("user") : null;
   const user = userDetails ? JSON.parse(userDetails) : null;
 
@@ -33,12 +37,14 @@ const Account: React.FC = () => {
                 <div className="border  p-4 rounded-xl h-48 mb-4">
                   <p>Account Details</p>
                   <hr className="bg-gray-400 w-full mt-4 " />
+
                   {user && (
                     <>
                       <h1 className="mt-3">{user.first_name}</h1>
                       <p className="font-light text-gray-400 ">{user.email}</p>
                     </>
                   )}
+
                 </div>
               </div>
               <div className="w-full md:w-1/2 px-4">
@@ -66,6 +72,7 @@ const Account: React.FC = () => {
                 <div className="border p-4 h-48 rounded-xl mb-4">
                   <p>STORE CREDIT BALANCE</p>
                   <hr className="bg-gray-400 w-full mt-4 " />
+
                   {user && (
                     <>
                       <h1 className="mt-3">Available Store Details</h1>
@@ -79,12 +86,15 @@ const Account: React.FC = () => {
                       </div>
                     </>
                   )}
+
+               
                 </div>
               </div>
               <div className="w-full md:w-1/2 px-4">
                 <div className="border p-4 h-48 rounded-xl mb-4">
                   <div className="flex justify-between">
                     <p>Newsletter Preference</p>
+
                     <FontAwesomeIcon
                       icon={faPencilAlt}
                       className="w-5"
