@@ -23,7 +23,7 @@ const Dashboard: React.FC = () => {
       >
         <div style={{ display: "flex" }}>
         <Sidebar />
-        <Card className="mx-auto mt-10">
+        <Card className="mx-auto my-10 w-[85%] md:w-[75%]">
           <div className="p-4">
             <div className="flex items-center">
               <Image
@@ -38,7 +38,7 @@ const Dashboard: React.FC = () => {
             <Spacer y={2} />
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-              <div className="w-full">
+              <div className="sm:w-[90%] lg:w-full">
                 <div className="bg-white p-4 h-32 rounded-xl flex justify-between items-center">
                   <div className="p-10">
                     <h1 className="text-lg font-bold">TOTAL SALES</h1>

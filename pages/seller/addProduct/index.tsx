@@ -133,8 +133,7 @@ export default function AddProduct() {
         }
       );
       // Handle the response, e.g., show success message or perform other actions
-      console.log("Product added successfully:", addProductRes.data);
-      console.log(form.image);
+     
       if (addProductRes.status === 200) {
         showNotification(form.nameOfProduct);
         setNotificationAction("added to kasuwa");
@@ -177,13 +176,23 @@ export default function AddProduct() {
         setProductExists(true);
         setLoading("failed");
       }
-      console.log(addProductRes);
     } catch (error) {
       console.log(error);
       setLoading("failed");
     }
   };
-
+  // const deleteId=async()=>{
+  //   try{
+  //   axios.delete(`${API_URL}/products/product/6536aad486c350c521aee891`)
+  //   }
+  //   catch(error){
+  //   console.log(error);
+  //   }
+    
+  //     }
+  //     useEffect(()=>{
+  //     deleteId()
+  //   })
   return (
     <div>
       <div
@@ -228,7 +237,7 @@ export default function AddProduct() {
               </div>
               <div className="flex flex-col">
                 <div className="px-6 font-semibold pb-2">
-                  <span>Images*</span>
+                  <span>Images</span>
                   <br />
                   <p className="text-sm font-normal">
                     Your image needs to be at least 300×300 pixels, preferably a
@@ -314,7 +323,7 @@ export default function AddProduct() {
                   aria-label="Sale Price"
                   name="salePrice"
                   type="number"
-                  label="Sale Price (NGN)*"
+                  label="Sale Price (NGN)"
                   labelPlacement="outside"
                   className="p-0 myProductInput px-6"
                   style={{
@@ -340,7 +349,7 @@ export default function AddProduct() {
                   aria-label="Original Price"
                   name="originalPrice"
                   type="number"
-                  label="Original Price (NGN)*"
+                  label="Original Price (NGN)"
                   labelPlacement="outside"
                   className="p-0 myProductInput px-6"
                   style={{
@@ -366,7 +375,7 @@ export default function AddProduct() {
                   aria-label="Quantity Available"
                   name="quantityAvailable"
                   type="number"
-                  label="Quantity Available*"
+                  label="Quantity Available"
                   labelPlacement="outside"
                   className="p-0 myProductInput px-6"
                   style={{

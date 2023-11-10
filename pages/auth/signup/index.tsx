@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 
 const API_BASE_URL = "https://kasuwa-b671.onrender.com/";
 
-const SignUpForm: React.FC = () => {
+export default function SignUpForm(){
   const [loading, setLoading] = useState("idle");
   const router = useRouter();
   const handleSignUp = async (e: { preventDefault: () => void }) => {
@@ -41,6 +41,7 @@ const SignUpForm: React.FC = () => {
     }
     return null;
   };
+  
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -242,4 +243,4 @@ const SignUpForm: React.FC = () => {
   );
 };
 
-export default SignUpForm;
+

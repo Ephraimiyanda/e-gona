@@ -1,7 +1,7 @@
 import { Button, Spacer } from "@nextui-org/react";
 import React, { useState } from "react";
 
-const VerificationForm: React.FC = () => {
+const VerificationForm = () => {
   const [verificationCodes, setVerificationCodes] = useState([
     "",
     "",

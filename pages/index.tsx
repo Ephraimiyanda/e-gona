@@ -206,10 +206,14 @@ export default function Home() {
                 originalPrice: string;
                 saleScale: string;
                 title: string;
+                _id:string
+                stock:string
               },
               index: number
             ) => (
               <ProductCard
+              stock={items.stock}
+              _id={items._id}
                 item={items}
                 key={index}
                 src={items.images[0].url}
@@ -262,10 +266,14 @@ export default function Home() {
                 originalPrice: string;
                 saleScale: string;
                 title: string;
+                _id:string
+                stock:string
               },
               index: number
             ) => (
               <ProductCard
+              stock={items.stock}
+              _id={items._id}
                 item={items}
                 key={index}
                 src={items.images[0].url}
@@ -295,10 +303,14 @@ export default function Home() {
                   originalPrice: string;
                   saleScale: string;
                   title: string;
+                  _id:string;
+                  stock:string
                 },
                 index: number
               ) => (
                 <ProductCard
+                stock={items.stock}
+                _id={items._id}
                   item={items}
                   key={index}
                   src={items.images[0].url}

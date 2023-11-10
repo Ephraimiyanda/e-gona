@@ -8,11 +8,13 @@ import {
   cn,
   Navbar,
 } from "@nextui-org/react";
-import { useState, useReducer } from "react";
+import { useState, useReducer, useEffect } from "react";
 import CheckIcon from "@/components/checkIcon";
 import { MailIcon } from "@/components/mailIcon";
 import { useRouter } from "next/router";
 import "../../../app/form style.css";
+import axios from "axios";
+import Link from "next/link";
 
 const API_URL = "https://kasuwa-b671.onrender.com";
 
@@ -23,7 +25,6 @@ interface Form {
   phoneNumber: string;
   accountManagerName: string;
   email: string;
-  retypeEmail: string;
   retypepassword: string;
   accountManagerPhoneNumber: string;
   state: string;
@@ -96,7 +97,7 @@ export default function SellerForm() {
   const [passwordError, setPasswordError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [contractError, setContractError] = useState("");
-  
+
   const router = useRouter();
   const [form, setForm] = useReducer(reducer, {
     shopName: "",
@@ -106,7 +107,6 @@ export default function SellerForm() {
     phoneNumber: "",
     accountManagerName: "",
     email: "",
-    retypeEmail: "",
     state: "",
     retypepassword: "",
   });
@@ -127,8 +127,6 @@ export default function SellerForm() {
         return { ...state, phoneNumber: action.payload };
       case "email-change":
         return { ...state, email: action.payload };
-      case "retypeEmail-change":
-        return { ...state, retypeEmail: action.payload };
       case "password-change":
         return { ...state, password: action.payload };
       case "retypePassword-change":
@@ -153,36 +151,24 @@ export default function SellerForm() {
       console.log(farmerDetails);
       const CONFIG = {
         method: "POST",
-        body: JSON.stringify( farmerDetails),
-         headers: {
-            "Content-Type": "application/json", 
-          },
+        body: JSON.stringify(farmerDetails),
+        headers: {
+          "Content-Type": "application/json",
+        },
       };
-      if (
-        form.password === form.retypepassword &&
-        form.email === form.retypeEmail&&
-        hasReadContract===true
-      ) {
-        const signup = await fetch(`${API_URL}/farmers/farmerRegister`, 
-        CONFIG
-        );
+      if (form.password === form.retypepassword && hasReadContract === true) {
+        const signup = await fetch(`${API_URL}/farmers/farmerRegister`, CONFIG);
         const signupRes = await signup.json();
         console.log(signupRes);
         if (signupRes.success) {
           router.push("/seller/dashboard");
         }
-      }
-      else {
+      } else {
         // Set error messages when conditions are not met
         if (form.password !== form.retypepassword) {
           setPasswordError("Passwords do not match.");
         } else {
           setPasswordError("");
-        }
-        if (form.email !== form.retypeEmail) {
-          setEmailError("Emails do not match.");
-        } else {
-          setEmailError("");
         }
         if (!hasReadContract) {
           setContractError("Please accept the e-contract.");
@@ -194,6 +180,7 @@ export default function SellerForm() {
       console.log(error);
     }
   };
+
   return (
     <div>
       <nav className="py-2 px-2 bg-white shadow-sm top-[0] sticky z-20">
@@ -217,14 +204,14 @@ export default function SellerForm() {
             </span>
             <form
               className=" text-black flex flex-col gap-2 justify-center lg:items-center"
-              onSubmit={(e)=>{
+              onSubmit={(e) => {
                 e.preventDefault();
                 signupFarmer();
               }}
             >
               <div className="flex gap max-w-[600px] flex-col lg:flex-row justify-between lg:items-center w-full">
                 <span className="font-semibold lg:text-right pr-1">
-                  Shop Name *
+                  Shop Name
                 </span>
                 <MyInput
                   value={form.shopName}
@@ -233,6 +220,7 @@ export default function SellerForm() {
                   radius="md"
                   style={{
                     backgroundColor: "white",
+                    padding: 10,
                   }}
                   className="my_form text-black py-2 max-w-[600px] w-full md:w-[300px]"
                   labelPlacement="outside-left"
@@ -254,7 +242,7 @@ export default function SellerForm() {
               <div className="flex gap max-w-[600px] flex-col lg:flex-row justify-between lg:items-center w-full">
                 <span className="font-semibold  max-w-[300px] pr-1">
                   Please select if you're an Individual or Business
-                  Entity/Company *
+                  Entity/Company
                 </span>
                 <Select
                   style={{
@@ -299,7 +287,7 @@ export default function SellerForm() {
                     background: "white",
                   }}
                   scrollShadowProps={{
-                    isEnabled:false
+                    isEnabled: false,
                   }}
                   placeholder="Choose your state"
                   value={form.state}
@@ -328,13 +316,17 @@ export default function SellerForm() {
               </div>
               <div className="flex gap max-w-[600px] flex-col lg:flex-row justify-between lg:items-center w-full">
                 <span className="font-semibold lg:text-right pr-1">
-                  Account Manager First and Last Name *
+                  Account Manager First and Last Name
                 </span>
                 <MyInput
                   value={form.accountManagerName}
                   placeholder="John doe"
                   isRequired
                   radius="md"
+                  style={{
+                    backgroundColor: "white",
+                    padding: 10,
+                  }}
                   className="my_form text-black py-2 max-w-[600px] w-full md:w-[300px] "
                   labelPlacement="outside-left"
                   onChange={(e) => {
@@ -347,7 +339,7 @@ export default function SellerForm() {
               </div>
               <div className="flex gap max-w-[600px] flex-col lg:flex-row justify-between lg:items-center w-full">
                 <span className="font-semibold lg:text-right pr-1">
-                  Account manager phone number *
+                  Account manager phone number
                 </span>
                 <MyInput
                   value={form.accountManagerPhoneNumber}
@@ -358,6 +350,7 @@ export default function SellerForm() {
                   style={{
                     backgroundColor: "white",
                     marginLeft: "auto",
+                    padding: 10,
                   }}
                   className="my_form text-black py-2 max-w-[600px] w-full md:w-[300px]"
                   labelPlacement="outside-left"
@@ -371,7 +364,7 @@ export default function SellerForm() {
               </div>
               <div className="flex gap max-w-[600px] flex-col lg:flex-row justify-between lg:items-center w-full">
                 <span className="font-semibold lg:text-right pr-1">
-                  Additional phone number *
+                  Additional phone number
                 </span>
                 <MyInput
                   value={form.phoneNumber}
@@ -381,6 +374,7 @@ export default function SellerForm() {
                   radius="md"
                   style={{
                     backgroundColor: "white",
+                    padding: 10,
                   }}
                   className="my_form text-black py-2 max-w-[600px] w-full md:w-[300px]"
                   labelPlacement="outside-left"
@@ -394,10 +388,10 @@ export default function SellerForm() {
               </div>
               <div className="flex gap max-w-[600px] flex-col lg:flex-row justify-between lg:items-center w-full">
                 <span className="font-semibold max-w-[300px] pr-1">
-                  Email Address *
+                  Email Address
                 </span>
                 <MyInput
-                  startContent={<MailIcon />}
+                  startContent={<MailIcon className="ml-2" />}
                   isClearable
                   isRequired
                   type="email"
@@ -416,41 +410,16 @@ export default function SellerForm() {
               </div>
               <div className="flex gap max-w-[600px] flex-col lg:flex-row justify-between lg:items-center w-full">
                 <span className="font-semibold lg:text-right pr-1">
-                  Re-type Email Address *
-                </span>
-                <MyInput
-                  startContent={<MailIcon />}
-                  isClearable
-                  isRequired
-                  type="email"
-                  placeholder="user@example.com"
-                  radius="md"
-                  style={{
-                    backgroundColor: "white",
-                  }}
-                  className="my_form text-black py-2 max-w-[600px] w-full md:w-[300px]"
-                  label=""
-                  labelPlacement="outside-left"
-                  onChange={(e) => {
-                    setForm({
-                      type: "retypeEmail-change",
-                      payload: e.target.value,
-                    });
-                  }}
-                />
-              </div>
-              {emailError && <div className="text-red-500">{emailError}</div>}
-              <div className="flex gap max-w-[600px] flex-col lg:flex-row justify-between lg:items-center w-full">
-                <span className="font-semibold lg:text-right pr-1">
-                  Password *
+                  Password
                 </span>
                 <MyInput
                   isRequired
                   type="password"
-                  placeholder="******"
+                  placeholder="********"
                   radius="md"
                   style={{
                     backgroundColor: "white",
+                    padding: 10,
                   }}
                   className="my_form text-black py-2 max-w-[600px] w-full md:w-[300px]"
                   labelPlacement="outside-left"
@@ -464,15 +433,16 @@ export default function SellerForm() {
               </div>
               <div className="flex gap max-w-[600px] flex-col lg:flex-row justify-between lg:items-center w-full">
                 <span className="font-semibold lg:text-right pr-1">
-                  Re-type Password *
+                  Re-type Password
                 </span>
                 <MyInput
                   isRequired
                   type="password"
-                  placeholder="******"
+                  placeholder="********"
                   radius="md"
                   style={{
                     backgroundColor: "white",
+                    padding: 10,
                   }}
                   className="my_form text-black py-2 max-w-[600px] w-full md:w-[300px]"
                   labelPlacement="outside-left"
@@ -484,19 +454,33 @@ export default function SellerForm() {
                   }}
                 />
               </div>
-              {/* Password Error Message */}
-              {passwordError && <div className="text-red-500">{passwordError}</div>}
+
+              {passwordError && (
+                <div className="text-red-500">{passwordError}</div>
+              )}
               <div className="w-full mx-auto max-w-[600px] py-5">
                 <Checkbox
                   isSelected={hasReadContract}
-                  onValueChange={()=>{setHasReadContract(!hasReadContract)}}
+                  onValueChange={() => {
+                    setHasReadContract(!hasReadContract);
+                  }}
                   className="mr-auto"
                   color="primary"
                 >
                   I have read and accepted the kasuwa e-contract.{" "}
                 </Checkbox>
               </div>
-              {contractError && <div className="text-red-500">{contractError}</div>}
+
+              <div className="row flex">
+                Have an account already?{" "}
+                <Link href={"sellerLogin"}>
+                  <h1 className="text-[#A46E05BD] ml-2">Login here</h1>
+                </Link>
+              </div>
+
+              {contractError && (
+                <div className="text-red-500">{contractError}</div>
+              )}
               <div className="w-full mx-auto max-w-[600px] py-5 flex px-6">
                 <Button
                   type="submit"

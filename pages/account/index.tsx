@@ -13,7 +13,7 @@ const Account: React.FC = () => {
   const user = userDetails ? JSON.parse(userDetails) : null;
 
   return (
-    <div className="py-8">
+    <div >
       <div
         className="items-center justify-center"
         style={{
