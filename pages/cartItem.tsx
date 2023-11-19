@@ -47,7 +47,7 @@ export default function Cartitem({
     setCount(count + 1);
   };
   const decreament = () => {
-    if (count > 0) {
+    if (count >= 1) {
       setCount(count - 1);
     }
   };
@@ -91,8 +91,10 @@ export default function Cartitem({
                 radius="none"
                 className="w-[25px] h-[25px] min-w-[25px] p-1 bg-[#A46E0580]"
                 onClick={() => {
+                  if(count>1){
                   decreaseCountQuantity();
                   decreament();
+                  }
                 }}
               >
                 -
@@ -118,8 +120,10 @@ export default function Cartitem({
                 radius="none"
                 className="w-[25px] h-[25px] min-w-[25px] p-1 bg-[#A46E0580]"
                 onClick={() => {
+                  if(count>1){
                   decreaseCountQuantity();
                   decreament();
+                  }
                 }}
               >
                 -

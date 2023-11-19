@@ -15,17 +15,10 @@ export default function SkeletonLoading() {
             }}
             radius="none"
           >
-            <CardHeader className="absolute z-20 top-1 flex-col !items-start">
-              <Skeleton isLoaded={false}>
+            <CardHeader className="absolute z-20 top-1 flex-col !items-start ">
+              <Skeleton isLoaded={false} className="rounded-[50%] w-fit ml-auto">
                 <div
-                  style={{
-                    background: "transparent",
-                    marginLeft: "auto",
-                    width: "fit",
-                    padding: "4px",
-                    borderRadius: "23px",
-                    minWidth: "fit-content",
-                  }}
+                className="w-[20px] h-[20px] rounded-[50%]"
                 ></div>
               </Skeleton>
             </CardHeader>
@@ -42,7 +35,7 @@ export default function SkeletonLoading() {
               <CardFooter className="text-small justify-between flex flex-col gap-4 w-full p-0 py-2">
                 <div className="px-2 w-full flex flex-col gap-2">
                   <div className="flex justify-between">
-                    <Skeleton className="w-24 h-3 rounded-lg pb-2"></Skeleton>
+                    <Skeleton className="w-[110px] h-3 rounded-lg pb-2"></Skeleton>
                     <div className="flex justify-center gap-1 items-center">
                       <Skeleton isLoaded={false} className=" h-[25px] min-w-[25px]  p-1">
                         -
@@ -55,9 +48,9 @@ export default function SkeletonLoading() {
                   </div>
                   <div className="flex justify-between">
                     <Skeleton isLoaded={false} className="h-3 w-16 rounded-lg">
-                      <p className="w-5"></p>
+                      <p className="w-3"></p>
                     </Skeleton>
-                    <Skeleton className="text-default-500 w-14 h-3 rounded-lg"></Skeleton>
+                    <Skeleton className="text-default-500 w-12 h-3 rounded-lg"></Skeleton>
                   </div>
                 </div>
               </CardFooter>

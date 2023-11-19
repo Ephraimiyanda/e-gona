@@ -9,6 +9,7 @@ import logout from "../public/logout.svg";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { AppContext } from "@/utils/AppContext";
+import { Button } from "@nextui-org/react";
 export default function Sidebar() {
   const{isNavOpen,setIsNavOpen}=useContext(AppContext)
 
@@ -17,7 +18,7 @@ export default function Sidebar() {
 
   return (
     <div
-      className={` sm:w-[270px] flex flex-col gap-10 py-8  bg-white transition-all duration-75   left-[0] ${
+      className={` md:w-[270px] flex flex-col gap-10 py-8  bg-white transition-all duration-75   left-[0] ${
         !isNavOpen
           ? "w-[0] overflow-hidden relative "
           : "w-[270px] z-50 h-full fixed overflow-auto"
@@ -97,13 +98,21 @@ export default function Sidebar() {
             pathname.includes("logout") && "bg-[#A46E054D]"
           } `}
         >
-          <Link
+          <Button
+          style={{
+            background:"transparent",
+            padding:"2px",
+            height:"fit-content"
+          }}
             className="flex gap-2 justify-start w-full items-center text-[#A46E05]"
-            href={"#"}
+            onClick={() => {
+              localStorage.removeItem("farmer");
+              router.push("/");
+            }}
           >
             <Image src={logout} width={20} height={20} alt="img"></Image>
             <span>Logout</span>
-          </Link>
+          </Button>
         </li>
       </ul>
     </div>

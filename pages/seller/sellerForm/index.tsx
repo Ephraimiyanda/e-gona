@@ -188,9 +188,6 @@ export default function SellerForm() {
           <p className="text-2xl">
             <b>SELLER</b> CENTER
           </p>
-          <Button className="bg-[#A46E05] text-white p-2 rounded-md">
-            Report a claim
-          </Button>
         </div>
       </nav>
       <div className="py-10 px-4 sm:px-8 flex flex-col gap-8 ">
@@ -316,7 +313,7 @@ export default function SellerForm() {
               </div>
               <div className="flex gap max-w-[600px] flex-col lg:flex-row justify-between lg:items-center w-full">
                 <span className="font-semibold lg:text-right pr-1">
-                  Account Manager First and Last Name
+                  Account Farmer First and Last Name
                 </span>
                 <MyInput
                   value={form.accountManagerName}
@@ -339,7 +336,7 @@ export default function SellerForm() {
               </div>
               <div className="flex gap max-w-[600px] flex-col lg:flex-row justify-between lg:items-center w-full">
                 <span className="font-semibold lg:text-right pr-1">
-                  Account manager phone number
+                  Account Farmer phone number
                 </span>
                 <MyInput
                   value={form.accountManagerPhoneNumber}
